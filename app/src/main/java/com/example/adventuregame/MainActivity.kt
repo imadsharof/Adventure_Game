@@ -6,7 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 /*ceci est un commentaire
 */
 /*test commentaire*/
-/*projet*/
+/*proje*/
 /*Nouveau commentaires*/
 /*3 eme commit pour tester*/
 class MainActivity : AppCompatActivity() {
