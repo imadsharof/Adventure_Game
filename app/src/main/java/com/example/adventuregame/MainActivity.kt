@@ -1,11 +1,12 @@
 package com.example.adventuregame
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+
 /*ceci est un commentaire
 */
 /*test commentaire*/
-/*njvrvnjnje*/
+/*projet*/
 /*Nouveau commentaires*/
 /*3 eme commit pour tester*/
 class MainActivity : AppCompatActivity() {
