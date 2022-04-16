@@ -5,6 +5,7 @@ import android.os.Bundle
 /*ceci est un commentaire
 */
 /*test commentaire*/
+/*njvrvnjnje*/
 /*Nouveau commentaires*/
 /*3 eme commit pour tester*/
 class MainActivity : AppCompatActivity() {
