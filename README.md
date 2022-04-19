@@ -9,3 +9,4 @@ Comment ajouter le Git ?
     
     Liens utiles : https://www.youtube.com/watch?v=if1HHKvS6Vo  ( animation du personnage)
     https://www.youtube.com/watch?v=aTT4GfojkHA&list=RDCMUCu-BuSBf0yrJgg-ZOaMpJxg&index=1 ( Changement orientation application)
+https://o7planning.org/10521/android-2d-game-tutorial-for-beginners ( tuto jeu )
