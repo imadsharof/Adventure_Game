@@ -11,3 +11,4 @@ Comment ajouter le Git ?
 https://www.youtube.com/watch?v=aTT4GfojkHA&list=RDCMUCu-BuSBf0yrJgg-ZOaMpJxg&index=1 ( Changement orientation application)
 https://o7planning.org/10521/android-2d-game-tutorial-for-beginners ( tuto jeu )
 https://expertise.jetruby.com/creating-android-game-from-scratch-with-libgdx-box2d-45c381d84268 ( sols , maps)
+https://www.youtube.com/watch?v=JOdWT50bWw4 ( passer d'une activité à une autre )
