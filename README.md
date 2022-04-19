@@ -7,4 +7,4 @@ Comment ajouter le Git ?
     Cliquez sur Test pour qu'il affiche votre version de Git, puis quand c'est bon faites "ok".
 
     
-    Liens utiles : https://www.youtube.com/watch?v=if1HHKvS6Vo
+    Liens utiles : https://www.youtube.com/watch?v=if1HHKvS6Vo  ( animation du personnage)
