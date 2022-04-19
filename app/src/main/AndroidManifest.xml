@@ -11,6 +11,8 @@
         android:theme="@style/Theme.AdventureGame">
         <activity
             android:name=".MainActivity"
+            android:theme="@style/AdventureGame.noActionBar"
+            android:screenOrientation="landscape"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
