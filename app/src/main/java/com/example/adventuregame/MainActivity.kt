@@ -1,9 +1,13 @@
 package com.example.adventuregame
 
-import android.os.Bundle
+import android.app.Activity
 import android.graphics.Color
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import android.view.SurfaceView
+import android.view.View
+import android.widget.Toast
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -12,22 +16,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        drawingView = findViewById<DrawingView>(R.id.vMain)
     }
-
-    override fun onPause() {
+    /*override fun onPause() {
         super.onPause()
         drawingView.pause()
-    }
+        }
 
     override fun onResume() {
         super.onResume()
         drawingView.resume()
-    }
+        }*/
 
-    fun onClick(v: View){
-        if (drawingView.drawing) drawingView.pause()
-        else drawingView.resume()
-    }
-
-    
 }
