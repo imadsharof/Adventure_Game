@@ -24,7 +24,7 @@ class Personnage(x1: Float, y1: Float, x2: Float, y2: Float) {
     }
 
     fun saute() {
-        dy = 2
+        dy = -2
         r.offset(3.0F*dx, 3.0F*dy)
     }
 

@@ -3,11 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.169" />
+        <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/drawable/ic_launcher_background.xml" value="0.169" />
         <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/layout-land/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/layout/activity_main.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/zakar/AndroidStudioProjects/Adventure_Game/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2265" />
-        <entry key="..\:/Users/zakar/AndroidStudioProjects/Adventure_Game/app/src/main/res/layout-land/activity_main.xml" value="0.21516754850088182" />
-        <entry key="..\:/Users/zakar/AndroidStudioProjects/Adventure_Game/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
