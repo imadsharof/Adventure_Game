@@ -17,11 +17,16 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     lateinit var thread: Thread
     var drawing: Boolean = true
 
+    fun pause() {
+        drawing = false
+        thread.join()
+    }
 
-
-
-
-
+    fun resume() {
+        drawing = true
+        thread = Thread(this)
+        thread.start()
+    }
 
 
     override fun surfaceChanged(
