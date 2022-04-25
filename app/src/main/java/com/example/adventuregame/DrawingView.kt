@@ -33,7 +33,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             Parois(5f, 5f, 25f, canvasH)
         )
 
-        fun draw() {
+         /*fun draw() {
             if (holder.surface.isValid) {
                 canvas = holder.lockCanvas()
                 canvas.drawRect(
@@ -45,27 +45,13 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 }
 
             }
-        }
-    }
-}
-    /*fun pause() {
-        drawing = false
-        thread.join()
+        } */
     }
 
-    fun resume() {
-        drawing = true
-        thread = Thread(this)
-        thread.start()
-    }
-
-    fun draw() {
-
-    }
 
 }
 
-    override fun surfaceChanged(
+  /*  override fun surfaceChanged(
         holder: SurfaceHolder, format: Int,
         width: Int, height: Int) {
     }

@@ -18,14 +18,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         drawingView = findViewById<DrawingView>(R.id.vMain)
     }
-    /*override fun onPause() {
-        super.onPause()
-        drawingView.pause()
-        }
-
-    override fun onResume() {
-        super.onResume()
-        drawingView.resume()
-        }*/
 
 }
+
+// fun onClick(v: View){
+// if (drawingView.drawing) drawingView.pause()
+// else drawingView.resume()
+// }
+//
+// /*override fun onPause() {
+// super.onPause()
+// drawingView.pause()
+// }
+//
+// override fun onResume() {
+// super.onResume()
+// drawingView.resume()
+// } */
