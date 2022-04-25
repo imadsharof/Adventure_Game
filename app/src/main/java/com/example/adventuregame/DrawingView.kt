@@ -1,19 +1,13 @@
 package com.example.adventuregame
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
-import android.view.MotionEvent
-import android.view.SurfaceHolder
 import android.view.SurfaceView
-import android.view.View
-import android.widget.Toast
-import java.util.*
 
-class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr) {
+class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr), Runnable {
 
     lateinit var canvas: Canvas
     val backgroundPaint = Paint()
@@ -21,9 +15,13 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     var drawing: Boolean = true
     lateinit var lesParois: Array<Parois>
 
+    var parois = Parois(0f, 0f, 20f, 20f)
+
     init {
         backgroundPaint.color = Color.WHITE
     }
+
+
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -32,23 +30,13 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         lesParois = arrayOf(
             Parois(5f, 5f, 25f, canvasH)
         )
-
-         /*fun draw() {
-            if (holder.surface.isValid) {
-                canvas = holder.lockCanvas()
-                canvas.drawRect(
-                    0F, 0F, canvas.getWidth() * 1F,
-                    canvas.getHeight() * 1F, backgroundPaint
-                )
-                for (p in lesParois) {
-                    p.draw(canvas)
-                }
-
-            }
-        } */
     }
 
 
+    override fun run() {
+
+         parois.draw(canvas)
+    }
 }
 
   /*  override fun surfaceChanged(
