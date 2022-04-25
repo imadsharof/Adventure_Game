@@ -6,6 +6,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.SurfaceView
+import androidx.core.graphics.createBitmap
 
 class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr), Runnable {
 
@@ -27,15 +28,13 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         super.onSizeChanged(w, h, oldw, oldh)
         val canvasH = (h - 50).toFloat()
         val canvasW = (w - 25).toFloat()
-        lesParois = arrayOf(
-            Parois(5f, 5f, 25f, canvasH)
-        )
+
     }
 
 
     override fun run() {
+        parois.draw(canvas)
 
-         parois.draw(canvas)
     }
 }
 
