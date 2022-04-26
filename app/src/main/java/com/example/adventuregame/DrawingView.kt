@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
+import android.view.SurfaceHolder
 import android.view.SurfaceView
 import androidx.core.graphics.createBitmap
 
@@ -15,6 +16,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     lateinit var thread: Thread
     var drawing: Boolean = true
     lateinit var lesParois: Array<Parois>
+    var screenWidth = 0f
+    var screenHeight = 0f
 
     var parois = Parois(0f, 0f, 20f, 20f)
 
@@ -28,7 +31,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         super.onSizeChanged(w, h, oldw, oldh)
         val canvasH = (h - 50).toFloat()
         val canvasW = (w - 25).toFloat()
-
+        screenWidth = w.toFloat()
+        screenHeight = h.toFloat()
     }
 
 
@@ -36,11 +40,13 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         parois.draw(canvas)
 
     }
+
+
 }
 
-  /*  override fun surfaceChanged(
-        holder: SurfaceHolder, format: Int,
-        width: Int, height: Int) {
+   /*override fun surfaceChanged(
+       holder: SurfaceHolder, format: Int,
+       width: Int, height: Int) {
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {

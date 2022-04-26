@@ -1,11 +1,7 @@
 package com.example.adventuregame
 
-import android.graphics.Bitmap
+import android.graphics.*
 import androidx.core.graphics.createBitmap
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
 import android.view.MotionEvent
 import java.util.*
 
@@ -50,4 +46,13 @@ class Personnage(x1: Float, y1: Float, x2: Float, y2: Float) {
         }
         return true
     }
+
+    fun move(event: MotionEvent): Double {
+        val touchPoint = Point(event.x.toInt(), event.y.toInt())
+        if (touchPoint.x > screenHeight / 2)
+            angle += Math.PI
+        canon.align(angle)
+        return angle
+    }
+
 }
