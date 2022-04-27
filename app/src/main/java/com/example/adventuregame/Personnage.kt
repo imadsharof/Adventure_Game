@@ -6,26 +6,25 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
-import android.view.MotionEvent
 import java.util.*
 
-class Personnage(x1: Float, y1: Float, x2: Float, y2: Float) {
+class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView) {
 
     val r = RectF(x1, y1, x2, y2)
-    val paint = Paint()
+    val PersonnagePaint = Paint()
     var dx = 1
     var dy = 0
     var random = Random()
     var color = Color.argb(255, random.nextInt(256),
         random.nextInt(256), random.nextInt(256))
 
-    fun draw (canvas: Canvas) { /* Dessin du personnage représenté par un rectangle*/
-        paint.color = color
-        canvas.drawRect(r,paint)
+    fun draw(canvas: Canvas) { /* Dessin du personnage représenté par un rectangle*/
+        PersonnagePaint.color = Color.BLUE
+        canvas.drawRect(r, PersonnagePaint)
     }
 
-    fun droite() {
-        r.offset(3.0F*dx, 3.0F*dy)
+    fun setRect() {
+        r.set(x1, y1, x2, y2)
     }
 
     fun saute() {
@@ -36,18 +35,5 @@ class Personnage(x1: Float, y1: Float, x2: Float, y2: Float) {
     fun gauche() {
         dx = - dx
         r.offset(3.0F*dx, 3.0F*dy)
-    }
-
-    /* Utilisation de la méthode OnTouchEvent pour savoir où le joueur a appuyé et pouvoir se déplacer */
-
-    fun onTouchEvent(e: MotionEvent): Boolean {
-        val action = e.action
-        when (action) {
-            MotionEvent.ACTION_DOWN -> {
-                saute()
-
-            }
-        }
-        return true
     }
 }

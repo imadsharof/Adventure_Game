@@ -7,8 +7,8 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.RectF
 import java.util.*
-class Petitsmonstres(x: Float, y: Float, x: Float, y: Float) {
-    val paint = Paint()
+class Petitsmonstres(a: Float, b: Float, c: Float, d: Float) {
+   /* val paint = Paint()
     val speed = 0.3f
     val size(0.5f, 0.5f)
     val attackRange = 0.15f
@@ -24,11 +24,5 @@ class Petitsmonstres(x: Float, y: Float, x: Float, y: Float) {
     }
 
     fun attack() {
-        if personnage in detectRange
-
-
-
-
-
-
+        if personnage in detectRange*/
 }

@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.SurfaceView
 import android.view.View
 import android.widget.Toast
+import com.example.adventuregame.R
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,21 +18,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         drawingView = findViewById<DrawingView>(R.id.vMain)
+
+
     }
 
-}
+    override fun onPause() {
+        super.onPause()
+        drawingView.pause()
+    }
 
-// fun onClick(v: View){
-// if (drawingView.drawing) drawingView.pause()
-// else drawingView.resume()
-// }
-//
-// /*override fun onPause() {
-// super.onPause()
-// drawingView.pause()
-// }
-//
-// override fun onResume() {
-// super.onResume()
-// drawingView.resume()
-// } */
+    override fun onResume() {
+        super.onResume()
+        drawingView.resume()
+    }
+
+
+
+}
