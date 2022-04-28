@@ -16,7 +16,6 @@ import androidx.core.graphics.createBitmap
 class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr),Runnable {
 
     lateinit var canvas: Canvas
-    lateinit var M : MainActivity
     val backgroundPaint = Paint()
     var screenWidth = 0f
     var screenHeight = 0f
