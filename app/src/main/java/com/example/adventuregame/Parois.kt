@@ -11,7 +11,7 @@ class Parois(var x1: Float, var y1: Float, var x2: Float, var y2: Float, var vie
     val paroisPaint = Paint()
     var dx = -1
     val dy = 0
-    val paroisVitesse = 10
+    val paroisOnScreen = true
 
     fun draw(canvas: Canvas,red : Int,green : Int, blue : Int) {
         paroisPaint.color = Color.rgb(red,green,blue)
@@ -20,6 +20,11 @@ class Parois(var x1: Float, var y1: Float, var x2: Float, var y2: Float, var vie
 
     fun setRect() {
         r.set(x1, y1, x2, y2)
+    }
+
+    fun deplacementmap(){
+        dx = dx
+        r.offset(20.0f*dx,20.0f*dy)
     }
 
   /*  fun update(interval: Double) {

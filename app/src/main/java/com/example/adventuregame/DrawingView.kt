@@ -4,10 +4,12 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.os.Bundle
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
+import android.widget.Button
 import androidx.core.graphics.createBitmap
 
 class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr),Runnable {
@@ -18,8 +20,18 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     var screenHeight = 0f
     var drawing = false
     lateinit var thread: Thread
-    val parois = arrayOf(Parois(0f, 0f, 0f, 0f, this),Parois(0f, 0f, 0f, 0f, this),Parois(0f, 0f, 0f, 0f, this))
+    val parois = arrayOf(
+        Parois(0f, 0f, 0f, 0f, this), /*Sol*/
+        Parois(0f, 0f, 0f, 0f, this), /*Terre*/
+        Parois(0f, 0f, 0f, 0f, this),/*Nuage1*/
+        Parois(0f, 0f, 0f, 0f, this),/*Nuage2*/
+        Parois(0f, 0f, 0f, 0f, this)) /*Nuage3*/
     val personnage = Personnage(0f,0f,0f,0f,this)
+    val sol = parois[0]
+    val terre = parois[1]
+    val nuage1 = parois[2]
+    val nuage2 = parois[3]
+    val nuage3 = parois[4]
 
 
     init {
@@ -47,28 +59,50 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         screenWidth = w.toFloat()
         screenHeight = h.toFloat()
 
-/*Dessin du sol : (épaisseur sol = 25f*/
-        parois[0].x1 = (0f)
-        parois[0].y1 = (screenHeight/2f + 175f) /*x1*/
-        parois[0].x2= (screenWidth/1f)  /*y1*/
-        parois[0].y2 = (screenHeight/2f+ 200f) /*parois.y2 = parois.y1 + ( 25f )*/
-        parois[0].setRect()
+/*Dessin du sol : (épaisseur sol = 25f)*/
+        sol.x1 = (0f)
+        sol.y1 = (screenHeight/2f + 375f) /*x1*/
+        sol.x2= (screenWidth/1f)  /*y1*/
+        sol.y2 = (screenHeight/2f+ 400f) /*parois.y2 = parois.y1 + ( 25f )*/
+        sol.setRect()
 /*Dessin de la Terre*/
 
-        parois[1].x1 = (0f)
-        parois[1].y1 = (screenHeight/2f+ 200f)
-        parois[1].x2 = (screenWidth/1f)
-        parois[1].y2 = (screenHeight/1f)
-        parois[1].setRect()
+        terre.x1 = 0f
+        terre.y1 = screenHeight/2f+ 400f
+        terre.x2 = screenWidth/1f
+        terre.y2 = screenHeight/1f
+        terre.setRect()
 
-/*Dessin du personnage : (longueur personnage = 100f, largeur = 200f)  */
-        personnage.x1 = (50f)
-        personnage.y1 = (screenHeight/2f - 25f) /*personnage.y1 = personnage.y2 - 200f*/
-        personnage.x2 = (150f) /*longueur perso = x2 - x1 = 100 f*/
-        personnage.y2 = (screenHeight/2f + 175f) /*personnage.y2 = parois.y1*/
+/*Dessin du personnage : (base personnage = 10f, hauteur = 100f)  */
+
+        personnage.x1 = 50f
+        personnage.y1 = screenHeight/2f + 325f /*personnage.y1 = personnage.y2 - 100f*/
+        personnage.x2 = 100f /*longueur perso = x2 - x1 = 100 f*/
+        personnage.y2 = screenHeight/2f + 375f /*personnage.y2 = sol.y1*/
         personnage.setRect()
         /*Dessin rectangle moitié bas de l'écran en dessous du sol*/
+/*Dessin des Nuages*/
+        /*Nuage 1*/
+        nuage1.x1 = 100f
+        nuage1.y1 = 50f
+        nuage1.x2 = 800f
+        nuage1.y2 = 100f
+        nuage1.setRect()
 
+        /*Nuage 2*/
+        nuage2.x1 = 1000f
+        nuage2.y1 = 50f
+        nuage2.x2 = 1700f
+        nuage2.y2 = 100f
+        nuage2.setRect()
+
+        /*Nuage 3*/
+
+        nuage3.x1 = 1900f
+        nuage3.y1 = 50f
+        nuage3.x2 = 2600f
+        nuage3.y2 = 100f
+        nuage3.setRect()
 
     }
 
@@ -79,28 +113,77 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 0f, 0f, canvas.width.toFloat(),
                 canvas.height.toFloat(), backgroundPaint
             )
-            parois[0].draw(canvas,0,255,14)
-            parois[1].draw(canvas,103,41,11)
+            sol.draw(canvas,0,255,14)
+            terre.draw(canvas,103,41,11)
+            nuage1.draw(canvas,255,255,255)
+            nuage2.draw(canvas,255,255,255)
+            nuage3.draw(canvas,255,255,255)
             personnage.draw(canvas)
             holder.unlockCanvasAndPost(canvas)
         }
     }
 
+
     override fun onTouchEvent(e: MotionEvent): Boolean {
-        when (e.action) {
+
+        val touch = e.action
+
+        when (touch) {
+
             MotionEvent.ACTION_MOVE-> { /*
             ACTION _DOWN =Action lorsque le toucher commence : au moment ou on appuie
             ACTION_UP = Action lorsque le toucher se termine : au moment où on lève le doigt
             ACTION_MOVE = Action lorsque le toucher bouge*/
-                personnage.x1 = ( 50f +25f) /*Personnage se déplace de 25 unités*/
-                personnage.droite()
 
+                /*Déplacement des nuages*/
+
+                if(personnage.x2>=screenWidth/2f) {
+                    nuage1.x1 -= 20f
+                    nuage1.x2 -= 20f
+                    nuage2.x1 -= 20f
+                    nuage2.x2 -= 20f
+                    nuage3.x1 -= 20f
+                    nuage3.x2 -= 20f
+
+                    nuage1.deplacementmap()
+                    nuage2.deplacementmap()
+                    nuage3.deplacementmap()
+
+                    /*Demander AIDE assistant pour réduire code*/
+
+                    if (nuage3.x2 == 1700f) {
+                        nuage1.x1 = 1900f
+                        nuage1.y1 = 50f
+                        nuage1.x2 = 2600f
+                        nuage1.y2 = 100f
+                        nuage1.setRect()
+                        nuage1.draw(canvas, 255, 255, 255)
+
+                    } else if (nuage3.x2 == 800f) {
+                        nuage2.x1 = 1900f
+                        nuage2.y1 = 50f
+                        nuage2.x2 = 2600f
+                        nuage2.y2 = 100f
+                        nuage2.setRect()
+                        nuage2.draw(canvas, 255, 255, 255)
+                    } else if (nuage1.x1 == 100f) {
+                        nuage3.x1 = 1900f
+                        nuage3.y1 = 50f
+                        nuage3.x2 = 2600f
+                        nuage3.y2 = 100f
+                        nuage3.setRect()
+                    }
+                }
+                /*Déplacement du personnage*/
+
+                if(personnage.x2 < screenWidth/2){
+                personnage.x1 += 10f
+                personnage.x2 += 10f
+                personnage.droite()}
             }
         }
         return true
     }
-
-
 
     override fun run() {
         while (drawing){
