@@ -15,3 +15,4 @@ https://www.youtube.com/watch?v=JOdWT50bWw4 ( passer d'une activité à une autr
 https://itch.io/queue/c/1866035/pixel-art-generators?game_id=434250 ( personnage qui bouge )
 https://www.youtube.com/watch?v=MwzaL6WwgV8&list=PLDKRpuLSe0f_4YgSROSWf_3wsdXwqefw9&ab_channel=StefanMaurer (mario java)
 http://tvaira.free.fr/dev/android/android-dessin.html#:~:text=Pour%20dessiner%20%C3%A0%20l'%C3%A9cran,Paint%20pour%20personnaliser%20son%20dessin (comment dessiner et comprendre les canvas)
+changement couleur RGB : https://htmlcolorcodes.com/fr/

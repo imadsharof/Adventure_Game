@@ -5,8 +5,10 @@
       <map>
         <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.169" />
         <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/drawable/ic_launcher_background.xml" value="0.169" />
-        <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/layout-land/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/layout-land/activity_main.xml" value="0.22" />
         <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/layout/activity_main.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.111" />
+        <entry key="..\:/Users/imads/AndroidStudioProjects/AdventureGame/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.111" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/Adventure_Game/app/src/main/res/layout-land/activity_main.xml" value="0.21197916666666666" />
         <entry key="..\:/Users/zakar/AndroidStudioProjects/Adventure_Game/app/src/main/res/layout/activity_main.xml" value="0.18432971014492755" />
       </map>
