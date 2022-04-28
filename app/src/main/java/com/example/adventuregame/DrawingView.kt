@@ -10,11 +10,13 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.createBitmap
 
 class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr),Runnable {
 
     lateinit var canvas: Canvas
+    lateinit var M : MainActivity
     val backgroundPaint = Paint()
     var screenWidth = 0f
     var screenHeight = 0f
@@ -123,67 +125,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         }
     }
 
-
-    override fun onTouchEvent(e: MotionEvent): Boolean {
-
-        val touch = e.action
-
-        when (touch) {
-
-            MotionEvent.ACTION_MOVE-> { /*
-            ACTION _DOWN =Action lorsque le toucher commence : au moment ou on appuie
-            ACTION_UP = Action lorsque le toucher se termine : au moment où on lève le doigt
-            ACTION_MOVE = Action lorsque le toucher bouge*/
-
-                /*Déplacement des nuages*/
-
-                if(personnage.x2>=screenWidth/2f) {
-                    nuage1.x1 -= 20f
-                    nuage1.x2 -= 20f
-                    nuage2.x1 -= 20f
-                    nuage2.x2 -= 20f
-                    nuage3.x1 -= 20f
-                    nuage3.x2 -= 20f
-
-                    nuage1.deplacementmap()
-                    nuage2.deplacementmap()
-                    nuage3.deplacementmap()
-
-                    /*Demander AIDE assistant pour réduire code*/
-
-                    if (nuage3.x2 == 1700f) {
-                        nuage1.x1 = 1900f
-                        nuage1.y1 = 50f
-                        nuage1.x2 = 2600f
-                        nuage1.y2 = 100f
-                        nuage1.setRect()
-                        nuage1.draw(canvas, 255, 255, 255)
-
-                    } else if (nuage3.x2 == 800f) {
-                        nuage2.x1 = 1900f
-                        nuage2.y1 = 50f
-                        nuage2.x2 = 2600f
-                        nuage2.y2 = 100f
-                        nuage2.setRect()
-                        nuage2.draw(canvas, 255, 255, 255)
-                    } else if (nuage1.x1 == 100f) {
-                        nuage3.x1 = 1900f
-                        nuage3.y1 = 50f
-                        nuage3.x2 = 2600f
-                        nuage3.y2 = 100f
-                        nuage3.setRect()
-                    }
-                }
-                /*Déplacement du personnage*/
-
-                if(personnage.x2 < screenWidth/2){
-                personnage.x1 += 10f
-                personnage.x2 += 10f
-                personnage.droite()}
-            }
-        }
-        return true
-    }
 
     override fun run() {
         while (drawing){
