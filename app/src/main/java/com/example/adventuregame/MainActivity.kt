@@ -14,15 +14,15 @@ import com.example.adventuregame.R
 class MainActivity() : AppCompatActivity() {
 
     lateinit var drawingView: DrawingView
-    lateinit var button : Button
+    lateinit var droite : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         drawingView = findViewById<DrawingView>(R.id.vMain)
-        button = findViewById(R.id.button2)
+        droite = findViewById(R.id.droite)
 
-        button.setOnClickListener {
+        droite.setOnClickListener {
 
             /*Déplacement des nuages*/
 

@@ -74,7 +74,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         terre.y2 = screenHeight/1f
         terre.setRect()
 
-/*Dessin du personnage : (base personnage = 10f, hauteur = 100f)  */
+/*Dessin du personnage : (base personnage = 50f, hauteur = 50f)  */
 
         personnage.x1 = 50f
         personnage.y1 = screenHeight/2f + 325f /*personnage.y1 = personnage.y2 - 100f*/
