@@ -15,12 +15,20 @@ class MainActivity() : AppCompatActivity() {
 
     lateinit var drawingView: DrawingView
     lateinit var droite : Button
+    lateinit var jump : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         drawingView = findViewById<DrawingView>(R.id.vMain)
         droite = findViewById(R.id.droite)
+        jump = findViewById(R.id.jump)
+
+        jump.setOnClickListener {
+            drawingView.personnage.sauter()
+
+        }
+
 
         droite.setOnClickListener {
 
@@ -73,6 +81,8 @@ class MainActivity() : AppCompatActivity() {
 
 
     }
+
+
 
     override fun onPause() {
         super.onPause()
