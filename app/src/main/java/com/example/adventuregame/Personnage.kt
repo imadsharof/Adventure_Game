@@ -27,10 +27,10 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
         r.set(x1, y1, x2, y2)
     }
 
-    fun saute() {
-        dy = -2
-        r.offset(3.0F*dx, 3.0F*dy)
-    }
+    fun sauter() {
+            dy = -2
+            r.offset(0F*dx, 3.0F*dy)
+     }
 
     fun droite(){
         dx = dx
