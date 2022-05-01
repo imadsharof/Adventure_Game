@@ -53,14 +53,18 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
 
     fun droite() {
         dx = 1
-            r.offset(10.0F*dx,0.0F*dy)
+        r.offset(10.0F*dx,0.0F*dy)
     }
 
     fun gauche() {
         dx = -1
         r.offset(10.0F*dx, 0.0F*dy)
     }
+
+    fun attack() {
+
     }
+}
 
 
     /*fun changeDirection(x: Boolean) {
