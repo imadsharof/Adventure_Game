@@ -28,13 +28,15 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         Parois(0f, 0f, 0f, 0f, this), /*Terre*/
         Parois(0f, 0f, 0f, 0f, this),/*Nuage1*/
         Parois(0f, 0f, 0f, 0f, this),/*Nuage2*/
-        Parois(0f, 0f, 0f, 0f, this)) /*Nuage3*/
+        Parois(0f, 0f, 0f, 0f, this),/*Nuage3*/
+        Parois(0f, 0f, 0f, 0f, this)) /* Separation gauche droite*/
     val personnage = Personnage(0f,0f,0f,0f,this)
     val sol = parois[0]
     val terre = parois[1]
     val nuage1 = parois[2]
     val nuage2 = parois[3]
     val nuage3 = parois[4]
+    val separation = parois[5]
 
 
     init {
@@ -107,6 +109,14 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         nuage3.y2 = 100f
         nuage3.setRect()
 
+        /*Dessin séparation gauche droite*/
+
+        separation.x1 = screenWidth/2f - 50f
+        separation.y1 = screenHeight/2f+ 400f
+        separation.x2 = screenWidth/2f
+        separation.y2 = screenHeight/1f
+        separation.setRect()
+
     }
 
     fun draw() {
@@ -121,6 +131,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage1.draw(canvas,255,255,255)
             nuage2.draw(canvas,255,255,255)
             nuage3.draw(canvas,255,255,255)
+            separation.draw(canvas,0,255,14)
             personnage.draw(canvas)
             holder.unlockCanvasAndPost(canvas)
         }

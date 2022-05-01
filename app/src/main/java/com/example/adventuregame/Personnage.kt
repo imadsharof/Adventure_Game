@@ -17,6 +17,8 @@ import android.view.SurfaceView
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.createBitmap
+import java.util.Timer
+import kotlin.concurrent.schedule
 
 class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView) {
 
@@ -40,19 +42,23 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
         r.set(x1, y1, x2, y2)
     }
 
-    fun sauter() {
+    fun saute() {
         dy = -2
-        r.offset(0F*dx, 3.0F*dy)
+        r.offset(0F*dx, 100.0F*dy)
+        Timer("SettingUp", false).schedule(500) {
+            r.offset(0F*dx, -100.0F*dy)
+        }
+
     }
 
     fun droite() {
         dx = 1
-            r.offset(10.0F*dx,10.0F*dy)
+            r.offset(10.0F*dx,0.0F*dy)
     }
 
     fun gauche() {
         dx = -1
-        r.offset(10.0F*dx, 10.0F*dy)
+        r.offset(10.0F*dx, 0.0F*dy)
     }
     }
 
