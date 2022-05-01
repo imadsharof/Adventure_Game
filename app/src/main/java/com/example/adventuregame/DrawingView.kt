@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Point
 import android.os.Bundle
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -122,6 +123,15 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             personnage.draw(canvas)
             holder.unlockCanvasAndPost(canvas)
         }
+    }
+
+    override fun onTouchEvent(e: MotionEvent): Boolean {
+        val action = e.action
+        if (action == MotionEvent.ACTION_DOWN
+            || action == MotionEvent.ACTION_MOVE) {
+            personnage.sauter()
+        }
+        return true
     }
 
 
