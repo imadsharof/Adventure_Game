@@ -4,6 +4,7 @@ import android.app.Activity
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.SurfaceView
 import android.view.View
@@ -16,20 +17,22 @@ class MainActivity() : AppCompatActivity() {
 
     lateinit var drawingView: DrawingView
     lateinit var droite : Button
-    lateinit var jump : Button
+    lateinit var personnage: Personnage
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         drawingView = findViewById<DrawingView>(R.id.vMain)
         droite = findViewById(R.id.droite)
-        jump = findViewById(R.id.jump)
 
-        /*jump.setOnClickListener {
-            drawingView.personnage.sauter()
+        // get device dimensions
+        val displayMetrics = DisplayMetrics()
+        windowManager.defaultDisplay.getMetrics(displayMetrics)
 
-        }*/
-
+        var width = displayMetrics.widthPixels
+        var height = displayMetrics.heightPixels
 
         droite.setOnClickListener {
 
@@ -77,13 +80,12 @@ class MainActivity() : AppCompatActivity() {
             if(drawingView.personnage.x2 < drawingView.screenWidth/2){
                 drawingView.personnage.x1 += 10f
                 drawingView.personnage.x2 += 10f
-                drawingView.personnage.droite()}
+                personnage.r.offset(10.0F*personnage.dx,10.0F*personnage.dy)
+            }
         }
 
 
     }
-
-
 
     override fun onPause() {
         super.onPause()

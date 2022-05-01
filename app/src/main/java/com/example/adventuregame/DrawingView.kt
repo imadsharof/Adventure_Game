@@ -14,14 +14,15 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.createBitmap
 
-class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr),Runnable {
+class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr), SurfaceHolder.Callback,Runnable {
 
     lateinit var canvas: Canvas
     val backgroundPaint = Paint()
-    var screenWidth = 0f
-    var screenHeight = 0f
     var drawing = false
     lateinit var thread: Thread
+    var screenWidth = 0f
+    var screenHeight = 0f
+
     val parois = arrayOf(
         Parois(0f, 0f, 0f, 0f, this), /*Sol*/
         Parois(0f, 0f, 0f, 0f, this), /*Terre*/
@@ -125,26 +126,96 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         }
     }
 
-    override fun onTouchEvent(e: MotionEvent): Boolean {
+    /*override fun onTouchEvent(e: MotionEvent): Boolean {
         val action = e.action
         if (action == MotionEvent.ACTION_DOWN
             || action == MotionEvent.ACTION_MOVE) {
-            personnage.sauter()
+            personnage.saute()
         }
         return true
+    }*/
+
+
+
+    override fun onTouchEvent(e: MotionEvent): Boolean {
+
+        val action = e.action
+        val touchPoint = Point(e.x.toInt(), e.y.toInt())
+
+
+        if(action == MotionEvent.ACTION_MOVE) {
+
+            /*Déplacement du personnage à gauche*/
+            if (touchPoint.x <= (screenWidth/2 + 60f) && touchPoint.y >= (screenHeight/2f+ 400f) && personnage.x1 >= 0f){
+                personnage.gauche()
+                personnage.x1 -= 10f
+                personnage.x2 -= 10f
+            }
+
+            /*Déplacement du personnage à droite*/
+            else if (personnage.x2 < screenWidth / 2 && touchPoint.x >= screenWidth/2 && touchPoint.y >= (screenHeight/2f+ 400f)) {
+                    personnage.droite()
+                    personnage.x1 += 10f
+                    personnage.x2 += 10f
+            }
+
+            /*Déplacement des nuages*/
+            else if (personnage.x2 >= screenWidth / 2f && touchPoint.x >= screenWidth/2 && touchPoint.y >= (screenHeight/2f+ 400f)) {
+                nuage1.x1 -= 20f
+                nuage1.x2 -= 20f
+                nuage2.x1 -= 20f
+                nuage2.x2 -= 20f
+                nuage3.x1 -= 20f
+                nuage3.x2 -= 20f
+
+
+                nuage1.deplacementmap()
+                nuage2.deplacementmap()
+                nuage3.deplacementmap()
+
+                /*Demander AIDE assistant pour réduire code*/
+
+                if (nuage3.x2 == 1700f) {
+                    nuage1.x1 = 1900f
+                    nuage1.y1 = 50f
+                    nuage1.x2 = 2600f
+                    nuage1.y2 = 100f
+                    nuage1.setRect()
+                    nuage1.draw(canvas, 255, 255, 255)
+
+                } else if (nuage3.x2 == 800f) {
+                    nuage2.x1 = 1900f
+                    nuage2.y1 = 50f
+                    nuage2.x2 = 2600f
+                    nuage2.y2 = 100f
+                    nuage2.setRect()
+                    nuage2.draw(canvas, 255, 255, 255)
+                } else if (nuage1.x1 == 100f) {
+                    nuage3.x1 = 1900f
+                    nuage3.y1 = 50f
+                    nuage3.x2 = 2600f
+                    nuage3.y2 = 100f
+                    nuage3.setRect()
+                }
+            }
+        }
+    return true
     }
-
-
     override fun run() {
-        while (drawing){
+        while (drawing) {
             draw()
         }
     }
 
-    fun surfaceChanged(holder: SurfaceHolder, format: Int,
+    override fun surfaceChanged(holder: SurfaceHolder, format: Int,
                                 width: Int, height: Int) {}
 
-    fun surfaceCreated(holder: SurfaceHolder) {}
+    override fun surfaceCreated(holder: SurfaceHolder) {
+        thread = Thread(this)
+        thread.start()
+    }
 
-    fun surfaceDestroyed(holder: SurfaceHolder) {}
+    override fun surfaceDestroyed(holder: SurfaceHolder) {
+        thread.join()
+    }
 }
