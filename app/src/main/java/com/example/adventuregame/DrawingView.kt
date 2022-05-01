@@ -137,16 +137,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         }
     }
 
-    /*override fun onTouchEvent(e: MotionEvent): Boolean {
-        val action = e.action
-        if (action == MotionEvent.ACTION_DOWN
-            || action == MotionEvent.ACTION_MOVE) {
-            personnage.saute()
-        }
-        return true
-    }*/
-
-
 
     override fun onTouchEvent(e: MotionEvent): Boolean {
 
