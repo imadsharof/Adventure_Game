@@ -31,6 +31,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         Parois(0f, 0f, 0f, 0f, this),/*Nuage3*/
         Parois(0f, 0f, 0f, 0f, this)) /* Separation gauche droite*/
     val personnage = Personnage(0f,0f,0f,0f,this)
+    val lesmonstres = ArrayList<Monstres>()
     val sol = parois[0]
     val terre = parois[1]
     val nuage1 = parois[2]
@@ -85,7 +86,16 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         personnage.x2 = 100f /*longueur perso = x2 - x1 = 100 f*/
         personnage.y2 = screenHeight/2f + 375f /*personnage.y2 = sol.y1*/
         personnage.setRect()
-        /*Dessin rectangle moitié bas de l'écran en dessous du sol*/
+
+        /*Dessin monstre*/
+
+        var a = 1900f
+        var b = screenHeight/2f + 275f
+        for (i in 0..20){ /*Ajout de 20 monstres*/
+        lesmonstres.add(Monstres(a,b,a+100f,b + 100f,this))
+        lesmonstres[i].setRect()
+        a+= 1000f}
+
 /*Dessin des Nuages*/
         /*Nuage 1*/
         nuage1.x1 = 100f
@@ -133,6 +143,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage3.draw(canvas,255,255,255)
             separation.draw(canvas,0,255,14)
             personnage.draw(canvas)
+            for(m in lesmonstres){m.draw(canvas)}
             holder.unlockCanvasAndPost(canvas)
         }
     }
@@ -154,7 +165,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         val touchPoint = Point(e.x.toInt(), e.y.toInt())
 
 
-        if(action == MotionEvent.ACTION_MOVE) {
+        if(action == MotionEvent.ACTION_MOVE ) {
 
             /*Déplacement du personnage à gauche*/
             if (touchPoint.x <= (screenWidth/2 + 60f) && touchPoint.y >= (screenHeight/2f+ 400f) && personnage.x1 >= 0f){
@@ -170,7 +181,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                     personnage.x2 += 10f
             }
 
-            /*Déplacement des nuages*/
+            /*Déplacement des nuages et maps*/
             else if (personnage.x2 >= screenWidth / 2f && touchPoint.x >= screenWidth/2 && touchPoint.y >= (screenHeight/2f+ 400f)) {
                 nuage1.x1 -= 20f
                 nuage1.x2 -= 20f
@@ -179,10 +190,11 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 nuage3.x1 -= 20f
                 nuage3.x2 -= 20f
 
-
                 nuage1.deplacementmap()
                 nuage2.deplacementmap()
                 nuage3.deplacementmap()
+                for (m in lesmonstres){m.gauche()}
+
 
                 /*Demander AIDE assistant pour réduire code*/
 
