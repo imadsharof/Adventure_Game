@@ -26,7 +26,7 @@ class Parois(var x1: Float, var y1: Float, var x2: Float, var y2: Float, var vie
         r.offset(20.0f*dx,20.0f*dy)
     }
 
-    fun choc(p: Personnage) {
+    /*fun choc(p: Personnage) {
         if (RectF.intersects(r,p.r)) {
             if (r.width() > r.height()) {
                 p.changeDirection (true)
@@ -35,7 +35,7 @@ class Parois(var x1: Float, var y1: Float, var x2: Float, var y2: Float, var vie
                 p.changeDirection(false)
             }
         }
-    }
+    }*/
 
 
   /*  fun update(interval: Double) {
