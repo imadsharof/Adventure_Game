@@ -45,7 +45,7 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
     fun saute() {
         dy = -2
         r.offset(0F*dx, 100.0F*dy)
-        Timer("SettingUp", false).schedule(500) {
+        Timer("SettingUp", false).schedule(300) {
             r.offset(0F*dx, -100.0F*dy)
         }
 
@@ -53,23 +53,13 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
 
     fun droite() {
         dx = 1
-        r.offset(10.0F*dx,0.0F*dy)
+        r.offset(13.0F*dx,0.0F*dy)
     }
 
     fun gauche() {
         dx = -1
-        r.offset(10.0F*dx, 0.0F*dy)
+        r.offset(13.0F*dx, 0.0F*dy)
     }
 
 }
-
-
-    /*fun changeDirection(x: Boolean) {
-        if (x) {
-            this.dy = -dy
-        }
-        else {
-            this.dx = -dx
-        }
-        r.offset(3.0F*dx, 3.0F*dy)*/
 

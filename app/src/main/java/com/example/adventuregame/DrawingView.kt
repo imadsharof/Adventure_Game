@@ -32,7 +32,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         Parois(0f, 0f, 0f, 0f, this)) /* Separation gauche droite*/
     val personnage = Personnage(0f,0f,0f,0f,this)
     val recompense = Récompense(0f, 0f, 0f, 0f, this)
-    val lesmonstres = ArrayList<Monstres>()
+    var lesmonstres = ArrayList<Monstres>()
     val sol = parois[0]
     val terre = parois[1]
     val nuage1 = parois[2]
@@ -86,7 +86,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
         personnage.x1 = 50f
         personnage.y1 = screenHeight/2f + 325f /*personnage.y1 = personnage.y2 - 100f*/
-        personnage.x2 = 100f /*longueur perso = x2 - x1 = 100 f*/
+        personnage.x2 = 100f /*longueur perso = x2 - x1 = 50 f*/
         personnage.y2 = screenHeight/2f + 375f /*personnage.y2 = sol.y1*/
         personnage.setRect()
 
@@ -101,10 +101,10 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
         /* Dessin récompense finale du jeu */
 
-        recompense.x1 = 500f
-        recompense.y1 = screenHeight/2f + 325f
-        recompense.x2 = 550f                       /* recompense à la fin du jeu */
-        recompense.y2 = screenHeight/2f + 375f
+        recompense.x1 = 3000f
+        recompense.y1 = screenHeight/2f + 350f
+        recompense.x2 = 3550f                       /* recompense à la fin du jeu */
+        recompense.y2 = screenHeight/2f + 400f
         recompense.setRect()
 
 /*Dessin des Nuages*/
@@ -153,6 +153,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage2.draw(canvas,255,255,255)
             nuage3.draw(canvas,255,255,255)
             separation.draw(canvas,0,255,14)
+            recompense.draw(canvas)
             personnage.draw(canvas)
             for(m in lesmonstres){m.draw(canvas)}
             holder.unlockCanvasAndPost(canvas)
@@ -171,15 +172,15 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             /*Déplacement du personnage à gauche*/
             if (touchPoint.x <= (screenWidth/2 + 60f) && touchPoint.y >= (screenHeight/2f+ 400f) && personnage.x1 >= 0f){
                 personnage.gauche()
-                personnage.x1 -= 10f
-                personnage.x2 -= 10f
+                personnage.x1 -= 15f
+                personnage.x2 -= 15f
             }
 
             /*Déplacement du personnage à droite*/
             else if (personnage.x2 < screenWidth / 2 && touchPoint.x >= screenWidth/2 && touchPoint.y >= (screenHeight/2f+ 400f)) {
                     personnage.droite()
-                    personnage.x1 += 10f
-                    personnage.x2 += 10f
+                    personnage.x1 += 15f
+                    personnage.x2 += 15f
             }
 
             /*Déplacement des nuages et maps*/
@@ -228,6 +229,9 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     override fun run() {
         while (drawing) {
             draw()
+            if (personnage.x2 == lesmonstres.x1) {
+                resetgame(Personnage)
+            }
         }
     }
 

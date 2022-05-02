@@ -31,7 +31,6 @@ class MainActivity() : AppCompatActivity() {
 
         droite.setOnClickListener {
             drawingView.personnage.saute()
-            /*Déplacement des nuages*/
         }
     }
     override fun onPause() {
