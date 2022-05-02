@@ -31,6 +31,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         Parois(0f, 0f, 0f, 0f, this),/*Nuage3*/
         Parois(0f, 0f, 0f, 0f, this)) /* Separation gauche droite*/
     val personnage = Personnage(0f,0f,0f,0f,this)
+    val recompense = Récompense(0f, 0f, 0f, 0f, this)
     val lesmonstres = ArrayList<Monstres>()
     val sol = parois[0]
     val terre = parois[1]
@@ -65,6 +66,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         screenWidth = w.toFloat()
         screenHeight = h.toFloat()
 
+        /* Les valeurs ci-dessous ont été trouvé par essais-erreurs */
+
 /*Dessin du sol : (épaisseur sol = 25f)*/
         sol.x1 = (0f)
         sol.y1 = (screenHeight/2f + 375f) /*x1*/
@@ -79,7 +82,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         terre.y2 = screenHeight/1f
         terre.setRect()
 
-/*Dessin du personnage : (base personnage = 50f, hauteur = 50f)  */
+/* Dessin du personnage : (base personnage = 50f, hauteur = 50f)  */
 
         personnage.x1 = 50f
         personnage.y1 = screenHeight/2f + 325f /*personnage.y1 = personnage.y2 - 100f*/
@@ -90,11 +93,19 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         /*Dessin monstre*/
 
         var a = 1900f
-        var b = screenHeight/2f + 275f
+        val b = screenHeight/2f + 275f
         for (i in 0..20){ /*Ajout de 20 monstres*/
         lesmonstres.add(Monstres(a,b,a+100f,b + 100f,this))
         lesmonstres[i].setRect()
         a+= 1000f}
+
+        /* Dessin récompense finale du jeu */
+
+        recompense.x1 = 500f
+        recompense.y1 = screenHeight/2f + 325f
+        recompense.x2 = 550f                       /* recompense à la fin du jeu */
+        recompense.y2 = screenHeight/2f + 375f
+        recompense.setRect()
 
 /*Dessin des Nuages*/
         /*Nuage 1*/
