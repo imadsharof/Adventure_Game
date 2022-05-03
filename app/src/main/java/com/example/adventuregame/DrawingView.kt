@@ -248,7 +248,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         while (drawing) {
             draw()
             if (personnage.dead) {
-                drawing = false
+                gameover()
             }
         }
     }
