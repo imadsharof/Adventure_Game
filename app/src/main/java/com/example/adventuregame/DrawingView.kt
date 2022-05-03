@@ -226,11 +226,14 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         }
     return true
     }
+
+
+
     override fun run() {
         while (drawing) {
             draw()
             if (personnage.x2 == lesmonstres.x1) {
-                resetgame(Personnage)
+                DrawingView.p.resetgame(p)
             }
         }
     }
