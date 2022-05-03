@@ -1,6 +1,9 @@
 package com.example.adventuregame
 
 import android.content.Context
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -11,6 +14,8 @@ import android.view.MotionEvent
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.widget.Button
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.graphics.createBitmap
 
@@ -22,6 +27,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     lateinit var thread: Thread
     var screenWidth = 0f
     var screenHeight = 0f
+    var gameover = false
+    val activity = context as FragmentActivity
 
     val parois = arrayOf(
         Parois(0f, 0f, 0f, 0f, this), /*Sol*/
@@ -260,9 +267,40 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         while (drawing) {
             draw()
             if (personnage.dead) {
-                drawing = false
+                gameover()
             }
         }
+    }
+
+    fun gameover() {
+        drawing = false
+        showGameOverDialog(R.string.lose)
+        gameover = true
+    }
+
+    fun showGameOverDialog(messageId: Int) {
+        class GameResult: DialogFragment() {
+            override fun onCreateDialog(bundle: Bundle?): Dialog {
+                val builder = AlertDialog.Builder(activity)
+                builder.setTitle(resources.getString(messageId))
+                return builder.create()
+            }
+        }
+
+        activity.runOnUiThread(
+            Runnable {
+                val ft = activity.supportFragmentManager.beginTransaction()
+                val prev =
+                    activity.supportFragmentManager.findFragmentByTag("dialog")
+                if (prev != null) {
+                    ft.remove(prev)
+                }
+                ft.addToBackStack(null)
+                val gameResult = GameResult()
+                gameResult.isCancelable = false
+                gameResult.show(ft,"dialog")
+            }
+        )
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int,
