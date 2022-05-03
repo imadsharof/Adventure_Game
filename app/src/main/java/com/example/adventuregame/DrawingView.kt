@@ -66,6 +66,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         screenWidth = w.toFloat()
         screenHeight = h.toFloat()
 
+
         /* Les valeurs ci-dessous ont été trouvé par essais-erreurs */
 
 /*Dessin du sol : (épaisseur sol = 25f)*/
@@ -223,6 +224,11 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                     nuage3.setRect()
                 }
             }
+            for (m in lesmonstres){
+                if(m.r.intersect(personnage.r)) {
+
+                }
+            }
         }
     return true
     }
@@ -232,11 +238,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     override fun run() {
         while (drawing) {
             draw()
-            if (personnage.x2 == lesmonstres.x1) {
-                DrawingView.p.resetgame(p)
+                }
             }
-        }
-    }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int,
                                 width: Int, height: Int) {}
