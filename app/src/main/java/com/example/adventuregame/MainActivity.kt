@@ -12,6 +12,8 @@ import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import com.example.adventuregame.R
+import java.util.*
+import kotlin.concurrent.schedule
 
 
 class MainActivity() : AppCompatActivity() {

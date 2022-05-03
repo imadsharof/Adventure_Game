@@ -35,8 +35,6 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
     var life = 100
 
 
-
-
     fun draw(canvas: Canvas) { /* Dessin du personnage représenté par un rectangle*/
         PersonnagePaint.color = Color.BLUE
         canvas.drawRect(r, PersonnagePaint)
@@ -49,27 +47,24 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
     fun saute() {
         dy = -2
         r.offset(0F*dx, 100.0F*dy)
-        Timer("SettingUp", false).schedule(300) {
-            r.offset(0F*dx, -100.0F*dy)
-        }
+        Timer("SettingUp", false).schedule(1000) {r.offset(0F*dx, -100.0F*dy) }
 
     }
 
     fun droite() {
         dx = 1
-        r.offset(15.0F*dx,0.0F*dy)
+        r.offset(10.0F*dx,0.0F*dy)
     }
 
     fun gauche() {
         dx = -1
-        r.offset(15.0F*dx, 0.0F*dy)
+        r.offset(10.0F*dx, 0.0F*dy)
     }
 
     fun inter(m : Monstres){
-        var a = m.r.intersect(r)
-        a = false
-        if(m.r.intersect(r)){
-            life -= 20 }
+        while(!m.r.intersect(r)){
+            dead = false
+        }
     }
 
 

@@ -39,7 +39,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     val nuage2 = parois[3]
     val nuage3 = parois[4]
     val separation = parois[5]
-    var life = 100
+    var life = 3
 
 
     init {
@@ -174,15 +174,29 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             /*Déplacement du personnage à gauche*/
             if (touchPoint.x <= (screenWidth/2 + 60f) && touchPoint.y >= (screenHeight/2f+ 400f) && personnage.x1 >= 0f){
                 personnage.gauche()
-                personnage.x1 -= 15f
-                personnage.x2 -= 15f
+                personnage.x1 -= 10f
+                personnage.x2 -= 10f
+                personnage.setRect()
+                for (m in lesmonstres){ /*Si perso touche monstre*/
+                    m.setRect()
+                    if((m.r.right == personnage.r.left  && m.r.top < personnage.r.top) ){life -= 1 }
+                    else if(m.r.top == personnage.r.bottom){life -= 1}
+                    if (life==0){personnage.dead = true}
+                }
             }
 
             /*Déplacement du personnage à droite*/
             else if (personnage.x2 < screenWidth / 2 && touchPoint.x >= screenWidth/2 && touchPoint.y >= (screenHeight/2f+ 400f)) {
                     personnage.droite()
-                    personnage.x1 += 15f
-                    personnage.x2 += 15f
+                    personnage.x1 += 10f
+                    personnage.x2 += 10f
+                    personnage.setRect()
+                for (m in lesmonstres){ /*Si perso touche monstre*/
+                    m.setRect()
+                    if((m.r.left == personnage.r.right  && m.r.top < personnage.r.top) ){life -= 1 }
+                    else if(m.r.top == personnage.r.bottom){life -= 1}
+                    if (life==0){personnage.dead = true}
+                }
             }
 
             /*Déplacement des nuages et maps*/
@@ -198,10 +212,15 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 nuage2.deplacementmap()
                 nuage3.deplacementmap()
                 /*Déplacement monstres*/
-                for (m in lesmonstres){
+                for (m in lesmonstres){ /*Si perso touche monstre*/
                     m.gauche()
-                    personnage.inter(m)
-                        /*personnage.dead = true*/
+                    m.x1 -= 10f
+                    m.x2 -= 10f
+                    m.setRect()
+                    if((m.r.left == personnage.r.right  && m.r.top < personnage.r.top) ){life -= 1 }
+                    else if(m.r.top == personnage.r.bottom){life -= 1}
+                    if (life==0){personnage.dead = true}
+                /*personnage.dead = true*/
                     }
 
                 /*Demander AIDE assistant pour réduire code*/
