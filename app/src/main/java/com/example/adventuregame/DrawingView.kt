@@ -267,16 +267,17 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         while (drawing) {
             draw()
             if (personnage.dead) {
-                gameover()
+                /*gameover()*/
+                drawing = false
             }
         }
     }
 
-    fun gameover() {
+    /*fun gameover() {
         drawing = false
         showGameOverDialog(R.string.lose)
         gameover = true
-    }
+    }*/
 
     fun showGameOverDialog(messageId: Int) {
         class GameResult: DialogFragment() {
