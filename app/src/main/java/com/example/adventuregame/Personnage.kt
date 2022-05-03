@@ -32,6 +32,7 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
     lateinit var drawingView: DrawingView
     lateinit var monstres : Monstres
     var dead = false
+    var life = 100
 
 
 
@@ -57,12 +58,18 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
     fun droite() {
         dx = 1
         r.offset(15.0F*dx,0.0F*dy)
-
     }
 
     fun gauche() {
         dx = -1
         r.offset(15.0F*dx, 0.0F*dy)
+    }
+
+    fun inter(m : Monstres){
+        var a = m.r.intersect(r)
+        a = false
+        if(m.r.intersect(r)){
+            life -= 20 }
     }
 
 

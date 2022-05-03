@@ -39,6 +39,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     val nuage2 = parois[3]
     val nuage3 = parois[4]
     val separation = parois[5]
+    var life = 100
 
 
     init {
@@ -155,8 +156,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage3.draw(canvas,255,255,255)
             separation.draw(canvas,0,255,14)
             recompense.draw(canvas)
-            personnage.draw(canvas)
-            for(m in lesmonstres){m.draw(canvas)}
+            /*if (!personnage.dead){}*/ personnage.draw(canvas)
+            for (m in lesmonstres){m.draw(canvas)}
             holder.unlockCanvasAndPost(canvas)
         }
     }
@@ -196,8 +197,12 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 nuage1.deplacementmap()
                 nuage2.deplacementmap()
                 nuage3.deplacementmap()
-                for (m in lesmonstres){m.gauche()}
-
+                /*Déplacement monstres*/
+                for (m in lesmonstres){
+                    m.gauche()
+                    personnage.inter(m)
+                        /*personnage.dead = true*/
+                    }
 
                 /*Demander AIDE assistant pour réduire code*/
 
@@ -224,12 +229,9 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                     nuage3.setRect()
                 }
             }
-            for (m in lesmonstres){
-                if(m.r.intersect(personnage.r)) {
 
-                }
             }
-        }
+
     return true
     }
 
@@ -238,8 +240,11 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     override fun run() {
         while (drawing) {
             draw()
-                }
+            if (personnage.dead) {
+                drawing = false
             }
+        }
+    }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int,
                                 width: Int, height: Int) {}

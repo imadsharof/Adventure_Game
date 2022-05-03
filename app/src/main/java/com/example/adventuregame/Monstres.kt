@@ -31,9 +31,7 @@ class Monstres(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vi
         255, random.nextInt(256),
         random.nextInt(256), random.nextInt(256)
     )
-    lateinit var drawingView: DrawingView
-    lateinit var personnage: Personnage
-    var retournedebut = false
+
 
 
 
@@ -51,11 +49,6 @@ class Monstres(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vi
         r.offset(10.0F*dx, 0.0F*dy)
     }
 
-    fun resetgame(p: Personnage) {
-        if(p.r.intersect(r)){
-            p.dead = true
-        }
-            var retournedebut = true
-            }
+
         }
 
