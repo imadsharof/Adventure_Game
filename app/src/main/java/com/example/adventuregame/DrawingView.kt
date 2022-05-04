@@ -1,23 +1,16 @@
 package com.example.adventuregame
 
-import android.content.Context
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.DialogInterface
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Point
+import android.content.Context
+import android.graphics.*
 import android.os.Bundle
+import android.os.Handler
 import android.util.AttributeSet
-import android.view.MotionEvent
-import android.view.SurfaceHolder
-import android.view.SurfaceView
-import android.widget.Button
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.graphics.createBitmap
 
 class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr), SurfaceHolder.Callback,Runnable {
 
@@ -29,6 +22,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     var screenHeight = 0f
     var gameover = false
     val activity = context as FragmentActivity
+
 
     val parois = arrayOf(
         Parois(0f, 0f, 0f, 0f, this), /*Sol*/
@@ -175,9 +169,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         val action = e.action
         val touchPoint = Point(e.x.toInt(), e.y.toInt())
 
-
-        if(action == MotionEvent.ACTION_MOVE ) {
-
             /*Déplacement du personnage à gauche*/
             if (touchPoint.x <= (screenWidth/2 + 60f) && touchPoint.y >= (screenHeight/2f+ 400f) && personnage.x1 >= 0f){
                 personnage.gauche()
@@ -255,12 +246,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                     nuage3.setRect()
                 }
             }
-
-            }
-
-    return true
-    }
-
+        return true
+        }
 
 
     override fun run() {
@@ -271,6 +258,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 drawing = false
             }
         }
+
     }
 
     /*fun gameover() {

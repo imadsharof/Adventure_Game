@@ -17,12 +17,24 @@
 
     <Button
         android:id="@+id/droite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="65dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginBottom="76dp"
         android:longClickable="true"
-        android:text="Button"
+        android:text="DROITE"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/vMain"
+        app:layout_constraintStart_toStartOf="@+id/vMain" />
+
+    <Button
+        android:id="@+id/gauche"
+        android:layout_width="65dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="76dp"
+        android:longClickable="true"
+        android:text="GAUCHE"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vMain"
         app:layout_constraintStart_toStartOf="@+id/vMain" />
