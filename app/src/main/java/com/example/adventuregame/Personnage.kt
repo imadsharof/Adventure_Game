@@ -35,8 +35,8 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
     var life = 100
 
 
-    fun draw(canvas: Canvas) { /* Dessin du personnage représenté par un rectangle*/
-        PersonnagePaint.color = Color.BLUE
+    fun draw(canvas: Canvas,red : Int,green : Int, blue : Int) {/* Dessin du personnage représenté par un rectangle*/
+        PersonnagePaint.color = Color.rgb(red,green,blue)
         canvas.drawRect(r, PersonnagePaint)
     }
 

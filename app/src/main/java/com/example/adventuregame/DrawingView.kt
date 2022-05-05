@@ -31,7 +31,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         Parois(0f, 0f, 0f, 0f, this),/*Nuage2*/
         Parois(0f, 0f, 0f, 0f, this))/*Nuage3*/
 
-    val personnage = arrayOf(Personnage(0f,0f,0f,0f,this))
+    val personnage = arrayOf(Personnage(0f,0f,0f,0f,this), /*Dessin du perso principal*/
+                            Personnage(0f,0f,0f,0f,this)) /*Dessin barre de vie*/
     val recompense = Récompense(0f, 0f, 0f, 0f, this)
     var lesmonstres = ArrayList<Monstres>()
 
@@ -42,6 +43,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     val nuage3 = parois[4]
 
     val player = personnage[0]
+    var barrevie = personnage[1]
     var life = 3
 
 
@@ -94,6 +96,14 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         player.x2 = 100f /*longueur perso = x2 - x1 = 50 f*/
         player.y2 = screenHeight/2f + 375f /*personnage.y2 = sol.y1*/
         player.setRect()
+
+        /*Dessin de la barre de vie du personnage*/
+
+        barrevie.x1 = 50f
+        barrevie.y1 = screenHeight/2f + 300f
+        barrevie.x2 = 100f
+        barrevie.y2 = screenHeight/2f + 310f
+        barrevie.setRect()
 
         /*Dessin monstre*/
 
@@ -151,7 +161,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage2.draw(canvas,255,255,255)
             nuage3.draw(canvas,255,255,255)
             recompense.draw(canvas)
-            /*if (!personnage.dead){}*/ player.draw(canvas)
+            /*if (!personnage.dead){}*/ player.draw(canvas,0,14,255)
+            barrevie.draw(canvas,67,163,62)
             for (m in lesmonstres){m.draw(canvas)}
             holder.unlockCanvasAndPost(canvas)
         }
@@ -160,20 +171,12 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     fun deplacementcontinue(){
         if (player.x2 < screenWidth / 2) {
             player.droite()
+            barrevie.droite()
             player.x1 += 10f
+            barrevie.x1 += 10f
             player.x2 += 10f
-            player.setRect()
-            for (m in lesmonstres) { /*Si perso touche monstre*/
-                m.setRect()
-                if ((m.r.left == player.r.right && m.r.top < player.r.top)) {
-                    life -= 1
-                } else if (m.r.top == player.r.bottom) {
-                    life -= 1
-                }
-                if (life == 0) {
-                    player.dead = true
-                }
-            }
+            barrevie.x2 += 10f
+
         }
 
         /*Déplacement des nuages et maps*/
@@ -196,8 +199,15 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 m.setRect()
                 if ((m.r.left == player.r.right && m.r.top < player.r.top)) {
                     life -= 1
+                    barrevie.x2 -= 50f/3
+                    barrevie.setRect()
+                    barrevie.draw(canvas,67,163,62)
+
                 } else if (m.r.top == player.r.bottom) {
                     life -= 1
+                    barrevie.x2 -= 50f/3
+                    barrevie.setRect()
+                    barrevie.draw(canvas,67,163,62)
                 }
                 if (life == 0) {
                     player.dead = true

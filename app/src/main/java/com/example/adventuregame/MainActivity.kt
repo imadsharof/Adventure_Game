@@ -28,7 +28,9 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         start.setOnTouchListener(this)
 
         jump.setOnClickListener {
-            drawingView.player.saute()
+            for (m in drawingView.personnage){
+                m.saute()
+            }
         }
     }
 
