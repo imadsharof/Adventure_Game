@@ -4,39 +4,42 @@ import android.graphics.*
 import android.view.View
 import java.util.*
 
-class Balle (var view: DrawingView, var x1: Float, var y1: Float, var diametre: Float) {
-    var r = RectF(x1 , y1, x1 + diametre, y1 + diametre)
+class Balle (var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView) {
+
+    val r = RectF(x1, y1, x2, y2)
     val random = Random()
+    val BallePaint = Paint()
     var color = Color.argb(255, random.nextInt(256),
         random.nextInt(256), random.nextInt(256))
     var dx = 1
-    var coordoneeballe = PointF()
-    var balleVitesse = 10f
-    var balleOnScreen = true
-    var balleRayon = 10f
-    val ballePaint = Paint()
+    var dy=1
+    var BalleOnScreen = false
 
-    init {
-        ballePaint.color = Color.RED
-    }
+    fun draw(canvas: Canvas,red : Int,green : Int, blue : Int) {
+        if(BalleOnScreen){/* Dessin du personnage représenté par un rectangle*/
+        BallePaint.color = Color.rgb(red,green,blue)
+        canvas.drawOval(r, BallePaint)
+    }}
 
-    fun draw(canvas: Canvas) {
-        canvas.drawCircle(coordoneeballe.x, coordoneeballe.y, balleRayon,
-            ballePaint)
-    }
-
-
-    fun bouge(lesmonstres: Array<Monstres>,lesBalles: ArrayList<Balle>) {
-        r.offset(15.0F * dx, 0F)
-
-        for (b in lesBalles) {
-            if (RectF.intersects(lesmonstres[i].r, b.r)) {
-                life -= 1
-                break
-            }
-        }
+    fun setRect() {
+        r.set(x1, y1, x2, y2)
     }
 
 
+    fun droite() {
+        dx = 1
+        view.balle.x1 += 10f
+        view.balle.x2 += 10f
+        r.offset(10.0F*dx,0.0F*dy)
+    }
 
-}
+    fun afficheballe(){
+        BalleOnScreen = true
+    }
+
+    fun supprimeballe(){
+        BalleOnScreen = false
+    }
+    }
+
+

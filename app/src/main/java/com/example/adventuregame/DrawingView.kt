@@ -23,7 +23,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     var gameover = false
     val activity = context as FragmentActivity
 
-
     val parois = arrayOf(
         Parois(0f, 0f, 0f, 0f, this), /*Sol*/
         Parois(0f, 0f, 0f, 0f, this), /*Terre*/
@@ -34,8 +33,9 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     val personnage = arrayOf(Personnage(0f,0f,0f,0f,this), /*Dessin du perso principal*/
                             Personnage(0f,0f,0f,0f,this)) /*Dessin barre de vie*/
     val recompense = Récompense(0f, 0f, 0f, 0f, this)
-    var lesmonstres = ArrayList<Monstres>()
-    var lesballes = ArrayList<Balle>()
+    var monstres = Monstres(0f,0f,0f,0f,this)
+    var balle = Balle(0f,0f,0f,0f,this)
+
 
     val sol = parois[0]
     val terre = parois[1]
@@ -74,6 +74,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         screenHeight = h.toFloat()
 
 
+
         /* Les valeurs ci-dessous ont été trouvé par essais-erreurs */
 
 /*Dessin du sol : (épaisseur sol = 25f)*/
@@ -106,14 +107,26 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         barrevie.y2 = screenHeight/2f + 310f
         barrevie.setRect()
 
+        /*Dessin de la balle*/
+
+        balle.x1 =screenWidth / 2f
+        balle.y1 = screenHeight/2f + 340f
+        balle.x2 =screenWidth / 2f+30f
+        balle.y2 = screenHeight/2f + 360f
+        balle.setRect()
         /*Dessin monstre*/
 
-        var a = 1900f
+        monstres.x1 = 1900f
+        monstres.y1 = screenHeight/2f + 275f
+        monstres.x2 = 2000f
+        monstres.y2 = screenHeight/2f + 375f
+        monstres.setRect()
+        /*var a = 1900f
         val b = screenHeight/2f + 275f
         for (i in 0..20){ /*Ajout de 20 monstres*/
         lesmonstres.add(Monstres(a,b,a+100f,b + 100f,this))
         lesmonstres[i].setRect()
-        a+= 1000f}
+        a+= 1000f}*/
 
         /* Dessin récompense finale du jeu */
 
@@ -164,11 +177,14 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             recompense.draw(canvas)
             /*if (!personnage.dead){}*/ player.draw(canvas,0,14,255)
             barrevie.draw(canvas,67,163,62)
-            for (m in lesmonstres){m.draw(canvas)}
-            for (b in lesballes){b.draw(canvas)}
+            monstres.draw(canvas)
+            if(balle.BalleOnScreen){balle.draw(canvas,255,164,0)}
             holder.unlockCanvasAndPost(canvas)
         }
     }
+
+
+
 
     fun deplacementcontinue(){
         if (player.x2 < screenWidth / 2) {
@@ -193,18 +209,17 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage2.deplacementmap()
             nuage3.deplacementmap()
             /*Déplacement monstres*/
-            for (m in lesmonstres) { /*Si perso touche monstre*/
-                m.gauche()
-                m.x1 -= 10f
-                m.x2 -= 10f
-                m.setRect()
-                if ((m.r.left == player.r.right && m.r.top < player.r.top)) {
+            monstres.gauche()
+            monstres.x1 -= 10f
+            monstres.x2 -= 10f
+            monstres.setRect()
+                if ((monstres.r.left == player.r.right && monstres.r.top < player.r.top)) { /*Si perso touche monstre*/
                     life -= 1
                     barrevie.x2 -= 50f/3
                     barrevie.setRect()
                     barrevie.draw(canvas,67,163,62)
 
-                } else if (m.r.top == player.r.bottom) {
+                } else if (monstres.r.top == player.r.bottom) {
                     life -= 1
                     barrevie.x2 -= 50f/3
                     barrevie.setRect()
@@ -214,7 +229,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                     player.dead = true
                 }
                 /*personnage.dead = true*/
-            }
+
 
             /*Demander AIDE assistant pour réduire code*/
 
@@ -239,6 +254,15 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 nuage3.x2 = 2600f
                 nuage3.y2 = 100f
                 nuage3.setRect()
+            }
+            if(monstres.x2 == 0f){
+                monstres.x1 = 1900f
+                monstres.y1 = screenHeight/2f + 275f
+                monstres.x2 = 2000f
+                monstres.y2 = screenHeight/2f + 375f
+                monstres.setRect()
+                monstres.draw(canvas)
+
             }
         }
     }

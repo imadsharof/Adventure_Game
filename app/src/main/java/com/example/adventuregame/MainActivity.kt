@@ -22,6 +22,9 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
     lateinit var jump : Button
     lateinit var personnage: Personnage
     lateinit var attack: Button
+    lateinit var balle : Balle
+    var balleavance = true
+    var mapavance = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +34,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         jump = findViewById(R.id.jump)
         attack = findViewById(R.id.attack)
         start.setOnTouchListener(this)
-        attack.setOnTouchListener(this)
+
         var lastClickTime = 0L
 
         jump.setOnClickListener {
@@ -42,30 +45,43 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
             for (m in drawingView.personnage) {
                 m.saute()
             }
-        }
-        Thread.sleep(1000)
 
-        /*attack.setOnTouchListener {
-            Balle.move()
-        }*/
+        }
+        attack.setOnClickListener {
+            Thread{
+                while(balleavance){
+                    drawingView.balle.afficheballe()
+                    drawingView.balle.droite()
+                    if(drawingView.balle.r.intersect(drawingView.monstres.r)){
+                        balleavance = false
+                        drawingView.balle.BalleOnScreen = false
+                    }
+                    Thread.sleep(15) } }.start()
+        }
 
     }
+
 
 
     override fun onTouch(v : View, e : MotionEvent) : Boolean {
         val action = e.action
         val touchPoint = Point(e.x.toInt(), e.y.toInt())
-        var stop = true
 
-        if(action ==MotionEvent.ACTION_DOWN ) {
-            Thread {
-                start.visibility = View.INVISIBLE
-                while (stop) {
-                    drawingView.deplacementcontinue()
-                    Thread.sleep(15)
-                    }
-            }.start()
+        when(v.id) {
+            start.id -> {
+                if (action == MotionEvent.ACTION_DOWN) {
+                    Thread {
+                        start.visibility = View.INVISIBLE
+                        while (mapavance) {
+                            drawingView.deplacementcontinue()
+                            Thread.sleep(15)
+                        }
+                    }.start()
+                }
             }
+
+
+        }
         return true
         }
 
