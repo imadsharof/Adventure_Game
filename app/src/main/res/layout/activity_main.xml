@@ -33,11 +33,13 @@
         android:layout_height="53dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="76dp"
+        android:clickable="true"
+        android:visibility="visible"
         android:longClickable="true"
         android:text="JUMP"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vMain"
         app:layout_constraintStart_toStartOf="@+id/vMain" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 

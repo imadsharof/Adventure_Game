@@ -187,7 +187,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage2.x2 -= 20f
             nuage3.x1 -= 20f
             nuage3.x2 -= 20f
-
             nuage1.deplacementmap()
             nuage2.deplacementmap()
             nuage3.deplacementmap()

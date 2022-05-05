@@ -51,6 +51,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
 
         if(action ==MotionEvent.ACTION_DOWN ) {
             Thread {
+                start.visibility = View.INVISIBLE
                 while (stop) {
                     drawingView.deplacementcontinue()
                     Thread.sleep(15)
