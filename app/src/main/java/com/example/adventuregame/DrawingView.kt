@@ -31,14 +31,17 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         Parois(0f, 0f, 0f, 0f, this),/*Nuage2*/
         Parois(0f, 0f, 0f, 0f, this))/*Nuage3*/
 
-    val personnage = Personnage(0f,0f,0f,0f,this)
+    val personnage = arrayOf(Personnage(0f,0f,0f,0f,this))
     val recompense = Récompense(0f, 0f, 0f, 0f, this)
     var lesmonstres = ArrayList<Monstres>()
+
     val sol = parois[0]
     val terre = parois[1]
     val nuage1 = parois[2]
     val nuage2 = parois[3]
     val nuage3 = parois[4]
+
+    val player = personnage[0]
     var life = 3
 
 
@@ -86,11 +89,11 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
 /* Dessin du personnage : (base personnage = 50f, hauteur = 50f)  */
 
-        personnage.x1 = 50f
-        personnage.y1 = screenHeight/2f + 325f /*personnage.y1 = personnage.y2 - 100f*/
-        personnage.x2 = 100f /*longueur perso = x2 - x1 = 50 f*/
-        personnage.y2 = screenHeight/2f + 375f /*personnage.y2 = sol.y1*/
-        personnage.setRect()
+        player.x1 = 50f
+        player.y1 = screenHeight/2f + 325f /*personnage.y1 = personnage.y2 - 100f*/
+        player.x2 = 100f /*longueur perso = x2 - x1 = 50 f*/
+        player.y2 = screenHeight/2f + 375f /*personnage.y2 = sol.y1*/
+        player.setRect()
 
         /*Dessin monstre*/
 
@@ -148,33 +151,33 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage2.draw(canvas,255,255,255)
             nuage3.draw(canvas,255,255,255)
             recompense.draw(canvas)
-            /*if (!personnage.dead){}*/ personnage.draw(canvas)
+            /*if (!personnage.dead){}*/ player.draw(canvas)
             for (m in lesmonstres){m.draw(canvas)}
             holder.unlockCanvasAndPost(canvas)
         }
     }
 
-    fun deplacementdroite(){
-        if (personnage.x2 < screenWidth / 2) {
-            personnage.droite()
-            personnage.x1 += 10f
-            personnage.x2 += 10f
-            personnage.setRect()
+    fun deplacementcontinue(){
+        if (player.x2 < screenWidth / 2) {
+            player.droite()
+            player.x1 += 10f
+            player.x2 += 10f
+            player.setRect()
             for (m in lesmonstres) { /*Si perso touche monstre*/
                 m.setRect()
-                if ((m.r.left == personnage.r.right && m.r.top < personnage.r.top)) {
+                if ((m.r.left == player.r.right && m.r.top < player.r.top)) {
                     life -= 1
-                } else if (m.r.top == personnage.r.bottom) {
+                } else if (m.r.top == player.r.bottom) {
                     life -= 1
                 }
                 if (life == 0) {
-                    personnage.dead = true
+                    player.dead = true
                 }
             }
         }
 
         /*Déplacement des nuages et maps*/
-        else if (personnage.x2 >= screenWidth / 2f ) {
+        else if (player.x2 >= screenWidth / 2f ) {
             nuage1.x1 -= 20f
             nuage1.x2 -= 20f
             nuage2.x1 -= 20f
@@ -191,13 +194,13 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 m.x1 -= 10f
                 m.x2 -= 10f
                 m.setRect()
-                if ((m.r.left == personnage.r.right && m.r.top < personnage.r.top)) {
+                if ((m.r.left == player.r.right && m.r.top < player.r.top)) {
                     life -= 1
-                } else if (m.r.top == personnage.r.bottom) {
+                } else if (m.r.top == player.r.bottom) {
                     life -= 1
                 }
                 if (life == 0) {
-                    personnage.dead = true
+                    player.dead = true
                 }
                 /*personnage.dead = true*/
             }
@@ -233,7 +236,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     override fun run() {
         while (drawing) {
             draw()
-            if (personnage.dead) {
+            if (player.dead) {
                 /*gameover()*/
                 drawing = false
             }

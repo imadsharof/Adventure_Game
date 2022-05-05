@@ -28,7 +28,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         start.setOnTouchListener(this)
 
         jump.setOnClickListener {
-            drawingView.personnage.saute()
+            drawingView.player.saute()
         }
     }
 
@@ -40,7 +40,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         if(action ==MotionEvent.ACTION_DOWN ) {
             Thread {
                 while (stop) {
-                    drawingView.deplacementdroite()
+                    drawingView.deplacementcontinue()
                     Thread.sleep(15)
                     }
             }.start()
