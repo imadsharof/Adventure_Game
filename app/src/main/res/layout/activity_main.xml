@@ -38,10 +38,10 @@
         android:layout_marginTop="146dp"
         android:longClickable="true"
         android:visibility="visible"
-        android:scaleType="centerInside"
+        android:scaleType="center"
         app:layout_constraintStart_toStartOf="@+id/vMain"
         app:layout_constraintTop_toTopOf="@+id/vMain"
-        app:srcCompat="@drawable/presstart" />
+        app:srcCompat="@drawable/buttonstart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
