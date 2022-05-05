@@ -16,25 +16,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/droite"
-        android:layout_width="65dp"
-        android:layout_height="53dp"
-        android:layout_marginStart="84dp"
-        android:layout_marginBottom="76dp"
+        android:id="@+id/start"
+        android:layout_width="125dp"
+        android:layout_height="101dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginBottom="452dp"
         android:longClickable="true"
-        android:text="DROITE"
+        android:text="START THE GAME"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vMain"
         app:layout_constraintStart_toStartOf="@+id/vMain" />
 
     <Button
-        android:id="@+id/gauche"
-        android:layout_width="65dp"
+        android:id="@+id/jump"
+        android:layout_width="67dp"
         android:layout_height="53dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="76dp"
         android:longClickable="true"
-        android:text="GAUCHE"
+        android:text="JUMP"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vMain"
         app:layout_constraintStart_toStartOf="@+id/vMain" />

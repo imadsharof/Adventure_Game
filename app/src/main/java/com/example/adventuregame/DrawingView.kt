@@ -29,8 +29,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         Parois(0f, 0f, 0f, 0f, this), /*Terre*/
         Parois(0f, 0f, 0f, 0f, this),/*Nuage1*/
         Parois(0f, 0f, 0f, 0f, this),/*Nuage2*/
-        Parois(0f, 0f, 0f, 0f, this),/*Nuage3*/
-        Parois(0f, 0f, 0f, 0f, this)) /* Separation gauche droite*/
+        Parois(0f, 0f, 0f, 0f, this))/*Nuage3*/
+
     val personnage = Personnage(0f,0f,0f,0f,this)
     val recompense = Récompense(0f, 0f, 0f, 0f, this)
     var lesmonstres = ArrayList<Monstres>()
@@ -39,7 +39,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     val nuage1 = parois[2]
     val nuage2 = parois[3]
     val nuage3 = parois[4]
-    val separation = parois[5]
     var life = 3
 
 
@@ -133,13 +132,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         nuage3.y2 = 100f
         nuage3.setRect()
 
-        /*Dessin séparation gauche droite*/
-
-        separation.x1 = screenWidth/2f - 50f
-        separation.y1 = screenHeight/2f+ 400f
-        separation.x2 = screenWidth/2f
-        separation.y2 = screenHeight/1f
-        separation.setRect()
 
     }
 
@@ -155,7 +147,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage1.draw(canvas,255,255,255)
             nuage2.draw(canvas,255,255,255)
             nuage3.draw(canvas,255,255,255)
-            separation.draw(canvas,0,255,14)
             recompense.draw(canvas)
             /*if (!personnage.dead){}*/ personnage.draw(canvas)
             for (m in lesmonstres){m.draw(canvas)}
@@ -163,91 +154,80 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         }
     }
 
-
-    override fun onTouchEvent(e: MotionEvent): Boolean {
-
-        val action = e.action
-        val touchPoint = Point(e.x.toInt(), e.y.toInt())
-
-            /*Déplacement du personnage à gauche*/
-            if (touchPoint.x <= (screenWidth/2 + 60f) && touchPoint.y >= (screenHeight/2f+ 400f) && personnage.x1 >= 0f){
-                personnage.gauche()
-                personnage.x1 -= 10f
-                personnage.x2 -= 10f
-                personnage.setRect()
-                for (m in lesmonstres){ /*Si perso touche monstre*/
-                    m.setRect()
-                    if((m.r.right == personnage.r.left  && m.r.top < personnage.r.top) ){life -= 1 }
-                    else if(m.r.top == personnage.r.bottom){life -= 1}
-                    if (life==0){personnage.dead = true}
+    fun deplacementdroite(){
+        if (personnage.x2 < screenWidth / 2) {
+            personnage.droite()
+            personnage.x1 += 10f
+            personnage.x2 += 10f
+            personnage.setRect()
+            for (m in lesmonstres) { /*Si perso touche monstre*/
+                m.setRect()
+                if ((m.r.left == personnage.r.right && m.r.top < personnage.r.top)) {
+                    life -= 1
+                } else if (m.r.top == personnage.r.bottom) {
+                    life -= 1
+                }
+                if (life == 0) {
+                    personnage.dead = true
                 }
             }
-
-            /*Déplacement du personnage à droite*/
-            else if (personnage.x2 < screenWidth / 2 && touchPoint.x >= screenWidth/2 && touchPoint.y >= (screenHeight/2f+ 400f)) {
-                    personnage.droite()
-                    personnage.x1 += 10f
-                    personnage.x2 += 10f
-                    personnage.setRect()
-                for (m in lesmonstres){ /*Si perso touche monstre*/
-                    m.setRect()
-                    if((m.r.left == personnage.r.right  && m.r.top < personnage.r.top) ){life -= 1 }
-                    else if(m.r.top == personnage.r.bottom){life -= 1}
-                    if (life==0){personnage.dead = true}
-                }
-            }
-
-            /*Déplacement des nuages et maps*/
-            else if (personnage.x2 >= screenWidth / 2f && touchPoint.x >= screenWidth/2 && touchPoint.y >= (screenHeight/2f+ 400f)) {
-                nuage1.x1 -= 20f
-                nuage1.x2 -= 20f
-                nuage2.x1 -= 20f
-                nuage2.x2 -= 20f
-                nuage3.x1 -= 20f
-                nuage3.x2 -= 20f
-
-                nuage1.deplacementmap()
-                nuage2.deplacementmap()
-                nuage3.deplacementmap()
-                /*Déplacement monstres*/
-                for (m in lesmonstres){ /*Si perso touche monstre*/
-                    m.gauche()
-                    m.x1 -= 10f
-                    m.x2 -= 10f
-                    m.setRect()
-                    if((m.r.left == personnage.r.right  && m.r.top < personnage.r.top) ){life -= 1 }
-                    else if(m.r.top == personnage.r.bottom){life -= 1}
-                    if (life==0){personnage.dead = true}
-                /*personnage.dead = true*/
-                    }
-
-                /*Demander AIDE assistant pour réduire code*/
-
-                if (nuage3.x2 == 1700f) {
-                    nuage1.x1 = 1900f
-                    nuage1.y1 = 50f
-                    nuage1.x2 = 2600f
-                    nuage1.y2 = 100f
-                    nuage1.setRect()
-                    nuage1.draw(canvas, 255, 255, 255)
-
-                } else if (nuage3.x2 == 800f) {
-                    nuage2.x1 = 1900f
-                    nuage2.y1 = 50f
-                    nuage2.x2 = 2600f
-                    nuage2.y2 = 100f
-                    nuage2.setRect()
-                    nuage2.draw(canvas, 255, 255, 255)
-                } else if (nuage1.x1 == 100f) {
-                    nuage3.x1 = 1900f
-                    nuage3.y1 = 50f
-                    nuage3.x2 = 2600f
-                    nuage3.y2 = 100f
-                    nuage3.setRect()
-                }
-            }
-        return true
         }
+
+        /*Déplacement des nuages et maps*/
+        else if (personnage.x2 >= screenWidth / 2f ) {
+            nuage1.x1 -= 20f
+            nuage1.x2 -= 20f
+            nuage2.x1 -= 20f
+            nuage2.x2 -= 20f
+            nuage3.x1 -= 20f
+            nuage3.x2 -= 20f
+
+            nuage1.deplacementmap()
+            nuage2.deplacementmap()
+            nuage3.deplacementmap()
+            /*Déplacement monstres*/
+            for (m in lesmonstres) { /*Si perso touche monstre*/
+                m.gauche()
+                m.x1 -= 10f
+                m.x2 -= 10f
+                m.setRect()
+                if ((m.r.left == personnage.r.right && m.r.top < personnage.r.top)) {
+                    life -= 1
+                } else if (m.r.top == personnage.r.bottom) {
+                    life -= 1
+                }
+                if (life == 0) {
+                    personnage.dead = true
+                }
+                /*personnage.dead = true*/
+            }
+
+            /*Demander AIDE assistant pour réduire code*/
+
+            if (nuage3.x2 == 1700f) {
+                nuage1.x1 = 1900f
+                nuage1.y1 = 50f
+                nuage1.x2 = 2600f
+                nuage1.y2 = 100f
+                nuage1.setRect()
+                nuage1.draw(canvas, 255, 255, 255)
+
+            } else if (nuage3.x2 == 800f) {
+                nuage2.x1 = 1900f
+                nuage2.y1 = 50f
+                nuage2.x2 = 2600f
+                nuage2.y2 = 100f
+                nuage2.setRect()
+                nuage2.draw(canvas, 255, 255, 255)
+            } else if (nuage1.x1 == 100f) {
+                nuage3.x1 = 1900f
+                nuage3.y1 = 50f
+                nuage3.x2 = 2600f
+                nuage3.y2 = 100f
+                nuage3.setRect()
+            }
+        }
+    }
 
 
     override fun run() {
