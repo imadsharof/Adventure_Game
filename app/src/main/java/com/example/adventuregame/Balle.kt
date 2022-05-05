@@ -1,26 +1,42 @@
 package com.example.adventuregame
 
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.RectF
+import android.graphics.*
 import android.view.View
 import java.util.*
 
-class Balle (x1: Float, y1: Float, val diametre: Float) {
-    val r = RectF(x1, y1, x1 + diametre, y1 + diametre)
+class Balle (var view: DrawingView, var x1: Float, var y1: Float, var diametre: Float) {
+    var r = RectF(x1 , y1, x1 + diametre, y1 + diametre)
     val random = Random()
-    val paint = Paint()
     var color = Color.argb(255, random.nextInt(256),
         random.nextInt(256), random.nextInt(256))
     var dx = 1
+    var coordoneeballe = PointF()
+    var balleVitesse = 10f
+    var balleOnScreen = true
+    var balleRayon = 10f
+    val ballePaint = Paint()
 
-    fun draw (canvas: Canvas) {
-        paint.color = color
-        canvas.drawOval(r, paint)
+    init {
+        ballePaint.color = Color.RED
     }
 
-    fun move() {
-        r.offset(5.0F*dx, 0F)
+    fun draw(canvas: Canvas) {
+        canvas.drawCircle(coordoneeballe.x, coordoneeballe.y, balleRayon,
+            ballePaint)
     }
+
+
+    fun bouge(lesmonstres: Array<Monstres>,lesBalles: ArrayList<Balle>) {
+        r.offset(15.0F * dx, 0F)
+
+        for (b in lesBalles) {
+            if (RectF.intersects(lesmonstres[i].r, b.r)) {
+                life -= 1
+                break
+            }
+        }
+    }
+
+
+
 }

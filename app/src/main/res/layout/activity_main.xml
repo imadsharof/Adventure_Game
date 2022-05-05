@@ -19,16 +19,30 @@
 
     <Button
         android:id="@+id/jump"
-        android:layout_width="67dp"
+        android:layout_width="0dp"
         android:layout_height="53dp"
         android:layout_marginStart="16dp"
+        android:layout_marginEnd="210dp"
         android:layout_marginBottom="76dp"
         android:clickable="true"
         android:visibility="visible"
         android:longClickable="true"
         android:text="JUMP"
         app:layout_constraintBottom_toBottomOf="@+id/vMain"
-        app:layout_constraintStart_toStartOf="@+id/vMain" />
+        app:layout_constraintEnd_toStartOf="@+id/attack"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/attack"
+        android:layout_width="84dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="76dp"
+        android:text="Attack"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/jump" />
 
     <ImageButton
         android:id="@+id/start"

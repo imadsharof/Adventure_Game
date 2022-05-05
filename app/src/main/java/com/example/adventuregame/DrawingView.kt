@@ -35,6 +35,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                             Personnage(0f,0f,0f,0f,this)) /*Dessin barre de vie*/
     val recompense = Récompense(0f, 0f, 0f, 0f, this)
     var lesmonstres = ArrayList<Monstres>()
+    var lesballes = ArrayList<Balle>()
 
     val sol = parois[0]
     val terre = parois[1]
@@ -116,9 +117,9 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
         /* Dessin récompense finale du jeu */
 
-        recompense.x1 = 3000f
+        recompense.x1 = 2000f
         recompense.y1 = screenHeight/2f + 350f
-        recompense.x2 = 3550f                       /* recompense à la fin du jeu */
+        recompense.x2 = 2050f                       /* recompense à la fin du jeu */
         recompense.y2 = screenHeight/2f + 400f
         recompense.setRect()
 
@@ -164,6 +165,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             /*if (!personnage.dead){}*/ player.draw(canvas,0,14,255)
             barrevie.draw(canvas,67,163,62)
             for (m in lesmonstres){m.draw(canvas)}
+            for (b in lesballes){b.draw(canvas)}
             holder.unlockCanvasAndPost(canvas)
         }
     }

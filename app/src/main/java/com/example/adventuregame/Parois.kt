@@ -11,7 +11,6 @@ class Parois(var x1: Float, var y1: Float, var x2: Float, var y2: Float, var vie
     val paroisPaint = Paint()
     var dx = -1
     var dy = 0
-    val paroisOnScreen = true
 
     fun draw(canvas: Canvas,red : Int,green : Int, blue : Int) {
         paroisPaint.color = Color.rgb(red,green,blue)

@@ -21,6 +21,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
     lateinit var start : ImageButton
     lateinit var jump : Button
     lateinit var personnage: Personnage
+    lateinit var attack: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +29,9 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         drawingView = findViewById<DrawingView>(R.id.vMain)
         start = findViewById(R.id.start)
         jump = findViewById(R.id.jump)
+        attack = findViewById(R.id.attack)
         start.setOnTouchListener(this)
+        attack.setOnTouchListener(this)
         var lastClickTime = 0L
 
         jump.setOnClickListener {
@@ -41,6 +44,10 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
             }
         }
         Thread.sleep(1000)
+
+        /*attack.setOnTouchListener {
+            Balle.move()
+        }*/
 
     }
 
