@@ -7,6 +7,7 @@ import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintSet
 import kotlinx.coroutines.delay
@@ -17,7 +18,7 @@ import kotlin.concurrent.schedule
 class MainActivity() : AppCompatActivity(), View.OnTouchListener{
 
     lateinit var drawingView: DrawingView
-    lateinit var start : Button
+    lateinit var start : ImageButton
     lateinit var jump : Button
     lateinit var personnage: Personnage
 

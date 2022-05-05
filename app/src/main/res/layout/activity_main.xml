@@ -15,17 +15,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/start"
-        android:layout_width="125dp"
-        android:layout_height="101dp"
-        android:layout_marginStart="140dp"
-        android:layout_marginBottom="452dp"
-        android:longClickable="true"
-        android:text="START THE GAME"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="@+id/vMain"
-        app:layout_constraintStart_toStartOf="@+id/vMain" />
+
 
     <Button
         android:id="@+id/jump"
@@ -39,6 +29,18 @@
         android:text="JUMP"
         app:layout_constraintBottom_toBottomOf="@+id/vMain"
         app:layout_constraintStart_toStartOf="@+id/vMain" />
+
+    <ImageButton
+        android:id="@+id/start"
+        android:layout_width="184dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginBottom="376dp"
+        android:longClickable="true"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/vMain"
+        app:layout_constraintStart_toStartOf="@+id/vMain"
+        app:srcCompat="@drawable/playstart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
