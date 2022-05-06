@@ -3,6 +3,7 @@ package com.example.adventuregame
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.*
 import android.os.Bundle
 import android.os.Handler
@@ -28,12 +29,12 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         Parois(0f, 0f, 0f, 0f, this), /*Terre*/
         Parois(0f, 0f, 0f, 0f, this),/*Nuage1*/
         Parois(0f, 0f, 0f, 0f, this),/*Nuage2*/
-        Parois(0f, 0f, 0f, 0f, this))/*Nuage3*/
-
+        Parois(0f, 0f, 0f, 0f, this),/*Nuage3*/
+        Parois(0f, 0f, 0f, 0f, this))/*ScreenOut*/
     val personnage = arrayOf(Personnage(0f,0f,0f,0f,this), /*Dessin du perso principal*/
                             Personnage(0f,0f,0f,0f,this)) /*Dessin barre de vie*/
     val recompense = Récompense(0f, 0f, 0f, 0f, this)
-    var monstres = Monstres(0f,0f,0f,0f,this)
+    var monstres = arrayOf(Monstres(0f,0f,0f,0f,this)) /*Monstre 1*/
     var balle = Balle(0f,0f,0f,0f,this)
 
 
@@ -42,9 +43,12 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     val nuage1 = parois[2]
     val nuage2 = parois[3]
     val nuage3 = parois[4]
+    val screenout = parois[5]
 
     val player = personnage[0]
     var barrevie = personnage[1]
+
+    val mechantrouge = monstres[0]
     var life = 3
 
 
@@ -74,13 +78,12 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         screenHeight = h.toFloat()
 
 
-
         /* Les valeurs ci-dessous ont été trouvé par essais-erreurs */
 
 /*Dessin du sol : (épaisseur sol = 25f)*/
         sol.x1 = (0f)
         sol.y1 = (screenHeight/2f + 375f) /*x1*/
-        sol.x2= (screenWidth/1f)  /*y1*/
+        sol.x2= (screenWidth*1000)  /*y1*/
         sol.y2 = (screenHeight/2f+ 400f) /*parois.y2 = parois.y1 + ( 25f )*/
         sol.setRect()
 /*Dessin de la Terre*/
@@ -114,19 +117,13 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         balle.x2 =screenWidth / 2f+30f
         balle.y2 = screenHeight/2f + 360f
         balle.setRect()
-        /*Dessin monstre*/
+        /*Dessin monstre rouge*/
 
-        monstres.x1 = 1900f
-        monstres.y1 = screenHeight/2f + 275f
-        monstres.x2 = 2000f
-        monstres.y2 = screenHeight/2f + 375f
-        monstres.setRect()
-        /*var a = 1900f
-        val b = screenHeight/2f + 275f
-        for (i in 0..20){ /*Ajout de 20 monstres*/
-        lesmonstres.add(Monstres(a,b,a+100f,b + 100f,this))
-        lesmonstres[i].setRect()
-        a+= 1000f}*/
+        mechantrouge.x1 = 1900f
+        mechantrouge.y1 = screenHeight/2f + 275f
+        mechantrouge.x2 = 2000f
+        mechantrouge.y2 = screenHeight/2f + 375f
+        mechantrouge.setRect()
 
         /* Dessin récompense finale du jeu */
 
@@ -159,7 +156,12 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         nuage3.y2 = 100f
         nuage3.setRect()
 
-
+        /*Petit rectangle en dehors du téléphone*/
+        screenout.x1 = screenWidth
+        screenout.y1 = 0f
+        screenout.x2 = screenWidth + 20f
+        screenout.y2 =  screenHeight
+        screenout.setRect()
     }
 
     fun draw() {
@@ -169,15 +171,19 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 0f, 0f, canvas.width.toFloat(),
                 canvas.height.toFloat(), backgroundPaint
             )
+            var res: Resources = Resources.getSystem()
+            var bitmap = BitmapFactory.decodeResource(res, R.drawable.background_jeu)
+
             sol.draw(canvas,0,255,14)
             terre.draw(canvas,103,41,11)
             nuage1.draw(canvas,255,255,255)
             nuage2.draw(canvas,255,255,255)
             nuage3.draw(canvas,255,255,255)
+            screenout.draw(canvas,255,255,255)
             recompense.draw(canvas)
             /*if (!personnage.dead){}*/ player.draw(canvas,0,14,255)
             barrevie.draw(canvas,67,163,62)
-            monstres.draw(canvas)
+            if(mechantrouge.MonstresOnScreen){mechantrouge.draw(canvas)}
             if(balle.BalleOnScreen){balle.draw(canvas,255,164,0)}
             holder.unlockCanvasAndPost(canvas)
         }
@@ -205,21 +211,25 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage2.x2 -= 20f
             nuage3.x1 -= 20f
             nuage3.x2 -= 20f
+            sol.x1 -= 10f
+            sol.x2 -= 10f
+            sol.deplacementmap()
             nuage1.deplacementmap()
             nuage2.deplacementmap()
             nuage3.deplacementmap()
             /*Déplacement monstres*/
-            monstres.gauche()
-            monstres.x1 -= 10f
-            monstres.x2 -= 10f
-            monstres.setRect()
-                if ((monstres.r.left == player.r.right && monstres.r.top < player.r.top)) { /*Si perso touche monstre*/
+            for( m in monstres){
+            m.gauche()
+            m.x1 -= 10f
+            m.x2 -= 10f
+
+                if ((m.r.left == player.r.right && m.r.top < player.r.top) && m.MonstresOnScreen) { /*Si perso touche monstre*/
                     life -= 1
                     barrevie.x2 -= 50f/3
                     barrevie.setRect()
                     barrevie.draw(canvas,67,163,62)
 
-                } else if (monstres.r.top == player.r.bottom) {
+                } else if (m.r.top == player.r.bottom && m.MonstresOnScreen) {
                     life -= 1
                     barrevie.x2 -= 50f/3
                     barrevie.setRect()
@@ -227,7 +237,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 }
                 if (life == 0) {
                     player.dead = true
-                }
+                }}
                 /*personnage.dead = true*/
 
 
@@ -255,14 +265,16 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 nuage3.y2 = 100f
                 nuage3.setRect()
             }
-            if(monstres.x2 == 0f){
-                monstres.x1 = 1900f
-                monstres.y1 = screenHeight/2f + 275f
-                monstres.x2 = 2000f
-                monstres.y2 = screenHeight/2f + 375f
-                monstres.setRect()
-                monstres.draw(canvas)
-
+            for (m in monstres){
+            if(m.x2 == 0f ) {
+                m.MonstresOnScreen = true
+                m.x1 = 5000f
+                m.y1 = screenHeight / 2f + 275f
+                m.x2 = 5100f
+                m.y2 = screenHeight / 2f + 375f
+                m.setRect()
+                m.draw(canvas)
+            }
             }
         }
     }

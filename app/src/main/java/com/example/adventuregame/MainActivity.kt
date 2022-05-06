@@ -25,6 +25,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
     lateinit var balle : Balle
     var balleavance = true
     var mapavance = true
+    var a : Long = 15
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +35,8 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         jump = findViewById(R.id.jump)
         attack = findViewById(R.id.attack)
         start.setOnTouchListener(this)
-
         var lastClickTime = 0L
+
 
         jump.setOnClickListener {
             if (SystemClock.elapsedRealtime() - lastClickTime < 1000) { /*Permet de ne pas cliquer plusieurs fois sur le bouton JUMP*/
@@ -48,15 +49,34 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
 
         }
         attack.setOnClickListener {
-            Thread{
+            if(drawingView.balle.BalleOnScreen == false){/*Redessine la Balle*/
+                drawingView.balle.x1 =drawingView.screenout.x1 / 2f
+                drawingView.balle.y1 = drawingView.screenout.y2/2f + 340f
+                drawingView.balle.x2 =drawingView.screenout.x1/ 2f+30f
+                drawingView.balle.y2 = drawingView.screenout.y2/2f + 360f
+                drawingView.balle.setRect()
+                drawingView.balle.draw(drawingView.canvas,255,164,0)
+            }
+            drawingView.balle.afficheballe()
+            balleavance = true
+             Thread{
+                 attack.isClickable = false
                 while(balleavance){
                     drawingView.balle.afficheballe()
                     drawingView.balle.droite()
-                    if(drawingView.balle.r.intersect(drawingView.monstres.r)){
+                    if(drawingView.balle.r.intersect(drawingView.monstres[0].r) && drawingView.monstres[0].MonstresOnScreen){
                         balleavance = false
-                        drawingView.balle.BalleOnScreen = false
+                        drawingView.balle.supprimeballe()
+                        drawingView.monstres[0].MonstresOnScreen = false
+                        attack.isClickable = true
                     }
-                    Thread.sleep(15) } }.start()
+                    else if (drawingView.balle.r.left ==drawingView.screenout.r.left ){
+                        balleavance = false
+                        drawingView.balle.supprimeballe()
+                        attack.isClickable = true
+                    }
+                    Thread.sleep(15)
+                } }.start()
         }
 
     }
@@ -66,6 +86,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
     override fun onTouch(v : View, e : MotionEvent) : Boolean {
         val action = e.action
         val touchPoint = Point(e.x.toInt(), e.y.toInt())
+        a = 15
 
         when(v.id) {
             start.id -> {
@@ -74,7 +95,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
                         start.visibility = View.INVISIBLE
                         while (mapavance) {
                             drawingView.deplacementcontinue()
-                            Thread.sleep(15)
+                            Thread.sleep(a)
                         }
                     }.start()
                 }
