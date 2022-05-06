@@ -20,13 +20,14 @@ import androidx.core.graphics.createBitmap
 import java.util.Timer
 import kotlin.concurrent.schedule
 
-class Grandsmonstres (var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView) {
+class Grandsmonstres (var x1: Float, var y1: Float, var x2: Float, var y2: Float) {
     val r = RectF(x1, y1, x2, y2)
     val PersonnagePaint = Paint()
     var dx = 1
     var random = Random()
     var color = Color.argb(255, random.nextInt(256),
         random.nextInt(256), random.nextInt(256))
+
     lateinit var drawingView: DrawingView
 
     fun draw(canvas: Canvas) { /* Dessin du monstre représenté par un rectangle*/

@@ -125,6 +125,10 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         mechantrouge.y2 = screenHeight/2f + 375f
         mechantrouge.setRect()
 
+        /* Dessin des grands monstres */
+
+
+
         /* Dessin récompense finale du jeu */
 
         recompense.x1 = 2000f
