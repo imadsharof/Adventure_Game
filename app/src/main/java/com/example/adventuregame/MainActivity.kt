@@ -26,6 +26,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
     var balleavance = true
     var mapavance = true
     var a : Long = 15
+    var b = a
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,7 +87,6 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
     override fun onTouch(v : View, e : MotionEvent) : Boolean {
         val action = e.action
         val touchPoint = Point(e.x.toInt(), e.y.toInt())
-        a = 15
 
         when(v.id) {
             start.id -> {
@@ -95,7 +95,8 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
                         start.visibility = View.INVISIBLE
                         while (mapavance) {
                             drawingView.deplacementcontinue()
-                            Thread.sleep(a)
+                            if(drawingView.sol.x1 == -5000f  ||drawingView.sol.x1 == -10000f||drawingView.sol.x1 == -15000f||drawingView.sol.x1 == -20000f||drawingView.sol.x1 == -30000f||drawingView.sol.x1 == -35000f||drawingView.sol.x1 == -40000f||drawingView.sol.x1 == -50000f||drawingView.sol.x1 == -60000f ){b -= 1}
+                            Thread.sleep(b)
                         }
                     }.start()
                 }

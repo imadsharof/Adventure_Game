@@ -6,7 +6,7 @@ import java.util.*
 import kotlin.concurrent.schedule
 
 
-class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView) {
+class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView,var life : Int) {
 
     val r = RectF(x1, y1, x2, y2)
     val PersonnagePaint = Paint()
@@ -18,7 +18,6 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
     lateinit var drawingView: DrawingView
     lateinit var monstres : Monstres
     var dead = false
-    var life = 100
     lateinit var mainActivity: MainActivity
     var res: Resources = Resources.getSystem()
     var bitmap = BitmapFactory.decodeResource(res, R.drawable.background_jeu)
@@ -44,9 +43,6 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
         dx = 1
         r.offset(10.0F*dx,0.0F*dy)
     }
-
-
-
 
 
 }

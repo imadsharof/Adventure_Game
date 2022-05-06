@@ -20,6 +20,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     val backgroundPaint = Paint()
     var drawing = false
     lateinit var thread: Thread
+    lateinit var mainActivity: MainActivity
     var screenWidth = 0f
     var screenHeight = 0f
     var gameover = false
@@ -32,16 +33,11 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         Parois(0f, 0f, 0f, 0f, this),/*Nuage2*/
         Parois(0f, 0f, 0f, 0f, this),/*Nuage3*/
         Parois(0f, 0f, 0f, 0f, this))/*ScreenOut*/
-    val personnage = arrayOf(Personnage(0f,0f,0f,0f,this), /*Dessin du perso principal*/
-                            Personnage(0f,0f,0f,0f,this)) /*Dessin barre de vie*/
+    val personnage = arrayOf(Personnage(0f,0f,0f,0f,this,0), /*Dessin du perso principal*/
+                            Personnage(0f,0f,0f,0f,this,0)) /*Dessin barre de vie*/
     val recompense = Récompense(0f, 0f, 0f, 0f, this)
 
     var lesmonstres = ArrayList<Monstres>()
-    val listemonstre = listOf(
-        Grandsmonstres(2000f,screenHeight/2f + 275f,2100f,screenHeight/2f + 375f,this),
-        Longsmonstres(2000f,screenHeight/2f + 210f,2050f,screenHeight/2f + 375f,this),
-        Petitsmonstres(2000f,screenHeight/2f+300f,2050f,screenHeight/2f + 375f,this))
-    val monstrerandom = listemonstre.random()
 
     var balle = Balle(0f,0f,0f,0f,this)
 
@@ -83,14 +79,17 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         super.onSizeChanged(w, h, oldw, oldh)
         screenWidth = w.toFloat()
         screenHeight = h.toFloat()
-
+        var listemonstre = listOf(Grandsmonstres(2000f,screenHeight/2f + 275f,2100f,screenHeight/2f + 375f,this),
+            Longsmonstres(2000f,screenHeight/2f + 210f,2050f,screenHeight/2f + 375f,this),
+            Petitsmonstres(2000f,screenHeight/2f+300f,2050f,screenHeight/2f + 375f,this))
+        var monstrerandom = listemonstre.random()
 
         /* Les valeurs ci-dessous ont été trouvé par essais-erreurs */
 
 /*Dessin du sol : (épaisseur sol = 25f)*/
         sol.x1 = (0f)
         sol.y1 = (screenHeight/2f + 375f) /*x1*/
-        sol.x2= (screenWidth*1000)  /*y1*/
+        sol.x2= (1000000f)  /*y1*/
         sol.y2 = (screenHeight/2f+ 400f) /*parois.y2 = parois.y1 + ( 25f )*/
         sol.setRect()
 /*Dessin de la Terre*/
@@ -107,6 +106,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         player.y1 = screenHeight/2f + 325f /*personnage.y1 = personnage.y2 - 100f*/
         player.x2 = 100f /*longueur perso = x2 - x1 = 50 f*/
         player.y2 = screenHeight/2f + 375f /*personnage.y2 = sol.y1*/
+        player.life = 3
         player.setRect()
 
         /*Dessin de la barre de vie du personnage*/
@@ -171,15 +171,17 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         screenout.setRect()
     }
 
+
     fun draw() {
+
         if (holder.surface.isValid) {
             canvas = holder.lockCanvas()
             canvas.drawRect(
                 0f, 0f, canvas.width.toFloat(),
                 canvas.height.toFloat(), backgroundPaint
             )
-            var res: Resources = Resources.getSystem()
-            var bitmap = BitmapFactory.decodeResource(res, R.drawable.background_jeu)
+            /*var res: Resources = Resources.getSystem()
+            var bitmap = BitmapFactory.decodeResource(res, R.drawable.background_jeu)*/
 
             sol.draw(canvas,0,255,14)
             terre.draw(canvas,103,41,11)
@@ -225,24 +227,24 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage2.deplacementmap()
             nuage3.deplacementmap()
             /*Déplacement monstres*/
-            for( m in lesmonstres){
-            m.gauche()
-            m.x1 -= 10f
-            m.x2 -= 10f
+            lesmonstres[0]
+            lesmonstres[0].gauche()
+            lesmonstres[0].x1 -= 10f
+            lesmonstres[0].x2 -= 10f
 
-                if ((m.r.left == player.r.right && m.r.top < player.r.top) && m.MonstresOnScreen) { /*Si perso touche monstre*/
-                    life -= 1
+                if ((lesmonstres[0].r.left == player.r.right && lesmonstres[0].r.top < player.r.top) && lesmonstres[0].MonstresOnScreen) { /*Si perso touche monstre*/
+                    player.life -= 1
                     barrevie.x2 -= 50f/3
                     barrevie.setRect()
                     barrevie.draw(canvas,67,163,62)
 
-                } else if (m.r.top == player.r.bottom && m.MonstresOnScreen) {
-                    life -= 1
+                } else if (lesmonstres[0].r.top == player.r.bottom && lesmonstres[0].MonstresOnScreen) {
+                    player.life -= 1
                     barrevie.x2 -= 50f/3
                     barrevie.setRect()
                     barrevie.draw(canvas,67,163,62)
                 }
-                if (life == 0) {
+                if (player.life == 0) {
                     player.dead = true
                 }}
                 /*personnage.dead = true*/
@@ -272,19 +274,19 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 nuage3.y2 = 100f
                 nuage3.setRect()
             }
-            for (m in lesmonstres){
-            if(m.x2 == 0f ) {
-                m.MonstresOnScreen = true
-                m.x1 += screenWidth + 100f
-                m.x2 +=  screenWidth +100
-                m.setRect()
-                m.draw(canvas,255,0,228)
-                lesmonstres.removeAt(0)
-                lesmonstres.add(listemonstre.random())
-            } }
+
+            if(lesmonstres[0].x2 == 0f ) {
+                var listedemonstre = listOf(Grandsmonstres(screenWidth ,screenHeight/2f + 275f,screenWidth+100f,screenHeight/2f + 375f,this),
+                    Longsmonstres(screenWidth,screenHeight/2f + 210f,screenWidth+50f,screenHeight/2f + 375f,this),
+                    Petitsmonstres(screenWidth,screenHeight/2f+300f,screenWidth+50f,screenHeight/2f + 375f,this))
+                lesmonstres[0].MonstresOnScreen = true
+
+                lesmonstres.remove(lesmonstres[0])
+                lesmonstres.add(listedemonstre.random())
+            }
 
         }
-    }
+
 
 
     override fun run() {
