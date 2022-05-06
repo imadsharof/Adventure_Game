@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
+import kotlin.random.Random
 
 class DrawingView @JvmOverloads constructor (context: Context, attributes: AttributeSet? = null, defStyleAttr: Int = 0): SurfaceView(context, attributes,defStyleAttr), SurfaceHolder.Callback,Runnable {
 
@@ -34,9 +35,15 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     val personnage = arrayOf(Personnage(0f,0f,0f,0f,this), /*Dessin du perso principal*/
                             Personnage(0f,0f,0f,0f,this)) /*Dessin barre de vie*/
     val recompense = Récompense(0f, 0f, 0f, 0f, this)
-    var monstres = arrayOf(Monstres(0f,0f,0f,0f,this)) /*Monstre 1*/
-    var balle = Balle(0f,0f,0f,0f,this)
 
+    var lesmonstres = ArrayList<Monstres>()
+    val listemonstre = listOf(
+        Grandsmonstres(2000f,screenHeight/2f + 275f,2100f,screenHeight/2f + 375f,this),
+        Longsmonstres(2000f,screenHeight/2f + 210f,2050f,screenHeight/2f + 375f,this),
+        Petitsmonstres(2000f,screenHeight/2f+300f,2050f,screenHeight/2f + 375f,this))
+    val monstrerandom = listemonstre.random()
+
+    var balle = Balle(0f,0f,0f,0f,this)
 
     val sol = parois[0]
     val terre = parois[1]
@@ -48,8 +55,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     val player = personnage[0]
     var barrevie = personnage[1]
 
-    val mechantrouge = monstres[0]
     var life = 3
+    var random = java.util.Random()
 
 
     init {
@@ -117,13 +124,12 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         balle.x2 =screenWidth / 2f+30f
         balle.y2 = screenHeight/2f + 360f
         balle.setRect()
-        /*Dessin monstre rouge*/
+        /*Dessin monstre au hasard*/
 
-        mechantrouge.x1 = 1900f
-        mechantrouge.y1 = screenHeight/2f + 275f
-        mechantrouge.x2 = 2000f
-        mechantrouge.y2 = screenHeight/2f + 375f
-        mechantrouge.setRect()
+
+        lesmonstres.add(monstrerandom)
+        lesmonstres[0].setRect()
+
 
         /* Dessin récompense finale du jeu */
 
@@ -183,7 +189,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             recompense.draw(canvas)
             /*if (!personnage.dead){}*/ player.draw(canvas,0,14,255)
             barrevie.draw(canvas,67,163,62)
-            if(mechantrouge.MonstresOnScreen){mechantrouge.draw(canvas)}
+            if(lesmonstres[0].MonstresOnScreen){lesmonstres[0].draw(canvas,255,0,0)}
             if(balle.BalleOnScreen){balle.draw(canvas,255,164,0)}
             holder.unlockCanvasAndPost(canvas)
         }
@@ -218,7 +224,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage2.deplacementmap()
             nuage3.deplacementmap()
             /*Déplacement monstres*/
-            for( m in monstres){
+            for( m in lesmonstres){
             m.gauche()
             m.x1 -= 10f
             m.x2 -= 10f
@@ -265,17 +271,17 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 nuage3.y2 = 100f
                 nuage3.setRect()
             }
-            for (m in monstres){
+            for (m in lesmonstres){
             if(m.x2 == 0f ) {
                 m.MonstresOnScreen = true
-                m.x1 = 5000f
-                m.y1 = screenHeight / 2f + 275f
-                m.x2 = 5100f
-                m.y2 = screenHeight / 2f + 375f
+                m.x1 += screenWidth + 100f
+                m.x2 +=  screenWidth +100
                 m.setRect()
-                m.draw(canvas)
-            }
-            }
+                m.draw(canvas,255,0,228)
+                lesmonstres.removeAt(0)
+                lesmonstres.add(listemonstre.random())
+            } }
+
         }
     }
 

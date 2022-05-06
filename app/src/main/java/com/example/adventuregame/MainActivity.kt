@@ -64,10 +64,10 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
                 while(balleavance){
                     drawingView.balle.afficheballe()
                     drawingView.balle.droite()
-                    if(drawingView.balle.r.intersect(drawingView.monstres[0].r) && drawingView.monstres[0].MonstresOnScreen){
+                    if(drawingView.balle.r.intersect(drawingView.lesmonstres[0].r) && drawingView.lesmonstres[0].MonstresOnScreen){
                         balleavance = false
                         drawingView.balle.supprimeballe()
-                        drawingView.monstres[0].MonstresOnScreen = false
+                        drawingView.lesmonstres[0].MonstresOnScreen = false
                         attack.isClickable = true
                     }
                     else if (drawingView.balle.r.left ==drawingView.screenout.r.left ){

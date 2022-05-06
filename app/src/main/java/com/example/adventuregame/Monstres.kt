@@ -20,8 +20,7 @@ import androidx.core.graphics.createBitmap
 import java.util.Timer
 import kotlin.concurrent.schedule
 
-class Monstres(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView) {
-
+open class Monstres(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView){
     val r = RectF(x1, y1, x2, y2)
     val MonstresPaint = Paint()
     var dx = 1
@@ -35,8 +34,8 @@ class Monstres(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vi
 
     /* Dessin du monstre représenté par un rectangle*/
 
-    fun draw(canvas: Canvas) {
-        MonstresPaint.color = Color.RED
+    open fun draw(canvas: Canvas,red : Int,green : Int, blue : Int) {
+        MonstresPaint.color = Color.rgb(red,green,blue)
         canvas.drawRect(r, MonstresPaint)
     }
 
