@@ -131,6 +131,10 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         lesmonstres[0].setRect()
 
 
+        /* Dessin des grands monstres */
+
+
+
         /* Dessin récompense finale du jeu */
 
         recompense.x1 = 2000f
