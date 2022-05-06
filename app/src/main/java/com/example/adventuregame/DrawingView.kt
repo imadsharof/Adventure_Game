@@ -126,13 +126,10 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         balle.setRect()
         /*Dessin monstre au hasard*/
 
-
         lesmonstres.add(monstrerandom)
         lesmonstres[0].setRect()
 
-
         /* Dessin des grands monstres */
-
 
 
         /* Dessin récompense finale du jeu */
