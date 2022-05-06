@@ -49,8 +49,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
 
     init {
-        backgroundPaint.color = Color.rgb(0,255,249)
-        /*couleur ciel*/
+        backgroundPaint.color = Color.rgb(0,255,249)    /*couleur ciel*/
     }
 
     fun pause() {
@@ -77,26 +76,25 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
         /* Les valeurs ci-dessous ont été trouvé par essais-erreurs */
 
-/*Dessin du sol : (épaisseur sol = 25f)*/
+    /*Dessin du sol : (épaisseur sol = 25f)*/
         sol.x1 = (0f)
         sol.y1 = (screenHeight/2f + 375f) /*x1*/
         sol.x2= (screenWidth/1f)  /*y1*/
         sol.y2 = (screenHeight/2f+ 400f) /*parois.y2 = parois.y1 + ( 25f )*/
         sol.setRect()
-/*Dessin de la Terre*/
 
+    /*Dessin de la Terre*/
         terre.x1 = 0f
         terre.y1 = screenHeight/2f+ 400f
         terre.x2 = screenWidth/1f
         terre.y2 = screenHeight/1f
         terre.setRect()
 
-/* Dessin du personnage : (base personnage = 50f, hauteur = 50f)  */
-
+    /* Dessin du personnage : (base personnage = 50f, hauteur = 50f) */
         player.x1 = 50f
-        player.y1 = screenHeight/2f + 325f /*personnage.y1 = personnage.y2 - 100f*/
-        player.x2 = 100f /*longueur perso = x2 - x1 = 50 f*/
-        player.y2 = screenHeight/2f + 375f /*personnage.y2 = sol.y1*/
+        player.y1 = screenHeight/2f + 325f     /*personnage.y1 = personnage.y2 - 50f*/
+        player.x2 = 100f       /*longueur perso = x2 - x1 = 50 f*/
+        player.y2 = screenHeight/2f + 375f    /*personnage.y2 = sol.y1*/
         player.setRect()
 
         /*Dessin de la barre de vie du personnage*/
@@ -114,6 +112,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         balle.x2 =screenWidth / 2f+30f
         balle.y2 = screenHeight/2f + 360f
         balle.setRect()
+
         /*Dessin monstre*/
 
         monstres.x1 = 1900f
@@ -136,7 +135,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         recompense.y2 = screenHeight/2f + 400f
         recompense.setRect()
 
-/*Dessin des Nuages*/
+    /*Dessin des Nuages*/
+
         /*Nuage 1*/
         nuage1.x1 = 100f
         nuage1.y1 = 50f
@@ -159,8 +159,9 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         nuage3.y2 = 100f
         nuage3.setRect()
 
-
     }
+
+    /* La fonction draw affiche sur le canvas les différents composants graphiques */
 
     fun draw() {
         if (holder.surface.isValid) {
@@ -175,15 +176,13 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage2.draw(canvas,255,255,255)
             nuage3.draw(canvas,255,255,255)
             recompense.draw(canvas)
-            /*if (!personnage.dead){}*/ player.draw(canvas,0,14,255)
+            player.draw(canvas,0,14,255)
             barrevie.draw(canvas,67,163,62)
             monstres.draw(canvas)
             if(balle.BalleOnScreen){balle.draw(canvas,255,164,0)}
             holder.unlockCanvasAndPost(canvas)
         }
     }
-
-
 
 
     fun deplacementcontinue(){
@@ -228,10 +227,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 if (life == 0) {
                     player.dead = true
                 }
-                /*personnage.dead = true*/
 
-
-            /*Demander AIDE assistant pour réduire code*/
 
             if (nuage3.x2 == 1700f) {
                 nuage1.x1 = 1900f
@@ -285,6 +281,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         gameover = true
     }*/
 
+    /* Interface graphique proposant de rejouer */
     fun showGameOverDialog(messageId: Int) {
         class GameResult: DialogFragment() {
             override fun onCreateDialog(bundle: Bundle?): Dialog {

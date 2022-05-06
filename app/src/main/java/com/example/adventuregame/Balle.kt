@@ -12,14 +12,17 @@ class Balle (var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view
     var color = Color.argb(255, random.nextInt(256),
         random.nextInt(256), random.nextInt(256))
     var dx = 1
-    var dy=1
+    var dy = 1
     var BalleOnScreen = false
 
+    /* La balle est représentée par un oval */
+
     fun draw(canvas: Canvas,red : Int,green : Int, blue : Int) {
-        if(BalleOnScreen){/* Dessin du personnage représenté par un rectangle*/
+        if(BalleOnScreen){
         BallePaint.color = Color.rgb(red,green,blue)
         canvas.drawOval(r, BallePaint)
-    }}
+        }
+    }
 
     fun setRect() {
         r.set(x1, y1, x2, y2)
@@ -40,6 +43,5 @@ class Balle (var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view
     fun supprimeballe(){
         BalleOnScreen = false
     }
-    }
-
+}
 

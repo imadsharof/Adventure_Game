@@ -32,10 +32,9 @@ class Monstres(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vi
         random.nextInt(256), random.nextInt(256)
     )
 
+    /* Dessin du monstre représenté par un rectangle*/
 
-
-
-    fun draw(canvas: Canvas) { /* Dessin du personnage représenté par un rectangle*/
+    fun draw(canvas: Canvas) {
         MonstresPaint.color = Color.RED
         canvas.drawRect(r, MonstresPaint)
     }
@@ -49,6 +48,5 @@ class Monstres(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vi
         r.offset(10.0F*dx, 0.0F*dy)
     }
 
-
-        }
+}
 

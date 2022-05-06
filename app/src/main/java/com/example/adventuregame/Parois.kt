@@ -10,7 +10,6 @@ class Parois(var x1: Float, var y1: Float, var x2: Float, var y2: Float, var vie
     val r = RectF(x1,y1,x2,y2)
     val paroisPaint = Paint()
     var dx = -1
-    var dy = 0
 
     fun draw(canvas: Canvas,red : Int,green : Int, blue : Int) {
         paroisPaint.color = Color.rgb(red,green,blue)
@@ -21,9 +20,10 @@ class Parois(var x1: Float, var y1: Float, var x2: Float, var y2: Float, var vie
         r.set(x1, y1, x2, y2)
     }
 
-    fun deplacementmap(){
-        r.offset(20.0f*dx,20.0f*dy)
-    }
+    /* L'environnement se déplace pour donner l'impression que le personnage se déplace */
 
+    fun deplacementmap(){
+        r.offset(20.0f*dx,0.0f)
+    }
 
 }

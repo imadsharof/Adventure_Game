@@ -35,6 +35,9 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         attack = findViewById(R.id.attack)
         start.setOnTouchListener(this)
 
+        /* Configuration du bouton pour sauter. Un délai est ajouté pour éviter au joueur de sauter plusieurs
+        * fois d'affilée et ainsi ajouter de la difficulté. */
+
         var lastClickTime = 0L
 
         jump.setOnClickListener {
@@ -47,6 +50,10 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
             }
 
         }
+
+        /* On ajoute un bouton pour attaquer les monstres en jetant des balles. La fonction du thread
+        * va nous permettre d'effectuer l'attaque en parallèle des autres capacités du personnage */
+
         attack.setOnClickListener {
             Thread{
                 while(balleavance){
@@ -94,7 +101,6 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         super.onResume()
         drawingView.resume()
     }
-
 
 
 }
