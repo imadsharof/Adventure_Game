@@ -29,7 +29,7 @@ class Récompense(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var
         random.nextInt(256), random.nextInt(256))
     lateinit var drawingView: DrawingView
 
-    fun draw(canvas: Canvas) { /* Dessin du personnage représenté par un rectangle*/
+     fun draw(canvas: Canvas) { /* Dessin du personnage représenté par un rectangle*/
         RecompensePaint.color = Color.MAGENTA
         canvas.drawRect(r, RecompensePaint)
     }

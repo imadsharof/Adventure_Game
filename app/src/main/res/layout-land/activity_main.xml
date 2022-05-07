@@ -24,41 +24,57 @@
         android:layout_height="42dp"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="4dp"
+        android:clickable="true"
         android:longClickable="true"
         android:text="JUMP"
-        android:clickable="true"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vMain"
         app:layout_constraintStart_toStartOf="@+id/vMain" />
 
     <ImageButton
         android:id="@+id/play"
-        android:layout_width="222dp"
+        android:layout_width="0dp"
         android:layout_height="87dp"
         android:layout_marginStart="252dp"
         android:layout_marginTop="84dp"
+        android:layout_marginEnd="136dp"
         android:longClickable="true"
         android:scaleType="center"
         android:visibility="visible"
-        app:layout_constraintStart_toStartOf="@+id/vMain"
+        app:layout_constraintEnd_toStartOf="@+id/pause"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/vMain"
         app:srcCompat="@drawable/buttonplay" />
 
     <Button
         android:id="@+id/attack"
         android:layout_width="84dp"
-        android:layout_height="47dp"
+        android:layout_height="0dp"
         android:layout_marginStart="347dp"
         android:layout_marginEnd="38dp"
         android:layout_marginBottom="4dp"
-        android:text="Attack"
         android:clickable="true"
+        android:text="Attack"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/jump"
-        app:layout_constraintStart_toStartOf="@+id/vMain" />
+        app:layout_constraintStart_toStartOf="@+id/vMain"
+        app:layout_constraintTop_toBottomOf="@+id/pause" />
+
+    <Button
+        android:id="@+id/pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="41dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="271dp"
+        android:text="Pause"
+        app:layout_constraintBottom_toTopOf="@+id/attack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/play"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

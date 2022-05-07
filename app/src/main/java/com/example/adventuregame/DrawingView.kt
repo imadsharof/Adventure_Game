@@ -62,6 +62,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         /*couleur ciel*/
     }
 
+
     fun pause() {
         drawing = false
         thread.join()

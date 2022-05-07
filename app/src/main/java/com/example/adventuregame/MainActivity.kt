@@ -83,6 +83,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         }
 
         pause.setOnClickListener {
+            pause.isClickable = true
 
         }
 
