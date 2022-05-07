@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="@+id/vMain" />
 
     <ImageButton
-        android:id="@+id/start"
+        android:id="@+id/play"
         android:layout_width="222dp"
         android:layout_height="87dp"
         android:layout_marginStart="252dp"
@@ -42,7 +42,7 @@
         android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/vMain"
         app:layout_constraintTop_toTopOf="@+id/vMain"
-        app:srcCompat="@drawable/buttonstart" />
+        app:srcCompat="@drawable/buttonplay" />
 
     <Button
         android:id="@+id/attack"
