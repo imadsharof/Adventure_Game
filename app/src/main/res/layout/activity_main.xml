@@ -16,7 +16,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
 
-
     <Button
         android:id="@+id/jump"
         android:layout_width="84dp"
@@ -25,9 +24,9 @@
         android:layout_marginEnd="210dp"
         android:layout_marginBottom="76dp"
         android:clickable="true"
-        android:visibility="visible"
         android:longClickable="true"
         android:text="JUMP"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vMain"
         app:layout_constraintEnd_toStartOf="@+id/attack"
         app:layout_constraintStart_toStartOf="parent" />
@@ -38,8 +37,8 @@
         android:layout_height="50dp"
         android:layout_marginEnd="38dp"
         android:layout_marginBottom="76dp"
-        android:text="Attack"
         android:clickable="true"
+        android:text="Attack"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -52,11 +51,12 @@
         android:layout_marginStart="113dp"
         android:layout_marginTop="146dp"
         android:longClickable="true"
-        android:visibility="visible"
         android:scaleType="center"
+        android:visibility="visible"
         app:layout_constraintStart_toStartOf="@+id/vMain"
         app:layout_constraintTop_toTopOf="@+id/vMain"
         app:srcCompat="@drawable/buttonstart" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.adventuregame
 import android.app.AlertDialog
 import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.res.Resources
 import android.graphics.*
 import android.os.Bundle
@@ -53,6 +54,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
     var life = 3
     var random = java.util.Random()
+    var score = 0
 
 
     init {
@@ -79,10 +81,10 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         super.onSizeChanged(w, h, oldw, oldh)
         screenWidth = w.toFloat()
         screenHeight = h.toFloat()
-        var listemonstre = listOf(Grandsmonstres(2000f,screenHeight/2f + 275f,2100f,screenHeight/2f + 375f,this),
+        val listemonstre = listOf(Grandsmonstres(2000f,screenHeight/2f + 275f,2100f,screenHeight/2f + 375f,this),
             Longsmonstres(2000f,screenHeight/2f + 210f,2050f,screenHeight/2f + 375f,this),
             Petitsmonstres(2000f,screenHeight/2f+300f,2050f,screenHeight/2f + 375f,this))
-        var monstrerandom = listemonstre.random()
+        val monstrerandom = listemonstre.random()
 
         /* Les valeurs ci-dessous ont été trouvé par essais-erreurs */
 
@@ -200,8 +202,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
 
 
-
     fun deplacementcontinue(){
+        score()
         if (player.x2 < screenWidth / 2) {
             player.droite()
             barrevie.droite()
@@ -247,7 +249,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 if (player.life == 0) {
                     player.dead = true
                 }}
-                /*personnage.dead = true*/
+
 
 
             /*Demander AIDE assistant pour réduire code*/
@@ -276,7 +278,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             }
 
             if(lesmonstres[0].x2 == 0f ) {
-                var listedemonstre = listOf(Grandsmonstres(screenWidth ,screenHeight/2f + 275f,screenWidth+100f,screenHeight/2f + 375f,this),
+                val listedemonstre = listOf(Grandsmonstres(screenWidth ,screenHeight/2f + 275f,screenWidth+100f,screenHeight/2f + 375f,this),
                     Longsmonstres(screenWidth,screenHeight/2f + 210f,screenWidth+50f,screenHeight/2f + 375f,this),
                     Petitsmonstres(screenWidth,screenHeight/2f+300f,screenWidth+50f,screenHeight/2f + 375f,this))
                 lesmonstres[0].MonstresOnScreen = true
@@ -293,24 +295,36 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         while (drawing) {
             draw()
             if (player.dead) {
-                /*gameover()*/
+                gameover()
                 drawing = false
             }
         }
 
     }
 
-    /*fun gameover() {
+    private fun score() {
+        if(!lesmonstres[0].MonstresOnScreen){
+            score += 2  // 1 monstre tué donne 110 point
+        }
+    }
+
+    private fun gameover() {
         drawing = false
         showGameOverDialog(R.string.lose)
         gameover = true
-    }*/
+    }
 
-    fun showGameOverDialog(messageId: Int) {
+    private fun showGameOverDialog(messageId: Int) {
         class GameResult: DialogFragment() {
             override fun onCreateDialog(bundle: Bundle?): Dialog {
                 val builder = AlertDialog.Builder(activity)
                 builder.setTitle(resources.getString(messageId))
+                builder.setMessage(
+                    resources.getString(R.string.results_format, score)
+                )
+                builder.setPositiveButton(R.string.reset_game,
+                    DialogInterface.OnClickListener { _, _->newGame()}
+                )
                 return builder.create()
             }
         }
@@ -329,6 +343,17 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 gameResult.show(ft,"dialog")
             }
         )
+    }
+
+    fun newGame() {
+        drawing = true
+        score = 0
+        draw()
+        if (gameover) {
+            gameover = false
+            thread = Thread(this)
+            thread.start()
+        }
     }
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int,

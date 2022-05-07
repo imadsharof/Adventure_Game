@@ -9,10 +9,10 @@ import kotlin.concurrent.schedule
 class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView,var life : Int) {
 
     val r = RectF(x1, y1, x2, y2)
-    val PersonnagePaint = Paint()
+    private val PersonnagePaint = Paint()
     var dx = 1
     var dy = 0
-    var random = Random()
+    private var random = Random()
     var color = Color.argb(255, random.nextInt(256),
         random.nextInt(256), random.nextInt(256))
     lateinit var drawingView: DrawingView

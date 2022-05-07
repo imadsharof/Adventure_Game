@@ -7,8 +7,8 @@ import java.util.*
 class Balle (var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView) {
 
     val r = RectF(x1, y1, x2, y2)
-    val random = Random()
-    val BallePaint = Paint()
+    private val random = Random()
+    private val BallePaint = Paint()
     var color = Color.argb(255, random.nextInt(256),
         random.nextInt(256), random.nextInt(256))
     var dx = 1

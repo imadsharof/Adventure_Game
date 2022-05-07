@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Adventure Game</string>
+    <string name="results_format">Score : %1$d</string>
+    <string name="reset_game">Nouvelle tentative</string>
+    <string name="win">Tu as gagné !</string>
+    <string name="lose">Tu as perdu !</string>
+    <string name="message">Tu feras mieux la prochaine fois</string>
+    <string name="score">Score : %1$d</string>
 </resources>

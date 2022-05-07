@@ -50,7 +50,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
 
         }
         attack.setOnClickListener {
-            if(drawingView.balle.BalleOnScreen == false){/*Redessine la Balle*/
+            if(!drawingView.balle.BalleOnScreen){/*Redessine la Balle*/
                 drawingView.balle.x1 =drawingView.screenout.x1 / 2f
                 drawingView.balle.y1 = drawingView.screenout.y2/2f + 340f
                 drawingView.balle.x2 =drawingView.screenout.x1/ 2f+30f
