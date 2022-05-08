@@ -22,7 +22,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
     lateinit var jump : Button
     lateinit var personnage: Personnage
     lateinit var attack: Button
-    lateinit var pause: Button
+    /*lateinit var pause: Button*/
     lateinit var balle : Balle
     var balleavance = true
     var mapavance = true
@@ -36,7 +36,6 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         start = findViewById(R.id.start)
         jump = findViewById(R.id.jump)
         attack = findViewById(R.id.attack)
-        pause = findViewById(R.id.pause)
         start.setOnTouchListener(this)
         var lastClickTime = 0L
 
@@ -80,11 +79,6 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
                     }
                     Thread.sleep(15)
                 } }.start()
-        }
-
-        pause.setOnClickListener {
-            pause.isClickable = true
-
         }
 
     }

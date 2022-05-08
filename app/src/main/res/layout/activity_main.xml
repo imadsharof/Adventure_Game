@@ -15,61 +15,48 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+
     <Button
         android:id="@+id/jump"
         android:layout_width="84dp"
         android:layout_height="53dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="210dp"
         android:layout_marginBottom="76dp"
         android:clickable="true"
+        android:visibility="visible"
         android:longClickable="true"
         android:text="JUMP"
-        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vMain"
         app:layout_constraintEnd_toStartOf="@+id/attack"
         app:layout_constraintStart_toStartOf="parent" />
 
-
-    <ImageButton
+    <Button
         android:id="@+id/attack"
-        android:layout_width="58dp"
-        android:layout_height="54dp"
+        android:layout_width="84dp"
+        android:layout_height="50dp"
         android:layout_marginEnd="38dp"
-        android:layout_marginBottom="120dp"
-        android:clickable="true"
+        android:layout_marginBottom="76dp"
         android:text="Attack"
+        android:clickable="true"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/jump"
-        app:layout_constraintTop_toBottomOf="@+id/pause"
-        app:srcCompat="@drawable/attackbutton" />
+        app:layout_constraintStart_toEndOf="@+id/jump" />
 
     <ImageButton
         android:id="@+id/start"
-        android:layout_width="196dp"
-        android:layout_height="92dp"
-        android:layout_marginStart="90dp"
-        android:layout_marginTop="152dp"
+        android:layout_width="184dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="113dp"
+        android:layout_marginTop="146dp"
         android:longClickable="true"
-        android:scaleType="center"
         android:visibility="visible"
+        android:scaleType="center"
         app:layout_constraintStart_toStartOf="@+id/vMain"
         app:layout_constraintTop_toTopOf="@+id/vMain"
-        app:srcCompat="@drawable/buttonplay" />
-
-    <Button
-        android:id="@+id/pause"
-        android:layout_width="80dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="18dp"
-        android:layout_marginBottom="525dp"
-        android:text="Pause"
-        app:layout_constraintBottom_toTopOf="@+id/attack"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/buttonstart" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

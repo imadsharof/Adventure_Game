@@ -204,7 +204,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
 
     fun deplacementcontinue(){
-        score()
+        /*score()*/
         if (player.x2 < screenWidth / 2) {
             player.droite()
             barrevie.droite()
@@ -296,14 +296,14 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         while (drawing) {
             draw()
             if (player.dead) {
-                gameover()
+                /*gameover()*/
                 drawing = false
             }
         }
 
     }
 
-    private fun score() {
+    /*private fun score() {
         if(!lesmonstres[0].MonstresOnScreen){
             score += 2  // 1 monstre tué donne 110 point
         }
@@ -355,7 +355,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             thread = Thread(this)
             thread.start()
         }
-    }
+    }*/
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int,
                                 width: Int, height: Int) {}
