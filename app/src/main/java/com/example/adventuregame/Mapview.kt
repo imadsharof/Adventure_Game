@@ -2,6 +2,9 @@ package com.example.adventuregame
 
 class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView) {
 
+    /* Les valeurs ci-dessous ont été trouvées par essais-erreurs de manière à avoir l'environnement
+    * voulu. La classe Mapview se charge de dessiner la map et ses composantes. */
+
     fun drawsol(sol: Parois) {
         sol.x1 = 0f
         sol.y1 = view.screenHeight / 2f + 375f

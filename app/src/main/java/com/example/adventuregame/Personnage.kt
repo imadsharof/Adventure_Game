@@ -22,7 +22,9 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
     var res: Resources = Resources.getSystem()
     var bitmap = BitmapFactory.decodeResource(res, R.drawable.background_jeu)
 
-    fun draw(canvas: Canvas,red : Int,green : Int, blue : Int) {/* Dessin du personnage représenté par un rectangle*/
+
+    /* Dessin du personnage représenté par un rectangle*/
+    fun draw(canvas: Canvas,red : Int,green : Int, blue : Int) {
         PersonnagePaint.color = Color.rgb(red,green,blue)
         canvas.drawRect(r, PersonnagePaint)
 
@@ -32,6 +34,9 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
         r.set(x1, y1, x2, y2)
     }
 
+
+    /* le personnage se déplace vers le haut et passé un certain délai il redescend. Ce délai est
+    * choisi de manière à rendre le déplacement fluide */
     fun saute() {
         dy = -2
         r.offset(0F*dx, 100.0F*dy)

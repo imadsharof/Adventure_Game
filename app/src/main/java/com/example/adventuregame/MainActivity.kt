@@ -50,6 +50,8 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
             }
 
         }
+
+        /* Utilisation d'un thread pour faire bouger la balle lorsqu'on en a besoin */
         attack.setOnClickListener {
             if(!drawingView.balle.BalleOnScreen){/*Redessine la Balle*/
                 drawingView.balle.x1 =drawingView.screenout.x1 / 2f
@@ -89,6 +91,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         val action = e.action
         val touchPoint = Point(e.x.toInt(), e.y.toInt())
 
+        /* Lorsqu'on appuye sur le bouton start le jeu commence */
         when(v.id) {
             start.id -> {
                 if (action == MotionEvent.ACTION_DOWN) {
@@ -106,7 +109,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
 
         }
         return true
-        }
+    }
 
     override fun onPause() {
         super.onPause()

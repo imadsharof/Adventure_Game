@@ -25,7 +25,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     var screenWidth = 0f
     var screenHeight = 0f
     var gameover = false
-    val activity = context as FragmentActivity
+    private val activity = context as FragmentActivity
 
     val parois = arrayOf(
         Parois(0f, 0f, 0f, 0f, this), /*Sol*/
@@ -36,21 +36,21 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         Parois(0f, 0f, 0f, 0f, this))/*ScreenOut*/
     val personnage = arrayOf(Personnage(0f,0f,0f,0f,this,0), /*Dessin du perso principal*/
                             Personnage(0f,0f,0f,0f,this,0)) /*Dessin barre de vie*/
-    val recompense = Récompense(0f, 0f, 0f, 0f, this)
+    private val recompense = Récompense(0f, 0f, 0f, 0f, this)
 
-    val mapview = Mapview(0f,0f,0f,0f,this)
+    private val mapview = Mapview(0f,0f,0f,0f,this)
     var lesmonstres = ArrayList<Monstres>()
 
     var balle = Balle(0f,0f,0f,0f,this)
 
     val sol = parois[0]
-    val terre = parois[1]
-    val nuage1 = parois[2]
-    val nuage2 = parois[3]
-    val nuage3 = parois[4]
+    private val terre = parois[1]
+    private val nuage1 = parois[2]
+    private val nuage2 = parois[3]
+    private val nuage3 = parois[4]
     val screenout = parois[5]
 
-    val player = personnage[0]
+    private val player = personnage[0]
     var barrevie = personnage[1]
 
     var life = 3
@@ -60,7 +60,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
     init {
         backgroundPaint.color = Color.rgb(0,255,249)
-        /*couleur ciel*/
+        /* couleur ciel */
     }
 
 
@@ -68,6 +68,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         drawing = false
         thread.join()
     }
+
     fun resume() {
         drawing = true
         thread = Thread(this)
@@ -82,6 +83,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         super.onSizeChanged(w, h, oldw, oldh)
         screenWidth = w.toFloat()
         screenHeight = h.toFloat()
+
+        /* On génère aléatoirement les 3 types de monstres */
         val listemonstre = listOf(Grandsmonstres(2000f,screenHeight/2f + 275f,2100f,screenHeight/2f + 375f,this),
             Longsmonstres(2000f,screenHeight/2f + 210f,2050f,screenHeight/2f + 375f,this),
             Petitsmonstres(2000f,screenHeight/2f+300f,2050f,screenHeight/2f + 375f,this))

@@ -9,7 +9,7 @@ import android.graphics.RectF
 import java.util.*
 
 class Petitsmonstres(x1: Float,y1: Float,x2: Float,y2: Float,view: DrawingView):Monstres(x1,y1,x2,y2,view) {
-    val PetitsmonstresPaint = Paint()
+    private val PetitsmonstresPaint = Paint()
     var PetitsmonstresOnScreen = true
     lateinit var drawingView: DrawingView
 
