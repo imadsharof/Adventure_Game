@@ -81,4 +81,29 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
         screenout.y2 =  view.screenHeight
         screenout.setRect()
     }
+
+    fun drawmonstres(){
+        val listemonstre = listOf(Grandsmonstres(2000f,view.screenHeight/2f + 275f,2100f,view.screenHeight/2f + 375f,view),
+            Longsmonstres(2000f,view.screenHeight/2f + 210f,2050f,view.screenHeight/2f + 375f,view),
+            Petitsmonstres(2000f,view.screenHeight/2f+300f,2050f,view.screenHeight/2f + 375f,view))
+        val monstrerandom = listemonstre.random()
+
+        view.lesmonstres.add(monstrerandom)
+        view.lesmonstres[view.nombregamelancee].setRect()
+    }
+
+    fun resetgame(){
+        view.lesmonstres = ArrayList<Monstres>()
+        view.parois = arrayOf(
+            Parois(0f, 0f, 0f, 0f, view), /*Sol*/
+            Parois(0f, 0f, 0f, 0f, view), /*Terre*/
+            Parois(0f, 0f, 0f, 0f, view),/*Nuage1*/
+            Parois(0f, 0f, 0f, 0f, view),/*Nuage2*/
+            Parois(0f, 0f, 0f, 0f, view),/*Nuage3*/
+            Parois(0f, 0f, 0f, 0f, view))/*ScreenOut*/
+        view.personnage = arrayOf(Personnage(0f,0f,0f,0f,view,0), /*Dessin du perso principal*/
+            Personnage(0f,0f,0f,0f,view,0)) /*Dessin barre de vie*/
+        view.recompense = Récompense(0f, 0f, 0f, 0f, view)
+    }
+
 }

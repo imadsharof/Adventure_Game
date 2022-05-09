@@ -26,19 +26,21 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     var screenHeight = 0f
     var gameover = false
     val activity = context as FragmentActivity
+    var nombregamelancee = 0
 
-    val parois = arrayOf(
+
+    var parois = arrayOf(
         Parois(0f, 0f, 0f, 0f, this), /*Sol*/
         Parois(0f, 0f, 0f, 0f, this), /*Terre*/
         Parois(0f, 0f, 0f, 0f, this),/*Nuage1*/
         Parois(0f, 0f, 0f, 0f, this),/*Nuage2*/
         Parois(0f, 0f, 0f, 0f, this),/*Nuage3*/
         Parois(0f, 0f, 0f, 0f, this))/*ScreenOut*/
-    val personnage = arrayOf(Personnage(0f,0f,0f,0f,this,0), /*Dessin du perso principal*/
+    var personnage = arrayOf(Personnage(0f,0f,0f,0f,this,0), /*Dessin du perso principal*/
                             Personnage(0f,0f,0f,0f,this,0)) /*Dessin barre de vie*/
-    val recompense = Récompense(0f, 0f, 0f, 0f, this)
+    var recompense = Récompense(0f, 0f, 0f, 0f, this)
 
-    val mapview = Mapview(0f,0f,0f,0f,this)
+    var mapview = Mapview(0f,0f,0f,0f,this)
     var lesmonstres = ArrayList<Monstres>()
 
     var balle = Balle(0f,0f,0f,0f,this)
@@ -82,10 +84,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         super.onSizeChanged(w, h, oldw, oldh)
         screenWidth = w.toFloat()
         screenHeight = h.toFloat()
-        val listemonstre = listOf(Grandsmonstres(2000f,screenHeight/2f + 275f,2100f,screenHeight/2f + 375f,this),
-            Longsmonstres(2000f,screenHeight/2f + 210f,2050f,screenHeight/2f + 375f,this),
-            Petitsmonstres(2000f,screenHeight/2f+300f,2050f,screenHeight/2f + 375f,this))
-        val monstrerandom = listemonstre.random()
 
         /* Les valeurs ci-dessous ont été trouvé par essais-erreurs */
 
@@ -99,15 +97,9 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         mapview.drawnuage2(nuage2)/*Dessin du Nuage 2*/
         mapview.drawnuage3(nuage3)/*Dessin du Nuage 3*/
         mapview.drawscreenout(screenout)/*Dessin Petit rectangle en dehors du téléphone*/
-
-        /*Dessin monstre au hasard*/
-
-        lesmonstres.add(monstrerandom)
-        lesmonstres[0].setRect()
-
+        mapview.drawmonstres()/*Dessin monstre au hasard*/
 
     }
-
 
     fun draw() {
 
@@ -117,9 +109,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 0f, 0f, canvas.width.toFloat(),
                 canvas.height.toFloat(), backgroundPaint
             )
-            /*var res: Resources = Resources.getSystem()
-            var bitmap = BitmapFactory.decodeResource(res, R.drawable.background_jeu)*/
-
             sol.draw(canvas,0,255,14)
             terre.draw(canvas,103,41,11)
             nuage1.draw(canvas,255,255,255)
@@ -127,9 +116,9 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage3.draw(canvas,255,255,255)
             screenout.draw(canvas,255,255,255)
             recompense.draw(canvas)
-            /*if (!personnage.dead){}*/ player.draw(canvas,0,14,255)
+            player.draw(canvas,0,14,255)
             barrevie.draw(canvas,67,163,62)
-            if(lesmonstres[0].MonstresOnScreen){lesmonstres[0].draw(canvas,255,0,0)}
+            if(lesmonstres[nombregamelancee].MonstresOnScreen){lesmonstres[nombregamelancee].draw(canvas,255,0,0)}
             if(balle.BalleOnScreen){balle.draw(canvas,255,164,0)}
             holder.unlockCanvasAndPost(canvas)
         }
@@ -138,7 +127,9 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
 
     fun deplacementcontinue(){
-        /*score()*/
+        score()
+
+        /*Déplacement du personnage début du jeu*/
         if (player.x2 < screenWidth / 2) {
             player.droite()
             barrevie.droite()
@@ -164,18 +155,18 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             nuage2.deplacementmap()
             nuage3.deplacementmap()
             /*Déplacement monstres*/
-            lesmonstres[0]
-            lesmonstres[0].gauche()
-            lesmonstres[0].x1 -= 10f
-            lesmonstres[0].x2 -= 10f
+            lesmonstres[nombregamelancee]
+            lesmonstres[nombregamelancee].gauche()
+            lesmonstres[nombregamelancee].x1 -= 10f
+            lesmonstres[nombregamelancee].x2 -= 10f
 
-                if ((lesmonstres[0].r.left == player.r.right && lesmonstres[0].r.top < player.r.top) && lesmonstres[0].MonstresOnScreen) { /*Si perso touche monstre*/
+                if ((lesmonstres[nombregamelancee].r.left == player.r.right && lesmonstres[nombregamelancee].r.top < player.r.top) && lesmonstres[nombregamelancee].MonstresOnScreen) { /*Si perso touche monstre*/
                     player.life -= 1
                     barrevie.x2 -= 50f/3
                     barrevie.setRect()
                     barrevie.draw(canvas,67,163,62)
 
-                } else if (lesmonstres[0].r.top == player.r.bottom && lesmonstres[0].MonstresOnScreen) {
+                } else if (lesmonstres[nombregamelancee].r.top == player.r.bottom && lesmonstres[nombregamelancee].MonstresOnScreen) {
                     player.life -= 1
                     barrevie.x2 -= 50f/3
                     barrevie.setRect()
@@ -212,13 +203,13 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                 nuage3.setRect()
             }
 
-            if(lesmonstres[0].x2 == 0f ) {
+            if(lesmonstres[nombregamelancee].x2 == 0f ) {
                 val listedemonstre = listOf(Grandsmonstres(screenWidth ,screenHeight/2f + 275f,screenWidth+100f,screenHeight/2f + 375f,this),
                     Longsmonstres(screenWidth,screenHeight/2f + 210f,screenWidth+50f,screenHeight/2f + 375f,this),
                     Petitsmonstres(screenWidth,screenHeight/2f+300f,screenWidth+50f,screenHeight/2f + 375f,this))
-                lesmonstres[0].MonstresOnScreen = true
+                lesmonstres[nombregamelancee].MonstresOnScreen = true
 
-                lesmonstres.remove(lesmonstres[0])
+                lesmonstres.remove(lesmonstres[nombregamelancee])
                 lesmonstres.add(listedemonstre.random())
             }
 
@@ -280,16 +271,34 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
         )
     }
 
-    fun newGame() {
+    fun newGame() : Boolean {
+        nombregamelancee +=1
+        mapview.drawsol(sol)     /*Dessin du sol : (épaisseur sol = 25f)*/
+        mapview.drawterre(terre) /*Dessin de la Terre*/
+        mapview.drawplayer(player)/* Dessin du personnage :(base personnage = 50f, hauteur = 50f)  */
+        mapview.drawbarrevie(barrevie)/*Dessin de la barre de vie du personnage*/
+        mapview.drawballe(balle)/*Dessin de la balle*/
+        mapview.drawrecompense(recompense)/* Dessin recompense à la fin du jeu */
+        mapview.drawnuage1(nuage1) /*Dessin du Nuage 1*/
+        mapview.drawnuage2(nuage2)/*Dessin du Nuage 2*/
+        mapview.drawnuage3(nuage3)/*Dessin du Nuage 3*/
+        mapview.drawscreenout(screenout)
+        mapview.drawmonstres()/*Dessin Petit rectangle en dehors du téléphone*/
+
         drawing = true
         score = 0
-        run()
+
+
         if (gameover) {
             gameover = false
             thread = Thread(this)
             thread.start()
+
+
         }
+        return true
     }
+
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int,
                                 width: Int, height: Int) {}

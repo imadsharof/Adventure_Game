@@ -66,10 +66,10 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
                 while(balleavance){
                     drawingView.balle.afficheballe()
                     drawingView.balle.droite()
-                    if(drawingView.balle.r.intersect(drawingView.lesmonstres[0].r) && drawingView.lesmonstres[0].MonstresOnScreen){
+                    if(drawingView.balle.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r) && drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen){
                         balleavance = false
                         drawingView.balle.supprimeballe()
-                        drawingView.lesmonstres[0].MonstresOnScreen = false
+                        drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen = false
                         attack.isClickable = true
                     }
                     else if (drawingView.balle.r.left ==drawingView.screenout.r.left ){
@@ -91,13 +91,25 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
 
         when(v.id) {
             start.id -> {
+
                 if (action == MotionEvent.ACTION_DOWN) {
                     Thread {
                         start.visibility = View.INVISIBLE
                         while (mapavance) {
                             drawingView.deplacementcontinue()
-                            if(drawingView.sol.x1 == -5000f  ||drawingView.sol.x1 == -10000f||drawingView.sol.x1 == -15000f||drawingView.sol.x1 == -20000f||drawingView.sol.x1 == -30000f||drawingView.sol.x1 == -35000f||drawingView.sol.x1 == -40000f||drawingView.sol.x1 == -50000f||drawingView.sol.x1 == -60000f ){b -= 1}
+                            if(drawingView.sol.x1 == -5000f  ||
+                                drawingView.sol.x1 == -10000f||
+                                drawingView.sol.x1 == -15000f||
+                                drawingView.sol.x1 == -20000f||
+                                drawingView.sol.x1 == -30000f||
+                                drawingView.sol.x1 == -35000f||
+                                drawingView.sol.x1 == -40000f||
+                                drawingView.sol.x1 == -50000f||
+                                drawingView.sol.x1 == -60000f ){b -= 1}
                             Thread.sleep(b)
+                            /*if (drawingView.newGame()){
+                                start.visibility = View.VISIBLE
+                                mapavance = false}*/
                         }
                     }.start()
                 }
