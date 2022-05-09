@@ -142,7 +142,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
     fun deplacementcontinue(){
         /*score()*/
-        if (player.x2 < screenWidth / 2) {
+        if (player.x2 < screenWidth / 2) { // Le joueur se déplace vers la droite
             player.droite()
             barrevie.droite()
             player.x1 += 10f
@@ -172,7 +172,8 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
             lesmonstres[0].x1 -= 10f
             lesmonstres[0].x2 -= 10f
 
-                if ((lesmonstres[0].r.left == player.r.right && lesmonstres[0].r.top < player.r.top) && lesmonstres[0].MonstresOnScreen) { /*Si perso touche monstre*/
+            /* Si le personnage touche le monstre d'une manière ou d'une autre */
+                if ((lesmonstres[0].r.left == player.r.right && lesmonstres[0].r.top < player.r.top) && lesmonstres[0].MonstresOnScreen) {
                     player.life -= 1
                     barrevie.x2 -= 50f/3
                     barrevie.setRect()
@@ -188,10 +189,7 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
                     player.dead = true
                 }}
 
-
-
-            /*Demander AIDE assistant pour réduire code*/
-
+        /* On met à jour le dessin des nuages */
             if (nuage3.x2 == 1700f) {
                 nuage1.x1 = 1900f
                 nuage1.y1 = 50f
@@ -231,27 +229,32 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
 
     override fun run() {
         while (drawing) {
-            draw()
+            draw()         // le dessin se fait en continu
             if (player.dead) {
-                gameover()
+                gameover()  // fin de la partie
                 drawing = false
             }
         }
 
     }
 
+    /* La fonction score incrémente le score pour le calculer par après */
     private fun score() {
         if(!lesmonstres[0].MonstresOnScreen){
             score += 2  // 1 monstre tué donne 110 point
         }
     }
 
+    /* Quand on perd tout s'arrête */
     private fun gameover() {
         drawing = false
         showGameOverDialog(R.string.lose)
         gameover = true
     }
 
+
+    /* La classe GameResult permet de créer un fragment qui affiche un titre, un message et permet de
+    * relancer la partie. Le fragment permet un gain de cout en mémoire. */
     private fun showGameOverDialog(messageId: Int) {
         class GameResult: DialogFragment() {
             override fun onCreateDialog(bundle: Bundle?): Dialog {
@@ -286,7 +289,6 @@ class DrawingView @JvmOverloads constructor (context: Context, attributes: Attri
     fun newGame() {
         drawing = true
         score = 0
-        run()
         if (gameover) {
             gameover = false
             thread = Thread(this)

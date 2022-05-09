@@ -5,7 +5,7 @@ import android.graphics.Color
 import android.graphics.Paint
 
 class Longsmonstres(x1: Float,y1: Float,x2: Float,y2: Float,view: DrawingView):Monstres(x1,y1,x2,y2,view) {
-    val LongsmonstresPaint = Paint()
+    private val LongsmonstresPaint = Paint()
     var LongsmonstresOnScreen = true
     lateinit var drawingView: DrawingView
 

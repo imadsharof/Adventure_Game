@@ -21,7 +21,7 @@ import java.util.Timer
 import kotlin.concurrent.schedule
 
 class Grandsmonstres(x1: Float,y1: Float,x2: Float,y2: Float,view: DrawingView):Monstres(x1,y1,x2,y2,view) {
-    val GrandsmonstresPaint = Paint()
+    private val GrandsmonstresPaint = Paint()
     var GrandsmonstresOnScreen = true
     lateinit var drawingView: DrawingView
 
