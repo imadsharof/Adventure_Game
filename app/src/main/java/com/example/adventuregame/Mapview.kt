@@ -2,6 +2,7 @@ package com.example.adventuregame
 
 class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView) {
 
+
     fun drawsol(sol: Parois) {
         sol.x1 = 0f
         sol.y1 = view.screenHeight / 2f + 375f
@@ -74,22 +75,44 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
         nuage3.y2 = 100f
         nuage3.setRect()
     }
-    fun drawscreenout(screenout : Parois){
-        screenout.x1 = view.screenWidth
-        screenout.y1 = 0f
-        screenout.x2 = view.screenWidth + 20f
-        screenout.y2 =  view.screenHeight
-        screenout.setRect()
+    fun drawscreenout(screenoutdroite : Parois,screenoutgauche: Parois){
+        screenoutdroite.x1 = view.screenWidth
+        screenoutdroite.y1 = 0f
+        screenoutdroite.x2 = view.screenWidth + 20f
+        screenoutdroite.y2 =  view.screenHeight
+        screenoutdroite.setRect()
+
+        screenoutgauche.x1 = -20f
+        screenoutgauche.y1 = 0f
+        screenoutgauche.x2 = 0f
+        screenoutgauche.y2 = view.screenHeight
+        screenoutgauche.setRect()
     }
 
     fun drawmonstres(){
-        val listemonstre = listOf(Grandsmonstres(2000f,view.screenHeight/2f + 275f,2100f,view.screenHeight/2f + 375f,view),
-            Longsmonstres(2000f,view.screenHeight/2f + 210f,2050f,view.screenHeight/2f + 375f,view),
+
+        val listemonstre = listOf(
+            Grandsmonstres(2000f,view.screenHeight/2f + 275f,2100f,view.screenHeight/2f + 375f,view),
+            Longsmonstres(2000f,view.screenHeight/2f +20f,2050f,view.screenHeight/2f + 375f,view),
             Petitsmonstres(2000f,view.screenHeight/2f+300f,2050f,view.screenHeight/2f + 375f,view))
         val monstrerandom = listemonstre.random()
 
         view.lesmonstres.add(monstrerandom)
         view.lesmonstres[view.nombregamelancee].setRect()
+    }
+
+    fun dessindelamap(){
+        drawsol(view.sol)     /*Dessin du sol : (épaisseur sol = 25f)*/
+        drawterre(view.terre) /*Dessin de la Terre*/
+        drawplayer(view.player)/* Dessin du personnage :(base personnage = 50f, hauteur = 50f)  */
+        drawbarrevie(view.barrevie)/*Dessin de la barre de vie du personnage*/
+        drawballe(view.balle)/*Dessin de la balle*/
+        drawrecompense(view.recompense)/* Dessin recompense à la fin du jeu */
+        drawnuage1(view.nuage1) /*Dessin du Nuage 1*/
+        drawnuage2(view.nuage2)/*Dessin du Nuage 2*/
+        drawnuage3(view.nuage3)/*Dessin du Nuage 3*/
+        drawscreenout(view.screenoutdroite,view.screenoutgauche)
+        drawmonstres()/*Dessin Petit rectangle en dehors du téléphone*/
     }
 
     fun resetgame(){

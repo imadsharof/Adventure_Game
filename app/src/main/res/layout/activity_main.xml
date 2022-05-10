@@ -15,48 +15,74 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
-    <Button
+    <ImageView
         android:id="@+id/jump"
         android:layout_width="84dp"
         android:layout_height="53dp"
         android:layout_marginStart="20dp"
-        android:layout_marginEnd="210dp"
-        android:layout_marginBottom="76dp"
+        android:layout_marginBottom="44dp"
         android:clickable="true"
-        android:visibility="visible"
         android:longClickable="true"
         android:text="JUMP"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="@+id/vMain"
         app:layout_constraintEnd_toStartOf="@+id/attack"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/jump"/>
 
-    <Button
-        android:id="@+id/attack"
-        android:layout_width="84dp"
-        android:layout_height="50dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="76dp"
-        android:text="Attack"
-        android:clickable="true"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/jump" />
-
-    <ImageButton
+    <ImageView
         android:id="@+id/start"
-        android:layout_width="184dp"
-        android:layout_height="85dp"
-        android:layout_marginStart="113dp"
-        android:layout_marginTop="146dp"
+        android:layout_width="237dp"
+        android:layout_height="76dp"
+        android:layout_marginStart="84dp"
+        android:layout_marginTop="124dp"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+        android:focusable="true"
         android:longClickable="true"
+        android:scaleType="fitXY"
         android:visibility="visible"
-        android:scaleType="center"
         app:layout_constraintStart_toStartOf="@+id/vMain"
         app:layout_constraintTop_toTopOf="@+id/vMain"
-        app:srcCompat="@drawable/buttonstart" />
+        app:srcCompat="@drawable/pressstart" />
+
+    <ImageView
+        android:id="@+id/attack"
+        android:layout_width="123dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="272dp"
+        android:layout_marginBottom="44dp"
+        android:adjustViewBounds="true"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toBottomOf="@+id/vMain"
+        app:layout_constraintStart_toStartOf="@+id/vMain"
+        app:srcCompat="@drawable/attack" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        android:alpha="@dimen/material_emphasis_high_type"
+        android:background="#FFF300"
+        android:text="Score : 0"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="@+id/vMain"
+        app:layout_constraintTop_toTopOf="@+id/vMain" />
+
+    <TextView
+        android:id="@+id/vie"
+        android:layout_width="85dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="4dp"
+        android:background="#2DAE10"
+        android:text="Vie : 3"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintStart_toStartOf="@+id/vMain"
+        app:layout_constraintTop_toBottomOf="@+id/score" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
