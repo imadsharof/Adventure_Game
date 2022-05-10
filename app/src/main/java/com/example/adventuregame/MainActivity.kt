@@ -121,7 +121,7 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
                     drawingView.balle.afficheballe()
                     drawingView.balle.droite()
                     if(drawingView.balle.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r)
-                        //&& drawingView.mapview.mon
+                        && drawingView.lesmonstres[drawingView.nombregamelancee].numero == 1
                         && drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen){
                         drawingView.score(100)
                         runOnUiThread(

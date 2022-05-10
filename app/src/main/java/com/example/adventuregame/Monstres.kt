@@ -20,7 +20,7 @@ import androidx.core.graphics.createBitmap
 import java.util.Timer
 import kotlin.concurrent.schedule
 
-open class Monstres(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView){
+open class Monstres(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView,var numero : Int){
     val r = RectF(x1, y1, x2, y2)
     val MonstresPaint = Paint()
     var dx = 1

@@ -20,10 +20,11 @@ import androidx.core.graphics.createBitmap
 import java.util.Timer
 import kotlin.concurrent.schedule
 
-class Grandsmonstres(x1: Float,y1: Float,x2: Float,y2: Float,view: DrawingView):Monstres(x1,y1,x2,y2,view) {
+class Grandsmonstres(x1: Float,y1: Float,x2: Float,y2: Float,view: DrawingView, numero : Int):Monstres(x1,y1,x2,y2,view,numero) {
     private val GrandsmonstresPaint = Paint()
     var GrandsmonstresOnScreen = true
     lateinit var drawingView: DrawingView
+
 
     override fun draw(canvas: Canvas, red: Int, green: Int, blue: Int) {
         super.draw(canvas, red, green, blue)

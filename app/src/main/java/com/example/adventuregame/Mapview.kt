@@ -90,9 +90,9 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
     }
 
     fun drawmonstres(){
-        val grandsmonstres =Grandsmonstres(view.screenWidth ,view.screenHeight/2f + 275f,view.screenWidth+100f,view.screenHeight/2f + 375f,view)
-        val longsmonstres = Longsmonstres(view.screenWidth,view.screenHeight/2f +20f,view.screenWidth+50f,view.screenHeight/2f + 375f,view)
-        val petitsmonstres = Petitsmonstres(view.screenWidth,view.screenHeight/2f+300f,view.screenWidth+50f,view.screenHeight/2f + 375f,view)
+        val grandsmonstres =Grandsmonstres(view.screenWidth ,view.screenHeight/2f + 275f,view.screenWidth+100f,view.screenHeight/2f + 375f,view,2)
+        val longsmonstres = Longsmonstres(view.screenWidth,view.screenHeight/2f +20f,view.screenWidth+50f,view.screenHeight/2f + 375f,view,1)
+        val petitsmonstres = Petitsmonstres(view.screenWidth,view.screenHeight/2f+300f,view.screenWidth+50f,view.screenHeight/2f + 375f,view,0)
 
         val listemonstre = listOf(
             grandsmonstres,

@@ -210,9 +210,9 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
             }
 
             if(lesmonstres[nombregamelancee].x2 == 0f ) {
-                val grandsmonstres =Grandsmonstres(screenWidth ,screenHeight/2f + 275f,screenWidth+100f,screenHeight/2f + 375f,this)
-                val longsmonstres = Longsmonstres(screenWidth,screenHeight/2f +20f,screenWidth+50f,screenHeight/2f + 375f,this)
-                val petitsmonstres = Petitsmonstres(screenWidth,screenHeight/2f+300f,screenWidth+50f,screenHeight/2f + 375f,this)
+                val grandsmonstres =Grandsmonstres(screenWidth ,screenHeight/2f + 275f,screenWidth+100f,screenHeight/2f + 375f,this,2)
+                val longsmonstres = Longsmonstres(screenWidth,screenHeight/2f +20f,screenWidth+50f,screenHeight/2f + 375f,this,1)
+                val petitsmonstres = Petitsmonstres(screenWidth,screenHeight/2f+300f,screenWidth+50f,screenHeight/2f + 375f,this,0)
                 val listedemonstre = listOf(
                     grandsmonstres,
                     longsmonstres,
@@ -221,6 +221,7 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
                 /*lesmonstres.remove(lesmonstres[nombregamelancee])
                 lesmonstres.add(listedemonstre.random())*/
                 lesmonstres.set(0,listedemonstre.random())
+
 
             }
 
