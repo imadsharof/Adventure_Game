@@ -37,10 +37,10 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
     }
 
     fun drawballe(balle: Balle){
-        balle.x1 =view.screenWidth / 2f
+        balle.x1 =view.screenWidth/2f
         balle.y1 = view.screenHeight/2f + 340f
-        balle.x2 =view.screenWidth / 2f+30f
-        balle.y2 = view.screenHeight/2f + 360f
+        balle.x2 =(view.screenWidth /2f )+ 30f
+        balle.y2 = (view.screenHeight/2f) + 360f
         balle.setRect()
     }
 
@@ -90,11 +90,14 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
     }
 
     fun drawmonstres(){
+        val grandsmonstres =Grandsmonstres(view.screenWidth ,view.screenHeight/2f + 275f,view.screenWidth+100f,view.screenHeight/2f + 375f,view)
+        val longsmonstres = Longsmonstres(view.screenWidth,view.screenHeight/2f +20f,view.screenWidth+50f,view.screenHeight/2f + 375f,view)
+        val petitsmonstres = Petitsmonstres(view.screenWidth,view.screenHeight/2f+300f,view.screenWidth+50f,view.screenHeight/2f + 375f,view)
 
         val listemonstre = listOf(
-            Grandsmonstres(2000f,view.screenHeight/2f + 275f,2100f,view.screenHeight/2f + 375f,view),
-            Longsmonstres(2000f,view.screenHeight/2f +20f,2050f,view.screenHeight/2f + 375f,view),
-            Petitsmonstres(2000f,view.screenHeight/2f+300f,2050f,view.screenHeight/2f + 375f,view))
+            grandsmonstres,
+            longsmonstres,
+            petitsmonstres)
         val monstrerandom = listemonstre.random()
 
         view.lesmonstres.add(monstrerandom)

@@ -66,7 +66,7 @@
         android:id="@+id/score"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#FFF300"
+        android:background="#F63B00"
         android:text="Score : 0"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         tools:layout_editor_absoluteX="0dp"
@@ -76,13 +76,11 @@
         android:id="@+id/vie"
         android:layout_width="85dp"
         android:layout_height="29dp"
-        android:background="#2DAE10"
+        android:background="#FF9800"
         android:text="Vie : 3"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="@+id/vMain"
-        app:layout_constraintTop_toBottomOf="@+id/score"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp" />
+        app:layout_constraintTop_toBottomOf="@+id/score" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
