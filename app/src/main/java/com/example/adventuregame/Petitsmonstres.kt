@@ -19,4 +19,18 @@ class Petitsmonstres(x1: Float,y1: Float,x2: Float,y2: Float,view: DrawingView,n
         PetitsmonstresPaint.color = Color.BLACK
         canvas.drawRect(r, PetitsmonstresPaint)
     }
+
+    override fun attack() {
+        /*Si perso touche le monstre*/
+        if ((view.lesmonstres[view.nombregamelancee].r.left == view.player.r.right &&
+                    view.lesmonstres[view.nombregamelancee].r.top < view.player.r.bottom) &&
+            view.lesmonstres[view.nombregamelancee].MonstresOnScreen
+        ) { /*Si perso touche monstre*/
+            view.player.life -= 4
+            view.barrevie.x2 -= (50f / view.facteurdiminutionbarredevie)*4
+            view.barrevie.setRect()
+            view.barrevie.draw(view.canvas, 0, 255, 14)
+
+        }
+    }
 }

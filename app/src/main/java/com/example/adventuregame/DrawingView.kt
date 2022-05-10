@@ -44,7 +44,6 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
         Parois(0f, 0f, 0f, 0f, this))/*ScreenOutGauche*/
     var personnage = arrayOf(Personnage(0f,0f,0f,0f,this,0,context), /*Dessin du perso principal*/
                             Personnage(0f,0f,0f,0f,this,0,context)) /*Dessin barre de vie*/
-    var recompense = Récompense(0f, 0f, 0f, 0f, this)
 
     var mapview = Mapview(0f,0f,0f,0f,this,context)
 
@@ -67,7 +66,7 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
 
     var random = java.util.Random()
     var score = 0
-    val facteurdiminutionbarredevie = 4
+    val facteurdiminutionbarredevie = 10
 
 
 
@@ -100,7 +99,7 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
 
     }
 
-    fun draw() {
+    fun draw() { /*Dessinr le jeu complet*/
 
         if (holder.surface.isValid) {
             canvas = holder.lockCanvas()
@@ -115,7 +114,6 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
             nuage3.draw(canvas,255,255,255)
             screenoutgauche.draw(canvas,255,255,255)
             screenoutdroite.draw(canvas,255,255,255)
-            recompense.draw(canvas)
             player.draw(canvas,0,14,255)
             barrevie.draw(canvas,0,255,14)
             if(lesmonstres[nombregamelancee].MonstresOnScreen){lesmonstres[nombregamelancee].draw(canvas,255,0,0)}
@@ -127,113 +125,31 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
 
 
 
-    fun deplacementcontinue(){
+    fun deplacementcontinue() {
 
-        /*Déplacement du personnage début du jeu*/
-        if (player.x2 < screenWidth / 2) {
-            player.droite()
-            barrevie.droite()
-            player.x1 += 10f
-            barrevie.x1 += 10f
-            player.x2 += 10f
-            barrevie.x2 += 10f
+        player.animationdebutjeu() /*Animation déplacement du personnage début du jeu*/
+        nuage1.animationdesnuages() /*Animation des nuages*/
+        sol.deplacementsol() /*Déplacement du sol à l'infini*/
+        potionvie[nombregamelancee].deplacementpotiondevie() /*Déplacement de la potion de vie*/
+        lesmonstres[nombregamelancee].deplacementmonstres() /*Déplacement des monstres*/
 
-        }
-
-        /*Déplacement des nuages et maps*/
-        else if (player.x2 >= screenWidth / 2f ) {
-            nuage1.x1 -= 20f
-            nuage1.x2 -= 20f
-            nuage2.x1 -= 20f
-            nuage2.x2 -= 20f
-            nuage3.x1 -= 20f
-            nuage3.x2 -= 20f
-            sol.x1 -= 10f
-            sol.x2 -= 10f
-            sol.deplacementmap()
-            nuage1.deplacementmap()
-            nuage2.deplacementmap()
-            nuage3.deplacementmap()
-            /*Déplacement monstres*/
-            potionvie[nombregamelancee].gauche()
-            potionvie[nombregamelancee].x1 -= 10f
-            potionvie[nombregamelancee].x2 -= 10f
-
-            lesmonstres[nombregamelancee].gauche()
-            lesmonstres[nombregamelancee].x1 -= 10f
-            lesmonstres[nombregamelancee].x2 -= 10f
-
-            if ((lesmonstres[nombregamelancee].r.left == player.r.right && lesmonstres[nombregamelancee].r.top < player.r.bottom) && lesmonstres[nombregamelancee].MonstresOnScreen) { /*Si perso touche monstre*/
-                player.life -=1
-                if (player.y2 == screenHeight / 2f + 375f) {
-                    barrevie.x2 -= 50f / facteurdiminutionbarredevie
-                    barrevie.setRect()
-                    barrevie.draw(canvas, 0,255,14)
-                }
-                else {Timer("SettingUp", false).schedule(500) {
-                    barrevie.x2 -= 50f / facteurdiminutionbarredevie
-                    barrevie.setRect()
-                    barrevie.draw(canvas, 0,255,14)}}
-
+            /*Reconait quel monstre le joueur a touché et attaque différemment selon le monstre touché*/
+        if (lesmonstres[nombregamelancee].numero == 0) {
+            lesmonstres[nombregamelancee].attack()
+            }
+        else if (lesmonstres[nombregamelancee].numero == 1) {
+            lesmonstres[nombregamelancee].attack()
+            }
+        else if (lesmonstres[nombregamelancee].numero == 2) {
+            lesmonstres[nombregamelancee].attack()
             }
 
-            if(potionvie[nombregamelancee].r.left == player.r.right){ /*Si joueur touche une potion de vie
-            */potionvie[nombregamelancee].PotionvieScreen = false
-                if (player.life != facteurdiminutionbarredevie){
-                    player.life += 1
-                    barrevie.x2 += 50f / facteurdiminutionbarredevie
-                    barrevie.setRect()
-                    barrevie.draw(canvas, 67, 163, 62) }
-            }
+        potionvie[nombregamelancee].regenerevie() /*Si joueur touche potion, il gagne de la vie*/
+        player.estilmort() /*Vérifie si le joueur est mort*/
+        lesmonstres[nombregamelancee].estilparti()/*Vérifie si le monstre est bien sorti de l'écran afin d'ajouter un nouveau monstre random*/
+        potionvie[nombregamelancee].estilparti() /*Redessinee de la potion de vie lorsqu'elle sort de l'écran*/
 
-
-                if (player.life == 0) {
-                    player.dead = true
-                }}
-
-
-
-            /*Demander AIDE assistant pour réduire code*/
-
-            if (nuage3.x2 == 1700f) {
-                nuage1.x1 = 1900f
-                nuage1.y1 = 50f
-                nuage1.x2 = 2600f
-                nuage1.y2 = 100f
-                nuage1.setRect()
-                nuage1.draw(canvas, 255, 255, 255)
-
-            } else if (nuage3.x2 == 800f) {
-                nuage2.x1 = 1900f
-                nuage2.y1 = 50f
-                nuage2.x2 = 2600f
-                nuage2.y2 = 100f
-                nuage2.setRect()
-                nuage2.draw(canvas, 255, 255, 255)
-            } else if (nuage1.x1 == 100f) {
-                nuage3.x1 = 1900f
-                nuage3.y1 = 50f
-                nuage3.x2 = 2600f
-                nuage3.y2 = 100f
-                nuage3.setRect()
-            }
-
-            if(lesmonstres[nombregamelancee].x2 == 0f ) { /*Redessine un monstre random lorsqu'un monstre sort de l'écran*/
-                val grandsmonstres =Grandsmonstres(screenWidth ,screenHeight/2f + 275f,screenWidth+100f,screenHeight/2f + 375f,this,2)
-                val longsmonstres = Longsmonstres(screenWidth,screenHeight/2f +20f,screenWidth+50f,screenHeight/2f + 375f,this,1)
-                val petitsmonstres = Petitsmonstres(screenWidth,screenHeight/2f+300f,screenWidth+50f,screenHeight/2f + 375f,this,0)
-                val listedemonstre = listOf(grandsmonstres, longsmonstres, petitsmonstres)
-                lesmonstres[nombregamelancee].MonstresOnScreen = true
-                lesmonstres.set(0,listedemonstre.random())
-
-
-            }
-        if(potionvie[nombregamelancee].x2 == 0f){ /*Redessinee de la potion de vie lorsqu'elle sort de l'écran*/
-            potionvie[nombregamelancee].PotionvieScreen = true
-            potionvie.set(0,Potionvie(20000f,(screenHeight/2f) + 330f,20030f,screenHeight/2f + 360f,this))
-        }
-
-        }
+    }
 
 
 
@@ -248,7 +164,8 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
 
     }
 
-    fun accelerelejeu(){
+    fun accelerelejeu(){ /*Crééons de la complexité au jeu :
+    plus le joueur avance, plus la vitesse du jeu augmente*/
         if(sol.x1 == -5000f  ||
             sol.x1 == -10000f||
             sol.x1 == -15000f||
@@ -258,7 +175,6 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
             sol.x1 == -40000f||
             sol.x1 == -50000f||
             sol.x1 == -60000f ){(activity as MainActivity).b -= 1}
-
     }
 
 
@@ -267,7 +183,7 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
         if(a ==0){score = 0} //Réinitialise le score à 0
     }
 
-    private fun gameover() {
+    private fun gameover() {/*La partie est perdue, interruptiond des threads*/
         drawing = false
         showGameOverDialog(R.string.lose)
         gameover = true
@@ -304,7 +220,7 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
         )
     }
 
-    fun newGame() : Boolean {
+    fun newGame() : Boolean { /*Relance une nouvelle partie*/
         nombregamelancee +=1
         mapview.dessindelamap()
         drawing = true

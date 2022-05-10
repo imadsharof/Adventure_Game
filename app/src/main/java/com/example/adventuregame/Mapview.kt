@@ -26,7 +26,7 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
         player.y1 = view.screenHeight/2f + 325f /*personnage.y1 = personnage.y2 - 100f*/
         player.x2 = 100f /*longueur perso = x2 - x1 = 50 f*/
         player.y2 = view.screenHeight/2f + 375f /*personnage.y2 = sol.y1*/
-        player.life = 4
+        player.life = 10
         player.setRect()
     }
 

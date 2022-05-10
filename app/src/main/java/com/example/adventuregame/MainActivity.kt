@@ -53,12 +53,6 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
         fun playSoundattack(){
             soundPool?.play(soundattack, 1F, 1F, 0, 0, 1F)
         }
-        /*Thread{runOnUiThread(
-            Runnable {
-                vietext.setText("Vie : ${drawingView.life}")
-            })
-
-        }.start()*/
 
         drawingView = findViewById<DrawingView>(R.id.vMain)
 
@@ -85,81 +79,15 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
                 return@setOnClickListener
             }
             lastClickTime = SystemClock.elapsedRealtime()
-            drawingView.player.saute()
-            drawingView.barrevie.saute()
-            //if(!drawingView.player.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r)){
-            if(drawingView.player.r.bottom<drawingView.lesmonstres[drawingView.nombregamelancee].r.top
-                &&drawingView.lesmonstres[drawingView.nombregamelancee].x1 >( drawingView.screenWidth/2f)
-                &&drawingView.lesmonstres[drawingView.nombregamelancee].x1 <( drawingView.screenWidth)
-                &&drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen){
-                drawingView.score(50)
-                runOnUiThread(
-                    Runnable {
-                        scoretext.setText("Score : ${drawingView.score}")
-
-                    })
-            }
-
-
-
-           // }
+            drawingView.player.jump()
 
         }
-
         attack.setOnClickListener {
             playSoundattack()
-            attack.isClickable = false
-            if(!drawingView.balle.BalleOnScreen){/*Redessine la Balle*/
-                drawingView.mapview.drawballe(drawingView.balle)
-                drawingView.balle.draw(drawingView.canvas,255,164,0)
-            }
-            drawingView.balle.afficheballe()
-            balleavance = true
-             Thread{
-                 attack.isClickable = false
-                while(balleavance) {
-                    drawingView.balle.afficheballe()
-                    drawingView.balle.droite()
-                    if (drawingView.balle.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r)
-                        &&( drawingView.lesmonstres[drawingView.nombregamelancee].numero == 1 || drawingView.lesmonstres[drawingView.nombregamelancee].numero == 0 )
-                        && drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen
-                    ) {
-                        drawingView.score(100)
-                        runOnUiThread(
-                            Runnable {
-                                scoretext.setText(
-                                    "Score : ${drawingView.score}"
-                                )
-
-                            })
-                        balleavance = false
-                        drawingView.balle.supprimeballe()
-                        drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen =
-                            false
-                        attack.isClickable = true
-                    }
-
-                    else if (drawingView.balle.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r)
-                        && drawingView.lesmonstres[drawingView.nombregamelancee].numero == 2){
-                        balleavance = false
-                        drawingView.balle.supprimeballe()
-                        attack.isClickable = true
-                    }
-                    else if (drawingView.balle.r.left ==drawingView.screenoutdroite.r.left ){
-                        balleavance = false
-                        drawingView.balle.supprimeballe()
-                        attack.isClickable = true
-                    }
-                    Thread.sleep(15)
-                }}.start()
-
+            drawingView.player.attack()
         }
 
     }
-
-
-
-
 
     override fun onTouch(v : View, e : MotionEvent) : Boolean {
         val action = e.action

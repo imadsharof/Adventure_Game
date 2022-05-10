@@ -61,58 +61,91 @@ class Personnage(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var 
         saute = false
     }
 
+    fun jump(){
+        view.player.saute()
+        view.barrevie.saute()
+        //if(!drawingView.player.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r)){
+        if(view.player.r.bottom<view.lesmonstres[view.nombregamelancee].r.top
+            &&view.lesmonstres[view.nombregamelancee].x1 >( view.screenWidth/2f)
+            &&view.lesmonstres[view.nombregamelancee].x1 <( view.screenWidth)
+            &&view.lesmonstres[view.nombregamelancee].MonstresOnScreen){
+            view.score(50)
+            (activity as MainActivity).runOnUiThread(
+                Runnable {
+                    (activity as MainActivity).scoretext.setText("Score : ${view.score}")
+
+                })
+        }
+    }
+
     fun droite() {
         dx = 1
         r.offset(10.0F*dx,0.0F*dy)
     }
 
-    /*fun attack(){
+    fun attack(){
         (activity as MainActivity).attack.isClickable = false
-        if(!drawingView.balle.BalleOnScreen){/*Redessine la Balle*/
-            drawingView.mapview.drawballe(drawingView.balle)
-            drawingView.balle.draw(drawingView.canvas,255,164,0)
+        if(!view.balle.BalleOnScreen){/*Redessine la Balle*/
+            view.mapview.drawballe(view.balle)
+            view.balle.draw(view.canvas,255,164,0)
         }
-        drawingView.balle.afficheballe()
-        balleavance = true
+        view.balle.afficheballe()
+        (activity as MainActivity).balleavance = true
         Thread{
-            attack.isClickable = false
-            while(balleavance) {
-                drawingView.balle.afficheballe()
-                drawingView.balle.droite()
-                if (drawingView.balle.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r)
-                    &&( drawingView.lesmonstres[drawingView.nombregamelancee].numero == 1 || drawingView.lesmonstres[drawingView.nombregamelancee].numero == 0 )
-                    && drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen
+            (activity as MainActivity).attack.isClickable = false
+            while((activity as MainActivity).balleavance) {
+                view.balle.afficheballe()
+                view.balle.droite()
+                if (view.balle.r.intersect(view.lesmonstres[view.nombregamelancee].r)
+                    &&( view.lesmonstres[view.nombregamelancee].numero == 1 || view.lesmonstres[view.nombregamelancee].numero == 0 )
+                    && view.lesmonstres[view.nombregamelancee].MonstresOnScreen
                 ) {
-                    drawingView.score(100)
-                    runOnUiThread(
+                    view.score(100)
+                    (activity as MainActivity).runOnUiThread(
                         Runnable {
-                            scoretext.setText(
-                                "Score : ${drawingView.score}"
+                            (activity as MainActivity).scoretext.setText(
+                                "Score : ${view.score}"
                             )
 
                         })
-                    balleavance = false
-                    drawingView.balle.supprimeballe()
-                    drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen =
+                    (activity as MainActivity).balleavance = false
+                    view.balle.supprimeballe()
+                    view.lesmonstres[view.nombregamelancee].MonstresOnScreen =
                         false
-                    attack.isClickable = true
+                    (activity as MainActivity).attack.isClickable = true
                 }
 
-                else if (drawingView.balle.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r)
-                    && drawingView.lesmonstres[drawingView.nombregamelancee].numero == 2){
-                    balleavance = false
-                    drawingView.balle.supprimeballe()
-                    attack.isClickable = true
+                else if (view.balle.r.intersect(view.lesmonstres[view.nombregamelancee].r)
+                    && view.lesmonstres[view.nombregamelancee].numero == 2){
+                    (activity as MainActivity).balleavance = false
+                    view.balle.supprimeballe()
+                    (activity as MainActivity).attack.isClickable = true
                 }
-                else if (drawingView.balle.r.left ==drawingView.screenoutdroite.r.left ){
-                    balleavance = false
-                    drawingView.balle.supprimeballe()
-                    attack.isClickable = true
+                else if (view.balle.r.left ==view.screenoutdroite.r.left ){
+                    (activity as MainActivity). balleavance = false
+                    view.balle.supprimeballe()
+                    (activity as MainActivity).attack.isClickable = true
                 }
                 Thread.sleep(15)
             }}.start()
 
-    }*/
+    }
+
+    fun animationdebutjeu() {
+        if (view.player.x2 < view.screenWidth / 2) {
+            view.player.droite()
+            view.barrevie.droite()
+            view.player.x1 += 10f
+            view.barrevie.x1 += 10f
+            view.player.x2 += 10f
+            view.barrevie.x2 += 10f
+        }
+    }
+
+    fun estilmort(){
+        if (view.player.life <= 0 ) {
+            dead = true
+        }}
 
 
 }
