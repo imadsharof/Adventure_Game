@@ -42,15 +42,16 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
         Parois(0f, 0f, 0f, 0f, this),/*Nuage3*/
         Parois(0f, 0f, 0f, 0f, this),/*ScreenOutdroite*/
         Parois(0f, 0f, 0f, 0f, this))/*ScreenOutGauche*/
-    var personnage = arrayOf(Personnage(0f,0f,0f,0f,this,0), /*Dessin du perso principal*/
-                            Personnage(0f,0f,0f,0f,this,0)) /*Dessin barre de vie*/
+    var personnage = arrayOf(Personnage(0f,0f,0f,0f,this,0,context), /*Dessin du perso principal*/
+                            Personnage(0f,0f,0f,0f,this,0,context)) /*Dessin barre de vie*/
     var recompense = Récompense(0f, 0f, 0f, 0f, this)
 
-    var mapview = Mapview(0f,0f,0f,0f,this)
+    var mapview = Mapview(0f,0f,0f,0f,this,context)
 
     var balle = Balle(0f,0f,0f,0f,this)
 
     var lesmonstres = ArrayList<Monstres>()
+    var potionvie = ArrayList<Potionvie>()
 
     val sol = parois[0]
     val terre = parois[1]
@@ -63,13 +64,15 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
     val player = personnage[0]
     var barrevie = personnage[1]
 
-    var life = 3
+
     var random = java.util.Random()
     var score = 0
+    val facteurdiminutionbarredevie = 4
+
 
 
     init {
-        backgroundPaint.color = Color.rgb(0,255,249)
+        backgroundPaint.color = Color.rgb(153,204,255)
         /*couleur ciel*/
     }
 
@@ -105,7 +108,7 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
                 0f, 0f, canvas.width.toFloat(),
                 canvas.height.toFloat(), backgroundPaint
             )
-            sol.draw(canvas,0,255,14)
+            sol.draw(canvas,0,102,0)
             terre.draw(canvas,103,41,11)
             nuage1.draw(canvas,255,255,255)
             nuage2.draw(canvas,255,255,255)
@@ -114,9 +117,10 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
             screenoutdroite.draw(canvas,255,255,255)
             recompense.draw(canvas)
             player.draw(canvas,0,14,255)
-            barrevie.draw(canvas,67,163,62)
+            barrevie.draw(canvas,0,255,14)
             if(lesmonstres[nombregamelancee].MonstresOnScreen){lesmonstres[nombregamelancee].draw(canvas,255,0,0)}
             if(balle.BalleOnScreen){balle.draw(canvas,255,164,0)}
+            potionvie[nombregamelancee].draw(canvas,0,255,14)
             holder.unlockCanvasAndPost(canvas)
         }
     }
@@ -151,33 +155,38 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
             nuage2.deplacementmap()
             nuage3.deplacementmap()
             /*Déplacement monstres*/
-            lesmonstres[nombregamelancee]
+            potionvie[nombregamelancee].gauche()
+            potionvie[nombregamelancee].x1 -= 10f
+            potionvie[nombregamelancee].x2 -= 10f
+
             lesmonstres[nombregamelancee].gauche()
             lesmonstres[nombregamelancee].x1 -= 10f
             lesmonstres[nombregamelancee].x2 -= 10f
 
             if ((lesmonstres[nombregamelancee].r.left == player.r.right && lesmonstres[nombregamelancee].r.top < player.r.bottom) && lesmonstres[nombregamelancee].MonstresOnScreen) { /*Si perso touche monstre*/
-                player.life -= 1
+                player.life -=1
                 if (player.y2 == screenHeight / 2f + 375f) {
-                    barrevie.x2 -= 50f / 3
+                    barrevie.x2 -= 50f / facteurdiminutionbarredevie
                     barrevie.setRect()
-                    barrevie.draw(canvas, 67, 163, 62)
+                    barrevie.draw(canvas, 0,255,14)
                 }
                 else {Timer("SettingUp", false).schedule(500) {
-                    barrevie.x2 -= 50f / 3
+                    barrevie.x2 -= 50f / facteurdiminutionbarredevie
                     barrevie.setRect()
-                    barrevie.draw(canvas, 67, 163, 62)}}
+                    barrevie.draw(canvas, 0,255,14)}}
 
             }
 
-
-
-            /* else if (lesmonstres[nombregamelancee].r.top == player.r.bottom && lesmonstres[nombregamelancee].MonstresOnScreen) {
-                    player.life -= 1
-                    barrevie.x2 -= 50f/3
+            if(potionvie[nombregamelancee].r.left == player.r.right){ /*Si joueur touche une potion de vie
+            */potionvie[nombregamelancee].PotionvieScreen = false
+                if (player.life != facteurdiminutionbarredevie){
+                    player.life += 1
+                    barrevie.x2 += 50f / facteurdiminutionbarredevie
                     barrevie.setRect()
-                    barrevie.draw(canvas,67,163,62)
-                }*/
+                    barrevie.draw(canvas, 67, 163, 62) }
+            }
+
+
                 if (player.life == 0) {
                     player.dead = true
                 }}
@@ -209,21 +218,20 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
                 nuage3.setRect()
             }
 
-            if(lesmonstres[nombregamelancee].x2 == 0f ) {
+            if(lesmonstres[nombregamelancee].x2 == 0f ) { /*Redessine un monstre random lorsqu'un monstre sort de l'écran*/
                 val grandsmonstres =Grandsmonstres(screenWidth ,screenHeight/2f + 275f,screenWidth+100f,screenHeight/2f + 375f,this,2)
                 val longsmonstres = Longsmonstres(screenWidth,screenHeight/2f +20f,screenWidth+50f,screenHeight/2f + 375f,this,1)
                 val petitsmonstres = Petitsmonstres(screenWidth,screenHeight/2f+300f,screenWidth+50f,screenHeight/2f + 375f,this,0)
-                val listedemonstre = listOf(
-                    grandsmonstres,
-                    longsmonstres,
-                petitsmonstres)
+                val listedemonstre = listOf(grandsmonstres, longsmonstres, petitsmonstres)
                 lesmonstres[nombregamelancee].MonstresOnScreen = true
-                /*lesmonstres.remove(lesmonstres[nombregamelancee])
-                lesmonstres.add(listedemonstre.random())*/
                 lesmonstres.set(0,listedemonstre.random())
 
 
             }
+        if(potionvie[nombregamelancee].x2 == 0f){ /*Redessinee de la potion de vie lorsqu'elle sort de l'écran*/
+            potionvie[nombregamelancee].PotionvieScreen = true
+            potionvie.set(0,Potionvie(20000f,(screenHeight/2f) + 330f,20030f,screenHeight/2f + 360f,this))
+        }
 
         }
 
@@ -240,16 +248,23 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
 
     }
 
+    fun accelerelejeu(){
+        if(sol.x1 == -5000f  ||
+            sol.x1 == -10000f||
+            sol.x1 == -15000f||
+            sol.x1 == -20000f||
+            sol.x1 == -30000f||
+            sol.x1 == -35000f||
+            sol.x1 == -40000f||
+            sol.x1 == -50000f||
+            sol.x1 == -60000f ){(activity as MainActivity).b -= 1}
+
+    }
+
+
     fun score(a : Int) {
-        score += a
-        /*if(balle.BalleOnScreen && balle.r.intersect(lesmonstres[nombregamelancee].r )){
-             score +=100// 1 monstre tué donne 100 points
-        }
-        else if(!player.r.intersect(lesmonstres[nombregamelancee].r) &&
-                    player.r.bottom < lesmonstres[nombregamelancee].r.top)
-                    {
-            score += 50 // 1 monstre esquivé donne 75 points
-        }*/
+        score += a /*Le score augmente d'une valeur qu'on définit*/
+        if(a ==0){score = 0} //Réinitialise le score à 0
     }
 
     private fun gameover() {
@@ -293,6 +308,7 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
         nombregamelancee +=1
         mapview.dessindelamap()
         drawing = true
+        player.dead = false
         score = 0
 
         if (gameover) {

@@ -1,7 +1,9 @@
 package com.example.adventuregame
 
-class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView) {
+import android.content.Context
 
+class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView,context: Context) {
+    lateinit var context: Context
 
     fun drawsol(sol: Parois) {
         sol.x1 = 0f
@@ -24,7 +26,7 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
         player.y1 = view.screenHeight/2f + 325f /*personnage.y1 = personnage.y2 - 100f*/
         player.x2 = 100f /*longueur perso = x2 - x1 = 50 f*/
         player.y2 = view.screenHeight/2f + 375f /*personnage.y2 = sol.y1*/
-        player.life = 3
+        player.life = 4
         player.setRect()
     }
 
@@ -43,6 +45,7 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
         balle.y2 = (view.screenHeight/2f) + 360f
         balle.setRect()
     }
+
 
     fun drawrecompense(recompense : Récompense){
         recompense.x1 = 2000f
@@ -88,6 +91,10 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
         screenoutgauche.y2 = view.screenHeight
         screenoutgauche.setRect()
     }
+    fun drawpotionvie(){
+        view.potionvie.add(Potionvie(20000f,(view.screenHeight/2f) + 330f,20030f,(view.screenHeight/2f) + 360f,view))
+        view.potionvie[view.nombregamelancee].setRect()
+    }
 
     fun drawmonstres(){
         val grandsmonstres =Grandsmonstres(view.screenWidth ,view.screenHeight/2f + 275f,view.screenWidth+100f,view.screenHeight/2f + 375f,view,2)
@@ -116,6 +123,7 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
         drawnuage3(view.nuage3)/*Dessin du Nuage 3*/
         drawscreenout(view.screenoutdroite,view.screenoutgauche)
         drawmonstres()/*Dessin Petit rectangle en dehors du téléphone*/
+        drawpotionvie()
     }
 
     fun resetgame(){
@@ -127,8 +135,8 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
             Parois(0f, 0f, 0f, 0f, view),/*Nuage2*/
             Parois(0f, 0f, 0f, 0f, view),/*Nuage3*/
             Parois(0f, 0f, 0f, 0f, view))/*ScreenOut*/
-        view.personnage = arrayOf(Personnage(0f,0f,0f,0f,view,0), /*Dessin du perso principal*/
-            Personnage(0f,0f,0f,0f,view,0)) /*Dessin barre de vie*/
+        view.personnage = arrayOf(Personnage(0f,0f,0f,0f,view,0, context), /*Dessin du perso principal*/
+            Personnage(0f,0f,0f,0f,view,0,context)) /*Dessin barre de vie*/
         view.recompense = Récompense(0f, 0f, 0f, 0f, view)
     }
 

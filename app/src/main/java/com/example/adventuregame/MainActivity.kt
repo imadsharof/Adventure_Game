@@ -175,19 +175,10 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
                         while (mapavance) {
                             runOnUiThread(
                                 Runnable {
-                                    vietext.setText("Vie : ${drawingView.player.life}")
+                                    vietext.setText("Life : ${drawingView.player.life}")
                                 })
                             drawingView.deplacementcontinue()
-
-                            if(drawingView.sol.x1 == -5000f  ||
-                                drawingView.sol.x1 == -10000f||
-                                drawingView.sol.x1 == -15000f||
-                                drawingView.sol.x1 == -20000f||
-                                drawingView.sol.x1 == -30000f||
-                                drawingView.sol.x1 == -35000f||
-                                drawingView.sol.x1 == -40000f||
-                                drawingView.sol.x1 == -50000f||
-                                drawingView.sol.x1 == -60000f ){b -= 1}
+                            drawingView.accelerelejeu()
                             Thread.sleep(b)
 
                         }
