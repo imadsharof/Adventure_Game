@@ -117,22 +117,32 @@ class MainActivity() : AppCompatActivity(), View.OnTouchListener{
             balleavance = true
              Thread{
                  attack.isClickable = false
-                while(balleavance){
+                while(balleavance) {
                     drawingView.balle.afficheballe()
                     drawingView.balle.droite()
-                    if(drawingView.balle.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r)
-                        && drawingView.lesmonstres[drawingView.nombregamelancee].numero == 1
-                        && drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen){
+                    if (drawingView.balle.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r)
+                        &&( drawingView.lesmonstres[drawingView.nombregamelancee].numero == 1 || drawingView.lesmonstres[drawingView.nombregamelancee].numero == 0 )
+                        && drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen
+                    ) {
                         drawingView.score(100)
                         runOnUiThread(
                             Runnable {
-                                scoretext.setText("Score : ${drawingView.score}"
+                                scoretext.setText(
+                                    "Score : ${drawingView.score}"
                                 )
 
                             })
                         balleavance = false
                         drawingView.balle.supprimeballe()
-                        drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen = false
+                        drawingView.lesmonstres[drawingView.nombregamelancee].MonstresOnScreen =
+                            false
+                        attack.isClickable = true
+                    }
+
+                    else if (drawingView.balle.r.intersect(drawingView.lesmonstres[drawingView.nombregamelancee].r)
+                        && drawingView.lesmonstres[drawingView.nombregamelancee].numero == 2){
+                        balleavance = false
+                        drawingView.balle.supprimeballe()
                         attack.isClickable = true
                     }
                     else if (drawingView.balle.r.left ==drawingView.screenoutdroite.r.left ){
