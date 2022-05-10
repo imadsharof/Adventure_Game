@@ -47,14 +47,6 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
     }
 
 
-    fun drawrecompense(recompense : Récompense){
-        recompense.x1 = 2000f
-        recompense.y1 = view.screenHeight/2f + 350f
-        recompense.x2 = 2050f                       /* recompense à la fin du jeu */
-        recompense.y2 = view.screenHeight/2f + 400f
-        recompense.setRect()
-    }
-
     fun drawnuage1(nuage1: Parois){
         nuage1.x1 = 100f
         nuage1.y1 = 50f
@@ -117,7 +109,6 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
         drawplayer(view.player)/* Dessin du personnage :(base personnage = 50f, hauteur = 50f)  */
         drawbarrevie(view.barrevie)/*Dessin de la barre de vie du personnage*/
         drawballe(view.balle)/*Dessin de la balle*/
-        drawrecompense(view.recompense)/* Dessin recompense à la fin du jeu */
         drawnuage1(view.nuage1) /*Dessin du Nuage 1*/
         drawnuage2(view.nuage2)/*Dessin du Nuage 2*/
         drawnuage3(view.nuage3)/*Dessin du Nuage 3*/
@@ -137,7 +128,6 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
             Parois(0f, 0f, 0f, 0f, view))/*ScreenOut*/
         view.personnage = arrayOf(Personnage(0f,0f,0f,0f,view,0, context), /*Dessin du perso principal*/
             Personnage(0f,0f,0f,0f,view,0,context)) /*Dessin barre de vie*/
-        view.recompense = Récompense(0f, 0f, 0f, 0f, view)
     }
 
 }
