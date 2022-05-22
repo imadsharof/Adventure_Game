@@ -31,7 +31,6 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
     var gameover = false
     val activity = context as FragmentActivity
     var nombregamelancee = 0
-    var clickabled = true
 
 
     var parois = arrayOf(
@@ -64,7 +63,7 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
     var barrevie = personnage[1]
 
 
-    var random = java.util.Random()
+
     var score = 0
     val facteurdiminutionbarredevie = 10
 
@@ -99,7 +98,7 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
 
     }
 
-    fun draw() { /*Dessinr le jeu complet*/
+    fun draw() { /*Dessine le jeu complet*/
 
         if (holder.surface.isValid) {
             canvas = holder.lockCanvas()
@@ -221,11 +220,15 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
     }
 
     fun newGame() : Boolean { /*Relance une nouvelle partie*/
-        nombregamelancee +=1
+        nombregamelancee += 0
         mapview.dessindelamap()
         drawing = true
         player.dead = false
         score = 0
+        player.life = 10
+        (activity as MainActivity).balleavance = true
+        (activity as MainActivity).mapavance = true
+        (activity as MainActivity).scoretext.setText("Score = 0")
 
         if (gameover) {
             gameover = false
@@ -236,7 +239,6 @@ open class DrawingView @JvmOverloads constructor (context: Context, attributes: 
         }
         return true
     }
-
 
     override fun surfaceChanged(holder: SurfaceHolder, format: Int,
                                 width: Int, height: Int) {}

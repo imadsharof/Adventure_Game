@@ -1,9 +1,11 @@
 package com.example.adventuregame
 
 import android.content.Context
+import androidx.fragment.app.FragmentActivity
 
 class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var view: DrawingView,context: Context) {
     lateinit var context: Context
+    val activity = context as FragmentActivity
 
     fun drawsol(sol: Parois) {
         sol.x1 = 0f
@@ -118,6 +120,7 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
     }
 
     fun resetgame(){
+        view.potionvie = ArrayList<Potionvie>()
         view.lesmonstres = ArrayList<Monstres>()
         view.parois = arrayOf(
             Parois(0f, 0f, 0f, 0f, view), /*Sol*/
@@ -128,6 +131,8 @@ class Mapview(var x1: Float, var y1: Float, var x2: Float, var y2: Float,var vie
             Parois(0f, 0f, 0f, 0f, view))/*ScreenOut*/
         view.personnage = arrayOf(Personnage(0f,0f,0f,0f,view,0, context), /*Dessin du perso principal*/
             Personnage(0f,0f,0f,0f,view,0,context)) /*Dessin barre de vie*/
+        view.balle = Balle(0f,0f,0f,0f,view)
+        view.score = 0
     }
 
 }

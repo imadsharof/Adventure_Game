@@ -14,7 +14,7 @@ import java.util.*
 @Suppress("DEPRECATION") /*Permet d'ajouter du son*/
 
 
-class MainActivity() : AppCompatActivity(), View.OnTouchListener{
+open class MainActivity() : AppCompatActivity(), View.OnTouchListener{
 
     lateinit var drawingView: DrawingView
     lateinit var start : ImageView
