@@ -1,18 +1,32 @@
 # Adventure_Game
 
-Comment ajouter le Git ? 
+Jeu développé en Kotlin pour Android.
 
--> Télécharger d'abord Git sur ce lien : https://git-scm.com/downloads selon votre version Windows , Linux ou Mac
--> Ouvrez Android Studio : Allez dans File / Settings / Version Control / Git : Si vous voyez marquez " Auto-detected" c'est bon il reconnaît votre Git.
-    Cliquez sur Test pour qu'il affiche votre version de Git, puis quand c'est bon faites "ok".
+## Vidéo du jeu :
 
-    
- Liens utiles : https://www.youtube.com/watch?v=if1HHKvS6Vo  ( animation du personnage)
-https://www.youtube.com/watch?v=aTT4GfojkHA&list=RDCMUCu-BuSBf0yrJgg-ZOaMpJxg&index=1 ( Changement orientation application)
-https://o7planning.org/10521/android-2d-game-tutorial-for-beginners ( tuto jeu )
-https://expertise.jetruby.com/creating-android-game-from-scratch-with-libgdx-box2d-45c381d84268 ( sols , maps)
-https://www.youtube.com/watch?v=JOdWT50bWw4 ( passer d'une activité à une autre )
-https://itch.io/queue/c/1866035/pixel-art-generators?game_id=434250 ( personnage qui bouge )
-https://www.youtube.com/watch?v=MwzaL6WwgV8&list=PLDKRpuLSe0f_4YgSROSWf_3wsdXwqefw9&ab_channel=StefanMaurer (mario java)
-http://tvaira.free.fr/dev/android/android-dessin.html#:~:text=Pour%20dessiner%20%C3%A0%20l'%C3%A9cran,Paint%20pour%20personnaliser%20son%20dessin (comment dessiner et comprendre les canvas)
-changement couleur RGB : https://htmlcolorcodes.com/fr/
+https://github.com/imadsharof/Adventure_Game/assets/100962495/62dec583-901f-414e-a223-76fcf9126f86
+
+
+## Règles du jeu
+
+Le principe de ce jeu est une revisite du célèbre jeu du dinosaure de Google, mais cette fois avec un petit bonhomme bleu comme protagoniste. Le joueur doit se déplacer dans un environnement rempli d'obstacles et d'ennemis.
+
+Trois ennemis différents sont présents : le méchant rouge, le mauve et le noir. Chacun de ces ennemis possède des caractéristiques spécifiques.
+
+Le joueur dispose de deux boutons pour interagir avec le jeu :
+
+Jump : Le joueur peut utiliser ce bouton pour faire sauter le bonhomme bleu. Il peut sauter par-dessus les ennemis rouge et noir, mais pas par-dessus l'ennemi mauve.
+
+Attack : Ce bouton permet au joueur de lancer une boule orange en direction des ennemis. Le bonhomme bleu peut lancer des boules sur les ennemis mauve et noir, mais pas sur l'ennemi rouge.
+
+L'objectif du jeu est de parcourir le niveau en évitant les ennemis et en surmontant les obstacles. Le joueur doit utiliser les bonnes combinaisons de sauts et d'attaques pour progresser et atteindre la fin du niveau en toute sécurité.
+
+## Screens du jeu
+
+![image](https://github.com/imadsharof/Adventure_Game/assets/100962495/6c220c4a-7a70-4e0e-8428-b57bbad0319c)
+![image](https://github.com/imadsharof/Adventure_Game/assets/100962495/aee15755-3666-4e33-bfee-fd175b23017d)
+![image](https://github.com/imadsharof/Adventure_Game/assets/100962495/f2d3924c-3195-4dc2-aafd-0c169ba5cd71)
+![image](https://github.com/imadsharof/Adventure_Game/assets/100962495/f86cb2b0-ea06-47a6-a99c-c36f098e46df)
+
+
+
